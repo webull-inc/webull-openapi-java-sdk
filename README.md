@@ -16,9 +16,9 @@ Subscription to real-time information: Subscribe to order status changes, market
 
 - Please first generate the app key and app secret on the Webull official website.
 
-| Market | Link                               |
-|--------|------------------------------------|
-| HK     | https://corporate.webull.hk/center |
+| Broker    | Link                  |
+|-----------|-----------------------|
+| Webull HK | https://www.webull.hk |
 
 - Requires JDK 8 and above.
 
@@ -26,14 +26,14 @@ Subscription to real-time information: Subscribe to order status changes, market
 
 The bottom layer of Webull OpenAPI provides three protocols, HTTP / GRPC / MQTT, to support functions and features like trading, subscriptions for changes of order status and real-time market quotes.
 
-| Protocol | Description                                                                                                 |
-|----------|-------------------------------------------------------------------------------------------------------------|
+| Protocol | Description                                                                                                    |
+|----------|----------------------------------------------------------------------------------------------------------------|
 | HTTP     | It mainly provides interface services for data such as tradings, accounts, candlestick charts, snapshots, etc. |
-| GRPC	    | Provide real-time push messages for order status changes.                                                   |
-| MQTT	    | Provides data services for real-time market conditions.                                                     |
+| GRPC	    | Provide real-time push messages for order status changes.                                                      |
+| MQTT	    | Provides data services for real-time market conditions.                                                        |
 
 ## Developer documentation
 
-| Market | Link                                      |
-|--------|-------------------------------------------|
-| HK     | https://developer.webull.com/open-api-doc |
+| Broker    | Link                                  |
+|-----------|---------------------------------------|
+| Webull HK | https://developer.webull.hk/apis/docs |
