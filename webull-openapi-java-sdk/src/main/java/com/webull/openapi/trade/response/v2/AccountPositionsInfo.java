@@ -22,9 +22,13 @@ import java.util.List;
 
 public class AccountPositionsInfo {
 
+    private String positionId;
+
     private String currency;
 
-    private String positionId;
+    private String symbol;
+
+    private String optionStrategy;
 
     private String quantity;
 
@@ -36,5 +40,159 @@ public class AccountPositionsInfo {
 
     private String unrealizedProfitLossRate;
 
+    private String instrumentType;
+
+    private String marketValue;
+
+    private String dayRealizedProfitLoss;
+
+    private String proportion;
+
+    private List<CommonPositionInfo> legs;
+
+    @Deprecated
     private List<CommonPositionInfo> items;
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getOptionStrategy() {
+        return optionStrategy;
+    }
+
+    public void setOptionStrategy(String optionStrategy) {
+        this.optionStrategy = optionStrategy;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getCostPrice() {
+        return costPrice;
+    }
+
+    public void setCostPrice(String costPrice) {
+        this.costPrice = costPrice;
+    }
+
+    public String getLastPrice() {
+        return lastPrice;
+    }
+
+    public void setLastPrice(String lastPrice) {
+        this.lastPrice = lastPrice;
+    }
+
+    public String getUnrealizedProfitLoss() {
+        return unrealizedProfitLoss;
+    }
+
+    public void setUnrealizedProfitLoss(String unrealizedProfitLoss) {
+        this.unrealizedProfitLoss = unrealizedProfitLoss;
+    }
+
+    public String getUnrealizedProfitLossRate() {
+        return unrealizedProfitLossRate;
+    }
+
+    public void setUnrealizedProfitLossRate(String unrealizedProfitLossRate) {
+        this.unrealizedProfitLossRate = unrealizedProfitLossRate;
+    }
+
+    public String getInstrumentType() {
+        return instrumentType;
+    }
+
+    public void setInstrumentType(String instrumentType) {
+        this.instrumentType = instrumentType;
+    }
+
+    public String getMarketValue() {
+        return marketValue;
+    }
+
+    public void setMarketValue(String marketValue) {
+        this.marketValue = marketValue;
+    }
+
+    public String getDayRealizedProfitLoss() {
+        return dayRealizedProfitLoss;
+    }
+
+    public void setDayRealizedProfitLoss(String dayRealizedProfitLoss) {
+        this.dayRealizedProfitLoss = dayRealizedProfitLoss;
+    }
+
+    public String getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(String proportion) {
+        this.proportion = proportion;
+    }
+
+    public List<CommonPositionInfo> getLegs() {
+        return legs;
+    }
+
+    public void setLegs(List<CommonPositionInfo> legs) {
+        this.legs = legs;
+    }
+
+    @Deprecated
+    public List<CommonPositionInfo> getItems() {
+        return items;
+    }
+
+    @Deprecated
+    public void setItems(List<CommonPositionInfo> items) {
+        this.items = items;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountPositionsInfo{" +
+                "positionId='" + positionId + '\'' +
+                ", symbol='" + symbol + '\'' +
+                ", optionStrategy='" + optionStrategy + '\'' +
+                ", currency='" + currency + '\'' +
+                ", instrumentType='" + instrumentType + '\'' +
+                ", quantity='" + quantity + '\'' +
+                ", costPrice='" + costPrice + '\'' +
+                ", lastPrice='" + lastPrice + '\'' +
+                ", marketValue='" + marketValue + '\'' +
+                ", unrealizedProfitLoss='" + unrealizedProfitLoss + '\'' +
+                ", unrealizedProfitLossRate='" + unrealizedProfitLossRate + '\'' +
+                ", dayRealizedProfitLoss='" + dayRealizedProfitLoss + '\'' +
+                ", proportion='" + proportion + '\'' +
+                ", legs=" + legs +
+                '}';
+    }
+
 }

@@ -21,6 +21,10 @@ public class TradeOrderResponse {
 
     private String orderId;
 
+    private String clientComboOrderId;
+
+    private String comboOrderId;
+
     public String getOrderId() {
         return orderId;
     }
@@ -37,11 +41,29 @@ public class TradeOrderResponse {
         this.clientOrderId = clientOrderId;
     }
 
+    public String getClientComboOrderId() {
+        return clientComboOrderId;
+    }
+
+    public void setClientComboOrderId(String clientComboOrderId) {
+        this.clientComboOrderId = clientComboOrderId;
+    }
+
+    public String getComboOrderId() {
+        return comboOrderId;
+    }
+
+    public void setComboOrderId(String comboOrderId) {
+        this.comboOrderId = comboOrderId;
+    }
+
     @Override
     public String toString() {
         return "TradeOrderResponse{" +
                 "clientOrderId='" + clientOrderId + '\'' +
                 ", orderId='" + orderId + '\'' +
+                ", clientComboOrderId='" + clientComboOrderId + '\'' +
+                ", comboOrderId='" + comboOrderId + '\'' +
                 '}';
     }
 }

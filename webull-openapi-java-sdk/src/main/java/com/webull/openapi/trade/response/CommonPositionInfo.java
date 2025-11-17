@@ -40,11 +40,25 @@ public class CommonPositionInfo {
 
     private String optionCategory;
 
+    private String optionExpireDate;
+
     private String optionExercisePrice;
 
     private String optionContractMultiplier;
 
     private String optionContractDeliverable;
+
+    private String instrumentType;
+
+    private String marketValue;
+
+    private String dayProfitLoss;
+
+    private String dayRealizedProfitLoss;
+
+    private String expirationType;
+
+    private String proportion;
 
     public String getItemId() {
         return itemId;
@@ -134,6 +148,14 @@ public class CommonPositionInfo {
         this.optionCategory = optionCategory;
     }
 
+    public String getOptionExpireDate() {
+        return optionExpireDate;
+    }
+
+    public void setOptionExpireDate(String optionExpireDate) {
+        this.optionExpireDate = optionExpireDate;
+    }
+
     public String getOptionExercisePrice() {
         return optionExercisePrice;
     }
@@ -158,23 +180,78 @@ public class CommonPositionInfo {
         this.optionContractDeliverable = optionContractDeliverable;
     }
 
+    public String getInstrumentType() {
+        return instrumentType;
+    }
+
+    public void setInstrumentType(String instrumentType) {
+        this.instrumentType = instrumentType;
+    }
+
+    public String getMarketValue() {
+        return marketValue;
+    }
+
+    public void setMarketValue(String marketValue) {
+        this.marketValue = marketValue;
+    }
+
+    public String getDayProfitLoss() {
+        return dayProfitLoss;
+    }
+
+    public void setDayProfitLoss(String dayProfitLoss) {
+        this.dayProfitLoss = dayProfitLoss;
+    }
+
+    public String getDayRealizedProfitLoss() {
+        return dayRealizedProfitLoss;
+    }
+
+    public void setDayRealizedProfitLoss(String dayRealizedProfitLoss) {
+        this.dayRealizedProfitLoss = dayRealizedProfitLoss;
+    }
+
+    public String getExpirationType() {
+        return expirationType;
+    }
+
+    public void setExpirationType(String expirationType) {
+        this.expirationType = expirationType;
+    }
+
+    public String getProportion() {
+        return proportion;
+    }
+
+    public void setProportion(String proportion) {
+        this.proportion = proportion;
+    }
+
     @Override
     public String toString() {
         return "CommonPositionInfo{" +
                 "itemId='" + itemId + '\'' +
+                ", instrumentType='" + instrumentType + '\'' +
                 ", side='" + side + '\'' +
                 ", quantity='" + quantity + '\'' +
                 ", availableQuantity='" + availableQuantity + '\'' +
                 ", symbol='" + symbol + '\'' +
                 ", costPrice='" + costPrice + '\'' +
                 ", lastPrice='" + lastPrice + '\'' +
+                ", marketValue='" + marketValue + '\'' +
                 ", unrealizedProfitLoss='" + unrealizedProfitLoss + '\'' +
+                ", dayProfitLoss='" + dayProfitLoss + '\'' +
+                ", dayRealizedProfitLoss='" + dayRealizedProfitLoss + '\'' +
                 ", accountTaxType='" + accountTaxType + '\'' +
                 ", optionType='" + optionType + '\'' +
                 ", optionCategory='" + optionCategory + '\'' +
+                ", optionExpireDate='" + optionExpireDate + '\'' +
                 ", optionExercisePrice='" + optionExercisePrice + '\'' +
                 ", optionContractMultiplier='" + optionContractMultiplier + '\'' +
                 ", optionContractDeliverable='" + optionContractDeliverable + '\'' +
+                ", expirationType='" + expirationType + '\'' +
+                ", proportion='" + proportion + '\'' +
                 '}';
     }
 }

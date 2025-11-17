@@ -100,7 +100,7 @@ public interface ITradeClient {
      * Note: If you set a header, call removeCustomHeaders to clean up the header after the request is completed.
      *
      * Currently supported header keys and functions:
-     *      Key：category {@link com.webull.openapi.common.dict.Category}
+     *      Key：category {@link com.webull.openapi.core.common.dict.Category}
      *      Function: Frequency limit rules, please refer to the document for details. currently only supports Hong Kong
      *
      * @param headersMap

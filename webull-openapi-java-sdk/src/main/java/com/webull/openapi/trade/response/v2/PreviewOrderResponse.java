@@ -50,7 +50,8 @@ public class PreviewOrderResponse {
     @Override
     public String toString() {
         return "PreviewOrderResponse{" +
-                "estimatedCost='" + estimatedCost + '\'' +
+                "currency='" + currency + '\'' +
+                ", estimatedCost='" + estimatedCost + '\'' +
                 ", estimatedTransactionFee='" + estimatedTransactionFee + '\'' +
                 '}';
     }

@@ -22,20 +22,36 @@ import java.util.List;
 public class OrderHistory {
 
     private String clientOrderId;
-    private String orderId;
-    private String side;
-    private String orderType;
-    private String timeInForce;
-    private String stopPrice;
-    private String limitPrice;
-    private String quantity;
-    private String filledQuantity;
-    private String status;
-    private String supportTradingSession;
-    private String optionStrategy;
-    private String comboInstrumentType;
+    private String clientComboOrderId;
     private String comboOrderId;
     private String comboType;
+    private List<NOrderItem> orders;
+
+    @Deprecated
+    private String orderId;
+    @Deprecated
+    private String side;
+    @Deprecated
+    private String orderType;
+    @Deprecated
+    private String timeInForce;
+    @Deprecated
+    private String stopPrice;
+    @Deprecated
+    private String limitPrice;
+    @Deprecated
+    private String quantity;
+    @Deprecated
+    private String filledQuantity;
+    @Deprecated
+    private String status;
+    @Deprecated
+    private String supportTradingSession;
+    @Deprecated
+    private String optionStrategy;
+    @Deprecated
+    private String comboInstrumentType;
+    @Deprecated
     private List<NOrderItem> items;
 
     public String getClientOrderId() {
@@ -46,100 +62,12 @@ public class OrderHistory {
         this.clientOrderId = clientOrderId;
     }
 
-    public String getSide() {
-        return side;
+    public String getClientComboOrderId() {
+        return clientComboOrderId;
     }
 
-    public void setSide(String side) {
-        this.side = side;
-    }
-
-    public String getOrderType() {
-        return orderType;
-    }
-
-    public void setOrderType(String orderType) {
-        this.orderType = orderType;
-    }
-
-    public String getTimeInForce() {
-        return timeInForce;
-    }
-
-    public void setTimeInForce(String timeInForce) {
-        this.timeInForce = timeInForce;
-    }
-
-    public String getStopPrice() {
-        return stopPrice;
-    }
-
-    public void setStopPrice(String stopPrice) {
-        this.stopPrice = stopPrice;
-    }
-
-    public String getLimitPrice() {
-        return limitPrice;
-    }
-
-    public void setLimitPrice(String limitPrice) {
-        this.limitPrice = limitPrice;
-    }
-
-    public String getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(String quantity) {
-        this.quantity = quantity;
-    }
-
-    public String getFilledQuantity() {
-        return filledQuantity;
-    }
-
-    public void setFilledQuantity(String filledQuantity) {
-        this.filledQuantity = filledQuantity;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public String getSupportTradingSession() {
-        return supportTradingSession;
-    }
-
-    public void setSupportTradingSession(String supportTradingSession) {
-        this.supportTradingSession = supportTradingSession;
-    }
-
-    public String getOptionStrategy() {
-        return optionStrategy;
-    }
-
-    public void setOptionStrategy(String optionStrategy) {
-        this.optionStrategy = optionStrategy;
-    }
-
-    public String getComboInstrumentType() {
-        return comboInstrumentType;
-    }
-
-    public void setComboInstrumentType(String comboInstrumentType) {
-        this.comboInstrumentType = comboInstrumentType;
-    }
-
-    public String getComboOrderId() {
-        return comboOrderId;
-    }
-
-    public void setComboOrderId(String comboOrderId) {
-        this.comboOrderId = comboOrderId;
+    public void setClientComboOrderId(String clientComboOrderId) {
+        this.clientComboOrderId = clientComboOrderId;
     }
 
     public String getComboType() {
@@ -150,18 +78,148 @@ public class OrderHistory {
         this.comboType = comboType;
     }
 
+    public String getComboOrderId() {
+        return comboOrderId;
+    }
+
+    public void setComboOrderId(String comboOrderId) {
+        this.comboOrderId = comboOrderId;
+    }
+
+    public List<NOrderItem> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<NOrderItem> orders) {
+        this.orders = orders;
+    }
+
+    @Deprecated
+    public String getSide() {
+        return side;
+    }
+
+    @Deprecated
+    public void setSide(String side) {
+        this.side = side;
+    }
+
+    @Deprecated
+    public String getOrderType() {
+        return orderType;
+    }
+
+    @Deprecated
+    public void setOrderType(String orderType) {
+        this.orderType = orderType;
+    }
+
+    @Deprecated
+    public String getTimeInForce() {
+        return timeInForce;
+    }
+
+    @Deprecated
+    public void setTimeInForce(String timeInForce) {
+        this.timeInForce = timeInForce;
+    }
+
+    @Deprecated
+    public String getStopPrice() {
+        return stopPrice;
+    }
+
+    @Deprecated
+    public void setStopPrice(String stopPrice) {
+        this.stopPrice = stopPrice;
+    }
+
+    @Deprecated
+    public String getLimitPrice() {
+        return limitPrice;
+    }
+
+    @Deprecated
+    public void setLimitPrice(String limitPrice) {
+        this.limitPrice = limitPrice;
+    }
+
+    @Deprecated
+    public String getQuantity() {
+        return quantity;
+    }
+
+    @Deprecated
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    @Deprecated
+    public String getFilledQuantity() {
+        return filledQuantity;
+    }
+
+    @Deprecated
+    public void setFilledQuantity(String filledQuantity) {
+        this.filledQuantity = filledQuantity;
+    }
+
+    @Deprecated
+    public String getStatus() {
+        return status;
+    }
+
+    @Deprecated
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Deprecated
+    public String getSupportTradingSession() {
+        return supportTradingSession;
+    }
+
+    @Deprecated
+    public void setSupportTradingSession(String supportTradingSession) {
+        this.supportTradingSession = supportTradingSession;
+    }
+
+    @Deprecated
+    public String getOptionStrategy() {
+        return optionStrategy;
+    }
+
+    @Deprecated
+    public void setOptionStrategy(String optionStrategy) {
+        this.optionStrategy = optionStrategy;
+    }
+
+    @Deprecated
+    public String getComboInstrumentType() {
+        return comboInstrumentType;
+    }
+
+    @Deprecated
+    public void setComboInstrumentType(String comboInstrumentType) {
+        this.comboInstrumentType = comboInstrumentType;
+    }
+
+    @Deprecated
     public List<NOrderItem> getItems() {
         return items;
     }
 
+    @Deprecated
     public void setItems(List<NOrderItem> items) {
         this.items = items;
     }
 
+    @Deprecated
     public String getOrderId() {
         return orderId;
     }
 
+    @Deprecated
     public void setOrderId(String orderId) {
         this.orderId = orderId;
     }
@@ -170,21 +228,10 @@ public class OrderHistory {
     public String toString() {
         return "OrderHistory{" +
                 "clientOrderId='" + clientOrderId + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", side='" + side + '\'' +
-                ", orderType='" + orderType + '\'' +
-                ", timeInForce='" + timeInForce + '\'' +
-                ", stopPrice='" + stopPrice + '\'' +
-                ", limitPrice='" + limitPrice + '\'' +
-                ", quantity='" + quantity + '\'' +
-                ", filledQuantity='" + filledQuantity + '\'' +
-                ", status='" + status + '\'' +
-                ", supportTradingSession='" + supportTradingSession + '\'' +
-                ", optionStrategy='" + optionStrategy + '\'' +
-                ", comboInstrumentType='" + comboInstrumentType + '\'' +
                 ", comboOrderId='" + comboOrderId + '\'' +
+                ", clientComboOrderId='" + clientComboOrderId + '\'' +
                 ", comboType='" + comboType + '\'' +
-                ", items=" + items +
+                ", orders='" + orders + '\'' +
                 '}';
     }
 }

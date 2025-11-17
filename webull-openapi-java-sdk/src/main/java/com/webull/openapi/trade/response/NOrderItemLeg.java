@@ -13,26 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.trade.request.v2;
+package com.webull.openapi.trade.response;
 
-public class OptionOrderItemLeg {
+public class NOrderItemLeg {
 
     private String id;
-    private String clientOrderId;
-    private String side;
     private String quantity;
+    private String side;
     private String market;
     private String instrumentType;
     private String symbol;
-    private String strikePrice;
-    private String optionExpireDate;
     private String optionType;
-
-    @Deprecated
-    private String orderId;
-
-    @Deprecated
-    private String initExpDate;
+    private String optionExpireDate;
+    private String strikePrice;
+    private String optionCategory;
+    private String optionContractMultiplier;
+    private String optionContractDeliverable;
+    private String expirationType;
 
     public String getId() {
         return id;
@@ -42,20 +39,20 @@ public class OptionOrderItemLeg {
         this.id = id;
     }
 
-    public String getSide() {
-        return side;
-    }
-
-    public void setSide(String side) {
-        this.side = side;
-    }
-
     public String getQuantity() {
         return quantity;
     }
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getSide() {
+        return side;
+    }
+
+    public void setSide(String side) {
+        this.side = side;
     }
 
     public String getMarket() {
@@ -82,28 +79,12 @@ public class OptionOrderItemLeg {
         this.symbol = symbol;
     }
 
-    public String getStrikePrice() {
-        return strikePrice;
-    }
-
-    public void setStrikePrice(String strikePrice) {
-        this.strikePrice = strikePrice;
-    }
-
     public String getOptionType() {
         return optionType;
     }
 
     public void setOptionType(String optionType) {
         this.optionType = optionType;
-    }
-
-    public String getClientOrderId() {
-        return clientOrderId;
-    }
-
-    public void setClientOrderId(String clientOrderId) {
-        this.clientOrderId = clientOrderId;
     }
 
     public String getOptionExpireDate() {
@@ -114,40 +95,62 @@ public class OptionOrderItemLeg {
         this.optionExpireDate = optionExpireDate;
     }
 
-    @Deprecated
-    public String getOrderId() {
-        return orderId;
+    public String getStrikePrice() {
+        return strikePrice;
     }
 
-    @Deprecated
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setStrikePrice(String strikePrice) {
+        this.strikePrice = strikePrice;
     }
 
-    @Deprecated
-    public String getInitExpDate() {
-        return initExpDate;
+    public String getOptionCategory() {
+        return optionCategory;
     }
 
-    @Deprecated
-    public void setInitExpDate(String initExpDate) {
-        this.initExpDate = initExpDate;
+    public void setOptionCategory(String optionCategory) {
+        this.optionCategory = optionCategory;
+    }
+
+    public String getOptionContractMultiplier() {
+        return optionContractMultiplier;
+    }
+
+    public void setOptionContractMultiplier(String optionContractMultiplier) {
+        this.optionContractMultiplier = optionContractMultiplier;
+    }
+
+    public String getOptionContractDeliverable() {
+        return optionContractDeliverable;
+    }
+
+    public void setOptionContractDeliverable(String optionContractDeliverable) {
+        this.optionContractDeliverable = optionContractDeliverable;
+    }
+
+    public String getExpirationType() {
+        return expirationType;
+    }
+
+    public void setExpirationType(String expirationType) {
+        this.expirationType = expirationType;
     }
 
     @Override
     public String toString() {
-        return "OptionOrderItemLeg{" +
+        return "NOrderItemLeg{" +
                 "id='" + id + '\'' +
-                ", clientOrderId='" + clientOrderId + '\'' +
-                ", orderId='" + orderId + '\'' +
-                ", side='" + side + '\'' +
                 ", quantity='" + quantity + '\'' +
+                ", side='" + side + '\'' +
                 ", market='" + market + '\'' +
                 ", instrumentType='" + instrumentType + '\'' +
-                ", symbol=" + symbol +
+                ", symbol='" + symbol + '\'' +
+                ", optionType=" + optionType +
+                ", optionExpireDate=" + optionExpireDate +
                 ", strikePrice='" + strikePrice + '\'' +
-                ", optionExpireDate='" + optionExpireDate + '\'' +
-                ", optionType='" + optionType + '\'' +
+                ", optionCategory='" + optionCategory + '\'' +
+                ", optionContractMultiplier='" + optionContractMultiplier + '\'' +
+                ", optionContractDeliverable='" + optionContractDeliverable + '\'' +
+                ", expirationType='" + expirationType + '\'' +
                 '}';
     }
 

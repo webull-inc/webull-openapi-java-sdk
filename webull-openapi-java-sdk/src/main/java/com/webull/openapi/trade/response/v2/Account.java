@@ -25,6 +25,10 @@ public class Account {
 
     private String accountType;
 
+    private String accountLabel;
+
+    private String accountClass;
+
     public String getUserId() {
         return userId;
     }
@@ -57,6 +61,22 @@ public class Account {
         this.accountType = accountType;
     }
 
+    public String getAccountLabel() {
+        return accountLabel;
+    }
+
+    public void setAccountLabel(String accountLabel) {
+        this.accountLabel = accountLabel;
+    }
+
+    public String getAccountClass() {
+        return accountClass;
+    }
+
+    public void setAccountClass(String accountClass) {
+        this.accountClass = accountClass;
+    }
+
     @Override
     public String toString() {
         return "Account{" +
@@ -64,6 +84,8 @@ public class Account {
                 ", accountId='" + accountId + '\'' +
                 ", accountNumber='" + accountNumber + '\'' +
                 ", accountType='" + accountType + '\'' +
+                ", accountLabel='" + accountLabel + '\'' +
+                ", accountClass='" + accountClass + '\'' +
                 '}';
     }
 }

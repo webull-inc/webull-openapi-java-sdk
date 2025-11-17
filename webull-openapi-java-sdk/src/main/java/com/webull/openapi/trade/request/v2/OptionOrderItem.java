@@ -31,6 +31,9 @@ public class OptionOrderItem {
     private String entrustType;
     private String currentAsk;
     private String currentBid;
+    private List<OptionOrderItemLeg> legs;
+
+    @Deprecated
     private List<OptionOrderItemLeg> orders;
 
     public String getClientOrderId() {
@@ -129,10 +132,20 @@ public class OptionOrderItem {
         this.currentBid = currentBid;
     }
 
+    public List<OptionOrderItemLeg> getLegs() {
+        return legs;
+    }
+
+    public void setLegs(List<OptionOrderItemLeg> legs) {
+        this.legs = legs;
+    }
+
+    @Deprecated
     public List<OptionOrderItemLeg> getOrders() {
         return orders;
     }
 
+    @Deprecated
     public void setOrders(List<OptionOrderItemLeg> orders) {
         this.orders = orders;
     }
@@ -152,7 +165,7 @@ public class OptionOrderItem {
                 ", entrustType='" + entrustType + '\'' +
                 ", currentAsk='" + currentAsk + '\'' +
                 ", currentBid='" + currentBid + '\'' +
-                ", orders='" + orders + '\'' +
+                ", legs='" + legs + '\'' +
                 '}';
     }
 
