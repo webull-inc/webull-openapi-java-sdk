@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.trade.response.v2;
+package com.webull.openapi.trade.response.v3;
 
-public class AccountAssetInfo {
+import java.io.Serializable;
+
+public class AccountAssetInfo implements Serializable {
 
     private String currency;
 

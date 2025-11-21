@@ -13,43 +13,29 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.trade.response.v2;
+package com.webull.openapi.trade.response.v3;
 
+import java.io.Serializable;
 import java.util.List;
 
+public class AccountBalanceInfo implements Serializable {
 
-public class AccountBalanceInfo {
-
+    private static final long serialVersionUID = -6332522522544310885L;
     private String totalAssetCurrency;
-
     private String totalCashBalance;
-
     private String totalUnrealizedProfitLoss;
-
     private String totalMarketValue;
-
     private String totalNetLiquidationValue;
-
     private String totalDayProfitLoss;
-
     private String dayTradesLeft;
-
     private String maintenanceMargin;
-
     private String usedMargin;
-
     private String usedMarginForOpenOrder;
-
     private String initMargin;
-
     private String intradayMargin;
-
     private String marginExcess;
-
     private String marginRatio;
-
     private List<String> openMarginCalls;
-
     private List<AccountAssetInfo> accountCurrencyAssets;
 
     public String getTotalAssetCurrency() {

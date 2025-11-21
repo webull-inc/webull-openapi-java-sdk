@@ -21,3 +21,6 @@ hs_err_pid*
 *.ipr
 *.iws
 **/.idea/**
+
+# 忽略token.txt文件
+token.txt
