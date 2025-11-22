@@ -15,12 +15,17 @@
  */
 package com.webull.openapi.core.http.initializer;
 
+import com.google.api.client.util.Lists;
 import com.webull.openapi.core.common.Region;
+import com.webull.openapi.core.execption.ClientException;
+import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.http.HttpApiClient;
+import com.webull.openapi.core.http.initializer.config.ConfigService;
+import com.webull.openapi.core.http.initializer.config.bean.ApiConfig;
+import com.webull.openapi.core.http.initializer.token.TokenManager;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.utils.StringUtils;
-import com.webull.openapi.core.http.HttpApiClient;
-import com.webull.openapi.core.http.initializer.token.TokenManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,7 +49,14 @@ public class ClientInitializer {
      */
     private static void initToken(HttpApiClient apiClient){
 
-        if(!checkRegionTokenEnable(apiClient)){
+        List<String> disableConfigRegionIds = new ArrayList<>();
+        disableConfigRegionIds.add(Region.hk.name());
+        String regionId = Objects.nonNull(apiClient) && Objects.nonNull(apiClient.getConfig()) ? apiClient.getConfig().getRegionId() : null;
+        if(disableConfigRegionIds.contains(regionId)){
+            if(!checkRegionTokenEnable(apiClient)){
+                return;
+            }
+        }else if(!checkTokenEnable(apiClient)){
             return;
         }
 
@@ -79,6 +91,30 @@ public class ClientInitializer {
 
         boolean result = enableRegionIds.contains(apiClient.getConfig().getRegionId());
         logger.info("CheckRegionTokenEnable result is {}, enable regionIds is {}.", result, enableRegionIds);
+        return result;
+    }
+
+    /**
+     * Check whether token checking is enabled
+     * @param apiClient
+     * @return
+     */
+    private static boolean checkTokenEnable(HttpApiClient apiClient){
+        if(Objects.isNull(apiClient)){
+            logger.warn("checkTokenEnable apiClient is null return false");
+            return false;
+        }
+
+        ConfigService configService = new ConfigService(apiClient);
+        ApiConfig apiConfig = configService.getConfig();
+        if(Objects.isNull(apiConfig)){
+            String msg = "checkTokenEnable apiConfig is null error.";
+            logger.warn(msg);
+            throw new ClientException(ErrorCode.GET_CONFIG_ERROR, msg);
+        }
+
+        boolean result = Boolean.TRUE.equals(apiConfig.getTokenCheckEnabled());
+        logger.info("checkTokenEnable result is {}", result);
         return result;
     }
 }

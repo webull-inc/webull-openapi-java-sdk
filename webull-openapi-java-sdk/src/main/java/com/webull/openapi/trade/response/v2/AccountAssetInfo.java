@@ -39,6 +39,18 @@ public class AccountAssetInfo {
 
     private String interestsUnpaid;
 
+    private String netLiquidationValue;
+
+    private String optionBuyingPower;
+
+    private String dayBuyingPower;
+
+    private String overnightBuyingPower;
+
+    private String nightTradingBuyingPower;
+
+    private String dayProfitLoss;
+
     public String getCurrency() {
         return currency;
     }
@@ -127,6 +139,54 @@ public class AccountAssetInfo {
         this.marketValue = marketValue;
     }
 
+    public String getNetLiquidationValue() {
+        return netLiquidationValue;
+    }
+
+    public void setNetLiquidationValue(String netLiquidationValue) {
+        this.netLiquidationValue = netLiquidationValue;
+    }
+
+    public String getOptionBuyingPower() {
+        return optionBuyingPower;
+    }
+
+    public void setOptionBuyingPower(String optionBuyingPower) {
+        this.optionBuyingPower = optionBuyingPower;
+    }
+
+    public String getDayBuyingPower() {
+        return dayBuyingPower;
+    }
+
+    public void setDayBuyingPower(String dayBuyingPower) {
+        this.dayBuyingPower = dayBuyingPower;
+    }
+
+    public String getOvernightBuyingPower() {
+        return overnightBuyingPower;
+    }
+
+    public void setOvernightBuyingPower(String overnightBuyingPower) {
+        this.overnightBuyingPower = overnightBuyingPower;
+    }
+
+    public String getNightTradingBuyingPower() {
+        return nightTradingBuyingPower;
+    }
+
+    public void setNightTradingBuyingPower(String nightTradingBuyingPower) {
+        this.nightTradingBuyingPower = nightTradingBuyingPower;
+    }
+
+    public String getDayProfitLoss() {
+        return dayProfitLoss;
+    }
+
+    public void setDayProfitLoss(String dayProfitLoss) {
+        this.dayProfitLoss = dayProfitLoss;
+    }
+
     @Override
     public String toString() {
         return "AccountAssetInfo{" +
@@ -141,6 +201,12 @@ public class AccountAssetInfo {
                 ", heldAmount='" + heldAmount + '\'' +
                 ", frozenAmount='" + frozenAmount + '\'' +
                 ", interestsUnpaid='" + interestsUnpaid + '\'' +
+                ", netLiquidationValue='" + netLiquidationValue + '\'' +
+                ", optionBuyingPower='" + optionBuyingPower + '\'' +
+                ", dayBuyingPower='" + dayBuyingPower + '\'' +
+                ", overnightBuyingPower='" + overnightBuyingPower + '\'' +
+                ", nightTradingBuyingPower='" + nightTradingBuyingPower + '\'' +
+                ", dayProfitLoss='" + dayProfitLoss + '\'' +
                 '}';
     }
 }

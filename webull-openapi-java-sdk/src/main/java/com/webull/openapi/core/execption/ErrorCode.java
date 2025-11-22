@@ -37,6 +37,8 @@ public class ErrorCode {
 
     public static final String TIMEOUT = "Timeout";
 
+    public static final String GET_CONFIG_ERROR = "GetConfigError";
+
     public static final String INIT_TOKEN_ERROR = "InitTokenError";
 
     public static final String LOAD_TOKEN_ERROR = "LoadTokenError";

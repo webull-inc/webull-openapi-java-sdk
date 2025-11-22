@@ -20,7 +20,7 @@ public final class DefaultHost {
     private DefaultHost() {}
 
     public static final String API_US = "api.webull.com";
-    public static final String QUOTES_US = "usquotes-api.webullfintech.com";
+    public static final String QUOTES_US = "data-api.webull.com";
     public static final String EVENTS_US = "events-api.webull.com";
 
     public static final String API_HK = "api.webull.hk";

@@ -31,106 +31,109 @@ import java.util.Map;
 public interface ITradeV2Client {
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     List<Account> listAccount();
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     AccountBalanceInfo balanceAccount(String accountId);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     List<AccountPositionsInfo> positionsAccount(String accountId);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     PreviewOrderResponse previewOrder(String accountId, TradeOrder tradeOrder);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse placeOrder(String accountId, TradeOrder tradeOrder);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse replaceOrder(String accountId, TradeOrder tradeOrder);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse cancelOrder(String accountId, TradeOrder tradeOrder);
 
     /**
-     * This interface is currently available only to individual brokerage customers in Webull Japan
-     * and institutional brokerage clients in Webull Hong Kong. It is not yet available to
-     * Webull US brokerage customers, but support will be introduced progressively in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
-
+    @Deprecated
     List<OrderHistory> listOrders(String accountId, Integer pageSize, String startDate, String endDate, String lastClientOrderId);
 
     /**
-     * Open Orders
+     * This interface is currently supported only for Webull HK.
+     * Support for other regions will be available in future updates.
      */
+
+    @Deprecated
     List<OrderHistory> openOrders(String accountId, Integer pageSize, String lastOrderId);
 
     /**
-     * This interface is exclusively available for Webull Japan brokerage and Webull Hong Kong brokerage clients.
-     * Currently, it does not support Webull U.S. clients,
-     * but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
+     */
+    List<OrderHistory> listOrders(String accountId, Integer pageSize, String startDate, String endDate,
+                                  String lastClientOrderId, String lastOrderId);
+
+    /**
+     * This interface is currently supported only for Webull HK.
+     * Support for other regions will be available in future updates.
+     */
+    List<OrderHistory> openOrders(String accountId, Integer pageSize, String lastClientOrderId,
+                                  String lastOrderId);
+
+    /**
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     OrderHistory getOrderDetails(String accountId, String clientOrderId);
 
     /**
-     * This interface is currently available only to individual and institutional clients
-     * of Webull Hong Kong brokerages. It is not yet supported for clients of Webull US
-     * and Webull Japan brokerages, but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     PreviewOrderResponse previewOption(String accountId, OptionOrder optionOrder);
 
     /**
-     * This interface is currently available only to individual and institutional clients
-     * of Webull Hong Kong brokerages. It is not yet supported for clients of Webull US
-     * and Webull Japan brokerages, but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse placeOption(String accountId, OptionOrder optionOrder);
 
     /**
-     * This interface is currently available only to individual and institutional clients
-     * of Webull Hong Kong brokerages. It is not yet supported for clients of Webull US
-     * and Webull Japan brokerages, but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse replaceOption(String accountId, OptionOrder optionOrder);
 
     /**
-     * This interface is currently available only to individual and institutional clients
-     * of Webull Hong Kong brokerages. It is not yet supported for clients of Webull US
-     * and Webull Japan brokerages, but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     TradeOrderResponse cancelOption(String accountId, OptionOrder optionOrder);
 
     /**
-     * This interface is currently available only to individual and institutional clients
-     * of Webull Hong Kong brokerages. It is not yet supported for clients of Webull US
-     * and Webull Japan brokerages, but support will be gradually introduced in the future.
+     * This interface is currently supported only for Webull HK and Webull US.
+     * Support for other regions will be available in future updates.
      */
     List<TradeCalendar> getTradeCalendar(String market, String start, String end);
 
@@ -140,7 +143,7 @@ public interface ITradeV2Client {
      * Note: If you set a header, call removeCustomHeaders to clean up the header after the request is completed.
      *
      * Currently supported header keys and functions:
-     *      Key：category {@link com.webull.openapi.common.dict.Category}
+     *      Key：category {@link com.webull.openapi.core.common.dict.Category}
      *      Function: Frequency limit rules, please refer to the document for details. currently only supports Hong Kong
      *
      * @param headersMap

@@ -27,6 +27,45 @@ public class JPAccountAssetInfo {
 
     private String unrealizedProfitLoss;
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public String getCashBalance() {
+        return cashBalance;
+    }
+
+    public void setCashBalance(String cashBalance) {
+        this.cashBalance = cashBalance;
+    }
+
+    public String getUnsettledCash() {
+        return unsettledCash;
+    }
+
+    public void setUnsettledCash(String unsettledCash) {
+        this.unsettledCash = unsettledCash;
+    }
+
+    public String getBuyingPower() {
+        return buyingPower;
+    }
+
+    public void setBuyingPower(String buyingPower) {
+        this.buyingPower = buyingPower;
+    }
+
+    public String getUnrealizedProfitLoss() {
+        return unrealizedProfitLoss;
+    }
+
+    public void setUnrealizedProfitLoss(String unrealizedProfitLoss) {
+        this.unrealizedProfitLoss = unrealizedProfitLoss;
+    }
 
     @Override
     public String toString() {

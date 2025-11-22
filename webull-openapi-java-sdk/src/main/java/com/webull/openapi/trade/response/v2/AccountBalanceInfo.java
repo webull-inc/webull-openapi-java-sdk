@@ -28,7 +28,97 @@ public class AccountBalanceInfo {
 
     private String totalMarketValue;
 
+    private String totalNetLiquidationValue;
+
+    private String totalDayProfitLoss;
+
+    private String dayTradesLeft;
+
+    private String maintenanceMargin;
+
+    private List<String> openMarginCalls;
+
     private List<AccountAssetInfo> accountCurrencyAssets;
+
+    public String getTotalAssetCurrency() {
+        return totalAssetCurrency;
+    }
+
+    public void setTotalAssetCurrency(String totalAssetCurrency) {
+        this.totalAssetCurrency = totalAssetCurrency;
+    }
+
+    public String getTotalCashBalance() {
+        return totalCashBalance;
+    }
+
+    public void setTotalCashBalance(String totalCashBalance) {
+        this.totalCashBalance = totalCashBalance;
+    }
+
+    public String getTotalUnrealizedProfitLoss() {
+        return totalUnrealizedProfitLoss;
+    }
+
+    public void setTotalUnrealizedProfitLoss(String totalUnrealizedProfitLoss) {
+        this.totalUnrealizedProfitLoss = totalUnrealizedProfitLoss;
+    }
+
+    public String getTotalMarketValue() {
+        return totalMarketValue;
+    }
+
+    public void setTotalMarketValue(String totalMarketValue) {
+        this.totalMarketValue = totalMarketValue;
+    }
+
+    public String getTotalNetLiquidationValue() {
+        return totalNetLiquidationValue;
+    }
+
+    public void setTotalNetLiquidationValue(String totalNetLiquidationValue) {
+        this.totalNetLiquidationValue = totalNetLiquidationValue;
+    }
+
+    public String getTotalDayProfitLoss() {
+        return totalDayProfitLoss;
+    }
+
+    public void setTotalDayProfitLoss(String totalDayProfitLoss) {
+        this.totalDayProfitLoss = totalDayProfitLoss;
+    }
+
+    public String getDayTradesLeft() {
+        return dayTradesLeft;
+    }
+
+    public void setDayTradesLeft(String dayTradesLeft) {
+        this.dayTradesLeft = dayTradesLeft;
+    }
+
+    public String getMaintenanceMargin() {
+        return maintenanceMargin;
+    }
+
+    public void setMaintenanceMargin(String maintenanceMargin) {
+        this.maintenanceMargin = maintenanceMargin;
+    }
+
+    public List<String> getOpenMarginCalls() {
+        return openMarginCalls;
+    }
+
+    public void setOpenMarginCalls(List<String> openMarginCalls) {
+        this.openMarginCalls = openMarginCalls;
+    }
+
+    public List<AccountAssetInfo> getAccountCurrencyAssets() {
+        return accountCurrencyAssets;
+    }
+
+    public void setAccountCurrencyAssets(List<AccountAssetInfo> accountCurrencyAssets) {
+        this.accountCurrencyAssets = accountCurrencyAssets;
+    }
 
     @Override
     public String toString() {
@@ -36,6 +126,12 @@ public class AccountBalanceInfo {
                 "totalAssetCurrency='" + totalAssetCurrency + '\'' +
                 ", totalCashBalance='" + totalCashBalance + '\'' +
                 ", totalUnrealizedProfitLoss='" + totalUnrealizedProfitLoss + '\'' +
+                ", totalMarketValue='" + totalMarketValue + '\'' +
+                ", totalNetLiquidationValue='" + totalNetLiquidationValue + '\'' +
+                ", totalDayProfitLoss='" + totalDayProfitLoss + '\'' +
+                ", dayTradesLeft='" + dayTradesLeft + '\'' +
+                ", maintenanceMargin='" + maintenanceMargin + '\'' +
+                ", openMarginCalls='" + openMarginCalls + '\'' +
                 ", accountCurrencyAssets=" + accountCurrencyAssets +
                 '}';
     }
