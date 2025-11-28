@@ -201,7 +201,7 @@ public class DataClient implements IDataClient {
     public List<Snapshot> getSnapshots(Set<String> symbols, String category, Boolean extendHourRequired, Boolean overnightRequired) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/snapshot", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
