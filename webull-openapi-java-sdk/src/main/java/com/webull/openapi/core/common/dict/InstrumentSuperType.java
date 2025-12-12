@@ -26,4 +26,10 @@ public enum InstrumentSuperType {
     /** Mutual Fund */
     MUTUAL_FUND,
 
+    /** Crypto */
+    CRYPTO,
+
+    /** Futures */
+    FUTURES,
+
 }

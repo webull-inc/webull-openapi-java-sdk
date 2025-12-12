@@ -15,15 +15,7 @@
  */
 package com.webull.openapi.data.quotes.api;
 
-import com.webull.openapi.data.quotes.domain.Bar;
-import com.webull.openapi.data.quotes.domain.BatchBarResponse;
-import com.webull.openapi.data.quotes.domain.CorpAction;
-import com.webull.openapi.data.quotes.domain.CorpActionRequest;
-import com.webull.openapi.data.quotes.domain.EodBars;
-import com.webull.openapi.data.quotes.domain.Instrument;
-import com.webull.openapi.data.quotes.domain.Quote;
-import com.webull.openapi.data.quotes.domain.Snapshot;
-import com.webull.openapi.data.quotes.domain.Tick;
+import com.webull.openapi.data.quotes.domain.*;
 
 import java.util.List;
 import java.util.Set;
@@ -62,6 +54,7 @@ public interface IDataClient {
 
     Quote getQuote(String symbol, String category, String depth, Boolean overnightRequired);
 
+
     List<Snapshot> getSnapshots(Set<String> symbols, String category, Boolean extendHourRequired, Boolean overnightRequired);
 
     default Tick getTicks(String symbol, String category) {
@@ -69,4 +62,26 @@ public interface IDataClient {
     }
 
     Tick getTicks(String symbol, String category, int count, List<String> tradingSessions);
+
+    List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    DepthOfBook getFuturesDepth(String symbol, String category, String depth);
+
+    List<Snapshot> getFuturesSnapshots(Set<String> symbols, String category);
+
+    Tick getFutureTicks(String symbol, String category, int count);
+
+    List<FuturesProduct> getFuturesProducts(String category);
+
+    List<FuturesInstrument> getFuturesInstruments(Set<String> symbols, String category);
+
+    List<FuturesInstrument> getFuturesInstrumentsByCode(String code, String category, String contractType);
+
+    List<Snapshot> getCryptoSnapshots(Set<String> symbols, String category);
+
+    List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    List<StockInstrumentDetail> getInstrumentsV1(InstrumentQueryParam param);
+
+    List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param);
 }

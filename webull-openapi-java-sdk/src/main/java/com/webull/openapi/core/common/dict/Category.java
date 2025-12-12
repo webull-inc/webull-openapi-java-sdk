@@ -48,17 +48,12 @@ public enum Category {
     US_OPTION,
 
     /**
-     * Cryptocurrency
+     * US Futures
      */
-    CRYPTO,
+    US_FUTURES,
 
     /**
-     * NFTs
+     * US Cryptocurrency
      */
-    NFT,
-
-    /**
-     * Stock/ETF CFDs
-     */
-    US_CFDONSTOCK
+    US_CRYPTO
 }

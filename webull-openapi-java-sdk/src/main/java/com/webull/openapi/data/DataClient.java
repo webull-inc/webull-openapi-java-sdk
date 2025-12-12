@@ -28,23 +28,9 @@ import com.webull.openapi.core.utils.CollectionUtils;
 import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.data.common.ArgNames;
 import com.webull.openapi.data.quotes.api.IDataClient;
-import com.webull.openapi.data.quotes.domain.Bar;
-import com.webull.openapi.data.quotes.domain.BatchBarResponse;
-import com.webull.openapi.data.quotes.domain.CorpAction;
-import com.webull.openapi.data.quotes.domain.CorpActionRequest;
-import com.webull.openapi.data.quotes.domain.EodBars;
-import com.webull.openapi.data.quotes.domain.Instrument;
-import com.webull.openapi.data.quotes.domain.Quote;
-import com.webull.openapi.data.quotes.domain.Snapshot;
-import com.webull.openapi.data.quotes.domain.Tick;
+import com.webull.openapi.data.quotes.domain.*;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 public class DataClient implements IDataClient {
 
@@ -61,7 +47,7 @@ public class DataClient implements IDataClient {
     public DataClient(HttpApiClient apiClient) {
         this.apiClient = apiClient;
     }
-    
+
     /**
      * Set user ID which will be added as x-user-id header to all requests
      * @param userId user ID
@@ -230,6 +216,190 @@ public class DataClient implements IDataClient {
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<Tick>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/futures/bars", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.TIMESPAN, timespan);
+        params.put(ArgNames.COUNT, count);
+        if(Objects.nonNull(realTimeRequired)){
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<NBar>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public DepthOfBook getFuturesDepth(String symbol, String category, String depth) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/futures/depth", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if(StringUtils.isNotBlank(depth)){
+            params.put(ArgNames.DEPTH, depth);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<DepthOfBook>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<Snapshot> getFuturesSnapshots(Set<String> symbols, String category) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/futures/snapshot", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<Snapshot>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public Tick getFutureTicks(String symbol, String category, int count) {
+        Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/futures/tick", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.COUNT, count);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<Tick>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FuturesProduct> getFuturesProducts(String category) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/products", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesProduct>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FuturesInstrument> getFuturesInstruments(Set<String> symbols, String category) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesInstrument>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FuturesInstrument> getFuturesInstrumentsByCode(String code, String category, String contractType) {
+        Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.CODE), category, code);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/by-code", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CODE, code);
+        params.put(ArgNames.CATEGORY, category);
+        if (Objects.nonNull(contractType)) {
+            params.put(ArgNames.TYPE, contractType);
+        }
+
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesInstrument>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<Snapshot> getCryptoSnapshots(Set<String> symbols, String category) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/crypto/snapshot", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<Snapshot>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.TIMESPAN), category, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/crypto/bars", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.TIMESPAN, timespan);
+        params.put(ArgNames.COUNT, count);
+        if(Objects.nonNull(realTimeRequired)){
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<NBar>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<StockInstrumentDetail> getInstrumentsV1(InstrumentQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        String category = param.getCategory();
+        Set<String> symbols = param.getSymbols();
+        String status = param.getStatus();
+        String lastInstrumentId = param.getLastInstrumentId();
+        int count = param.getCount();
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/stock/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if(CollectionUtils.isNotEmpty(symbols)){
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        params.put(ArgNames.CATEGORY, category);
+        if(StringUtils.isNotEmpty(status)){
+            params.put(ArgNames.STATUS, status);
+        }
+        if(StringUtils.isNotEmpty(lastInstrumentId)){
+            params.put(ArgNames.LAST_INSTRUMENT_ID, lastInstrumentId);
+        }
+        params.put(ArgNames.COUNT, count);
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<StockInstrumentDetail>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        String category = param.getCategory();
+        Set<String> symbols = param.getSymbols();
+        String status = param.getStatus();
+        String lastInstrumentId = param.getLastInstrumentId();
+        int count = param.getCount();
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/crypto/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if(CollectionUtils.isNotEmpty(symbols)){
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if(StringUtils.isNotEmpty(status)){
+            params.put(ArgNames.STATUS, status);
+        }
+        if(StringUtils.isNotEmpty(lastInstrumentId)){
+            params.put(ArgNames.LAST_INSTRUMENT_ID, lastInstrumentId);
+        }
+        params.put(ArgNames.COUNT, count);
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<CryptoInstrumentDetail>>() {}.getType()).doAction();
     }
 
 }

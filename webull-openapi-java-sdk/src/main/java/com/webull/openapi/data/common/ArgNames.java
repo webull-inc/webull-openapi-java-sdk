@@ -41,5 +41,11 @@ public final class ArgNames {
     public static final String EVENT_TYPES = "event_types";
     public static final String LAST_UPDATE_TIME = "last_update_time";
     public static final String PAGE_NUMBER = "page_number";
+    public static final String PAGE_NO = "page_no";
     public static final String PAGE_SIZE = "page_size";
+    public static final String CODE = "code";
+    public static final String TYPE = "contract_type";
+    public static final String NEXT_CURSOR = "next_cursor";
+    public static final String STATUS = "status";
+    public static final String PARAMETER = "parameter";
 }

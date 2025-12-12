@@ -41,6 +41,14 @@ public class Snapshot extends QuotesBasic {
     private String extendHourLastPrice;
     private Long extendHourLastTradeTime;
     private String tradingSession;
+    private String openInterest;
+    private Long quoteTime;
+    private String bid;
+    private String ask;
+    private String askSize;
+    private String bidSize;
+    private String settleDate;
+    private String settlePrice;
 
     public String getTradeTime() {
         return tradeTime;
@@ -234,6 +242,70 @@ public class Snapshot extends QuotesBasic {
         this.tradingSession = tradingSession;
     }
 
+    public String getOpenInterest() {
+        return openInterest;
+    }
+
+    public void setOpenInterest(String openInterest) {
+        this.openInterest = openInterest;
+    }
+
+    public Long getQuoteTime() {
+        return quoteTime;
+    }
+
+    public void setQuoteTime(Long quoteTime) {
+        this.quoteTime = quoteTime;
+    }
+
+    public String getBid() {
+        return bid;
+    }
+
+    public void setBid(String bid) {
+        this.bid = bid;
+    }
+
+    public String getAsk() {
+        return ask;
+    }
+
+    public void setAsk(String ask) {
+        this.ask = ask;
+    }
+
+    public String getAskSize() {
+        return askSize;
+    }
+
+    public void setAskSize(String askSize) {
+        this.askSize = askSize;
+    }
+
+    public String getBidSize() {
+        return bidSize;
+    }
+
+    public void setBidSize(String bidSize) {
+        this.bidSize = bidSize;
+    }
+
+    public String getSettleDate() {
+        return settleDate;
+    }
+
+    public void setSettleDate(String settleDate) {
+        this.settleDate = settleDate;
+    }
+
+    public String getSettlePrice() {
+        return settlePrice;
+    }
+
+    public void setSettlePrice(String settlePrice) {
+        this.settlePrice = settlePrice;
+    }
+
     @Override
     public String toString() {
         return "Snapshot{" +
@@ -262,6 +334,14 @@ public class Snapshot extends QuotesBasic {
                 ", extendHourChangeRatio='" + extendHourChangeRatio + '\'' +
                 ", extendHourVolume='" + extendHourVolume + '\'' +
                 ", tradingSession='" + tradingSession + '\'' +
+                ", openInterest='" + openInterest + '\'' +
+                ", quoteTime='" + quoteTime + '\'' +
+                ", bid='" + bid + '\'' +
+                ", ask='" + ask + '\'' +
+                ", askSize='" + askSize + '\'' +
+                ", bidSize='" + bidSize + '\'' +
+                ", settleDate='" + settleDate + '\'' +
+                ", settlePrice='" + settlePrice + '\'' +
                 '}';
     }
 }

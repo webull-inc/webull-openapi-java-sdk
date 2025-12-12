@@ -1,17 +1,13 @@
 package com.webull.openapi.samples.data;
 
 import com.webull.openapi.core.common.dict.Category;
+import com.webull.openapi.core.common.dict.ContractType;
 import com.webull.openapi.core.common.dict.Timespan;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.data.quotes.api.IDataClient;
-import com.webull.openapi.data.quotes.domain.Bar;
-import com.webull.openapi.data.quotes.domain.BatchBarResponse;
-import com.webull.openapi.data.quotes.domain.Instrument;
-import com.webull.openapi.data.quotes.domain.Quote;
-import com.webull.openapi.data.quotes.domain.Snapshot;
-import com.webull.openapi.data.quotes.domain.Tick;
+import com.webull.openapi.data.quotes.domain.*;
 import com.webull.openapi.samples.config.Env;
 
 import java.util.ArrayList;
@@ -65,6 +61,30 @@ public class DataClient {
         // get ticks
         Tick tick = dataClient.getTicks("AAPL", Category.US_STOCK.name(), 100, tradingSessions);
         logger.info("Tick: {}", tick);
+
+        DepthOfBook futureDepth = dataClient.getFuturesDepth("SILZ5", Category.US_FUTURES.name(), "1");
+        logger.info("Futures depth: {}", futureDepth);
+
+        Tick futureTicks = dataClient.getFutureTicks("SILZ5", Category.US_FUTURES.name(), 100);
+        logger.info("Futures Ticks: {}", futureTicks);
+
+        Set<String> futuresSymbols = new HashSet<>();
+        futuresSymbols.add("ESZ5");
+        futuresSymbols.add("6BM6");
+        List<Snapshot> futureSnapshots = dataClient.getFuturesSnapshots(futuresSymbols, Category.US_FUTURES.name());
+        logger.info("Futures Snapshots: {}", futureSnapshots);
+
+        List<NBar> futureBars = dataClient.getFuturesBars(new ArrayList<>(futuresSymbols), Category.US_FUTURES.name(), Timespan.M1.name(), 10, false);
+        logger.info("Futures Bars: {}", futureBars);
+
+        List<FuturesProduct> futuresProducts = dataClient.getFuturesProducts(Category.US_FUTURES.name());
+        logger.info("Futures Products: {}", futuresProducts);
+
+        List<FuturesInstrument> futuresInstruments = dataClient.getFuturesInstruments(futuresSymbols, Category.US_FUTURES.name());
+        logger.info("Futures Instruments: {}", futuresInstruments);
+
+        List<FuturesInstrument> futuresInstrumentsByCode = dataClient.getFuturesInstrumentsByCode("ES", Category.US_FUTURES.name(), ContractType.MONTHLY.name());
+        logger.info("Futures Instruments By Code: {}", futuresInstrumentsByCode);
 
 //        // get end of day market
 //        List<EodBars> eodBars = IDataClient.getEodBars(instrumentIds, "2023-01-01", 10);

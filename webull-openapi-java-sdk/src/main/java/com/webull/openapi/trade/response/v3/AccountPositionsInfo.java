@@ -13,47 +13,30 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.trade.response.v2;
+package com.webull.openapi.trade.response.v3;
 
 import com.webull.openapi.trade.response.CommonPositionInfo;
 
+import java.io.Serializable;
 import java.util.List;
 
+public class AccountPositionsInfo implements Serializable {
 
-public class AccountPositionsInfo {
-
+    private static final long serialVersionUID = -4070295270850453418L;
     private String positionId;
-
     private String currency;
-
     private String symbol;
-
     private String optionStrategy;
-
     private String quantity;
-
     private String costPrice;
-
     private String lastPrice;
-
     private String unrealizedProfitLoss;
-
     private String unrealizedProfitLossRate;
-
     private String instrumentType;
-
     private String marketValue;
-
     private String dayRealizedProfitLoss;
-
     private String proportion;
-
-    private String name;
-
     private List<CommonPositionInfo> legs;
-
-    @Deprecated
-    private List<CommonPositionInfo> items;
 
     public String getPositionId() {
         return positionId;
@@ -167,30 +150,11 @@ public class AccountPositionsInfo {
         this.legs = legs;
     }
 
-    @Deprecated
-    public List<CommonPositionInfo> getItems() {
-        return items;
-    }
-
-    @Deprecated
-    public void setItems(List<CommonPositionInfo> items) {
-        this.items = items;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     @Override
     public String toString() {
         return "AccountPositionsInfo{" +
                 "positionId='" + positionId + '\'' +
                 ", symbol='" + symbol + '\'' +
-                ", name='" + name + '\'' +
                 ", optionStrategy='" + optionStrategy + '\'' +
                 ", currency='" + currency + '\'' +
                 ", instrumentType='" + instrumentType + '\'' +
@@ -201,7 +165,6 @@ public class AccountPositionsInfo {
                 ", unrealizedProfitLoss='" + unrealizedProfitLoss + '\'' +
                 ", unrealizedProfitLossRate='" + unrealizedProfitLossRate + '\'' +
                 ", dayRealizedProfitLoss='" + dayRealizedProfitLoss + '\'' +
-                ", proportion='" + proportion + '\'' +
                 ", proportion='" + proportion + '\'' +
                 ", legs=" + legs +
                 '}';
