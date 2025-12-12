@@ -23,7 +23,7 @@ public class InstrumentQueryParam {
     private Set<String> symbols;
     private String status;
     private String lastInstrumentId;
-    private int count = 1000;
+    private int pageSize = 1000;
 
     public String getCategory() {
         return category;
@@ -57,11 +57,11 @@ public class InstrumentQueryParam {
         this.lastInstrumentId = lastInstrumentId;
     }
 
-    public int getCount() {
-        return count;
+    public int getPageSize() {
+        return pageSize;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
     }
 }
