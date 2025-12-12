@@ -357,7 +357,7 @@ public class DataClient implements IDataClient {
         Set<String> symbols = param.getSymbols();
         String status = param.getStatus();
         String lastInstrumentId = param.getLastInstrumentId();
-        int count = param.getCount();
+        int pageSize = param.getPageSize();
         Assert.notBlank(ArgNames.CATEGORY, category);
         HttpRequest request = new HttpRequest("/openapi/instrument/stock/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
@@ -371,7 +371,7 @@ public class DataClient implements IDataClient {
         if(StringUtils.isNotEmpty(lastInstrumentId)){
             params.put(ArgNames.LAST_INSTRUMENT_ID, lastInstrumentId);
         }
-        params.put(ArgNames.COUNT, count);
+        params.put(ArgNames.PAGE_SIZE, pageSize);
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<List<StockInstrumentDetail>>() {}.getType()).doAction();
     }
@@ -383,7 +383,7 @@ public class DataClient implements IDataClient {
         Set<String> symbols = param.getSymbols();
         String status = param.getStatus();
         String lastInstrumentId = param.getLastInstrumentId();
-        int count = param.getCount();
+        int pageSize = param.getPageSize();
         Assert.notBlank(ArgNames.CATEGORY, category);
         HttpRequest request = new HttpRequest("/openapi/instrument/crypto/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
@@ -397,7 +397,7 @@ public class DataClient implements IDataClient {
         if(StringUtils.isNotEmpty(lastInstrumentId)){
             params.put(ArgNames.LAST_INSTRUMENT_ID, lastInstrumentId);
         }
-        params.put(ArgNames.COUNT, count);
+        params.put(ArgNames.PAGE_SIZE, pageSize);
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<List<CryptoInstrumentDetail>>() {}.getType()).doAction();
     }
