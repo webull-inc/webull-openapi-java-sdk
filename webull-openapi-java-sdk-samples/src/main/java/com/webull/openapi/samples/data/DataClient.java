@@ -10,10 +10,7 @@ import com.webull.openapi.data.quotes.api.IDataClient;
 import com.webull.openapi.data.quotes.domain.*;
 import com.webull.openapi.samples.config.Env;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class DataClient {
 
@@ -24,7 +21,7 @@ public class DataClient {
                 .appKey(Env.APP_KEY)
                 .appSecret(Env.APP_SECRET)
                 .regionId(Env.REGION_ID)
-                // .endpoint("<api_endpoint>")
+                 //.endpoint("<api_endpoint>")
                 .build();
         IDataClient dataClient = new com.webull.openapi.data.DataClient(apiConfig);
 
@@ -41,6 +38,26 @@ public class DataClient {
         // get instruments
         List<Instrument> instruments = dataClient.getInstruments(symbols, Category.US_STOCK.name());
         logger.info("Instruments: {}", instruments);
+
+        // get all crypto instruments
+        InstrumentQueryParam instrumentQueryParam = new InstrumentQueryParam();
+        instrumentQueryParam.setCategory(Category.US_CRYPTO.name());
+        List<CryptoInstrumentDetail> cryptoInstruments = dataClient.getCryptoInstrument(instrumentQueryParam);
+        logger.info("Crypto instruments(all): {}", cryptoInstruments);
+        // get all crypto instruments
+        HashSet<String> cryptoSymbols = new HashSet<>();
+        cryptoSymbols.add("BTCUSD");
+        instrumentQueryParam.setSymbols(cryptoSymbols);
+        cryptoInstruments = dataClient.getCryptoInstrument(instrumentQueryParam);
+        logger.info("Crypto instruments: {}", cryptoInstruments);
+
+        // get crypto bars
+        List<NBar> cryptoBars = dataClient.getCryptoBars(cryptoSymbols,Category.US_CRYPTO.name(), Timespan.M1.name(), 100, true);
+        logger.info("Crypto bars: {}", cryptoBars);
+
+        //get crypto snapshot
+        List<Snapshot> cryptoSnapshot = dataClient.getCryptoSnapshots(cryptoSymbols,Category.US_CRYPTO.name());
+        logger.info("Crypto snapshot: {}", cryptoSnapshot);
 
         // get bars
         List<Bar> bars = dataClient.getBars("AAPL", Category.US_STOCK.name(), Timespan.M1.name(), 10, true, tradingSessions);
