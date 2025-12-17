@@ -63,6 +63,7 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
             new RetryPolicy(QuotesSubsRetryCondition.getInstance(), new FixedDelayStrategy(10, TimeUnit.SECONDS));
     private boolean enableTls = true;
     private ProxyConfig proxyConfig;
+    private String tokenDir;
 
     private final LinkedList<QuotesSubsHandler> handlers = new LinkedList<>();
     private final LinkedList<QuotesSubsInboundHandler> onMessages = new LinkedList<>();
@@ -152,6 +153,12 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
     }
 
     @Override
+    public IDataStreamingClientBuilder tokenDir(String tokenDir) {
+        this.tokenDir = tokenDir;
+        return this;
+    }
+
+    @Override
     public IDataStreamingClientBuilder addHandler(QuotesSubsHandler handler) {
         Assert.notNull("handler", handler);
         this.handlers.add(handler);
@@ -192,7 +199,8 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
             HttpApiConfig.HttpApiConfigBuilder httpApiConfigBuilder = HttpApiConfig.builder()
                     .appKey(this.appKey)
                     .appSecret(this.appSecret)
-                    .regionId(this.regionId);
+                    .regionId(this.regionId)
+                    .tokenDir(this.tokenDir);
             if(StringUtils.isNotBlank(http_host)){
                 httpApiConfigBuilder.endpoint(http_host);
             }

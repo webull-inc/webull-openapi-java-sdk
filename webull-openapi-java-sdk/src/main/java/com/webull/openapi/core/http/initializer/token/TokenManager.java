@@ -33,32 +33,17 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Objects;
 
 public class TokenManager {
 
     private static final Logger logger = LoggerFactory.getLogger(ClientInitializer.class);
-
-    private static final String TOKEN_FILE_NAME = "conf/token.txt";
-    private static final String CONF_ENV_TOKEN_DIR = System.getenv("WEBULL_OPENAPI_TOKEN_DIR");
-    private static final String DEFAULT_ENV_TOKEN_DIR = System.getProperty("user.dir");
     private final Path tokenFilePath;
 
-    public TokenManager() {
-
-        Path dirPath;
-
-        if (StringUtils.isNotBlank(CONF_ENV_TOKEN_DIR)) {
-            dirPath = Paths.get(CONF_ENV_TOKEN_DIR);
-        } else {
-            // If no directory is specified, the current running directory is used.
-            dirPath = Paths.get(DEFAULT_ENV_TOKEN_DIR);
-        }
-
-        this.tokenFilePath = dirPath.resolve(TOKEN_FILE_NAME);
+    public TokenManager(String customTokenDir) {
+        TokenStorage tokenStorage = new TokenStorage(customTokenDir);
+        this.tokenFilePath = tokenStorage.getTokenFile();
     }
-
 
     public String initToken(HttpApiClient apiClient) {
 

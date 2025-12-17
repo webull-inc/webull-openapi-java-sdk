@@ -35,6 +35,7 @@ public class HttpApiConfig {
     private RuntimeOptions runtimeOptions;
     private int tokenCheckDurationSeconds;
     private int tokenCheckIntervalSeconds;
+    private String tokenDir;
 
     private HttpApiConfig() {
     }
@@ -87,6 +88,10 @@ public class HttpApiConfig {
         return tokenCheckIntervalSeconds;
     }
 
+    public String getTokenDir() {
+        return tokenDir;
+    }
+
     public static HttpApiConfigBuilder builder() {
         return new HttpApiConfigBuilder();
     }
@@ -104,6 +109,7 @@ public class HttpApiConfig {
         private RuntimeOptions runtimeOptions;
         private int tokenCheckDurationSeconds = 300;
         private int tokenCheckIntervalSeconds = 5;
+        private String tokenDir;
 
         private HttpApiConfigBuilder() {
         }
@@ -173,6 +179,11 @@ public class HttpApiConfig {
             return this;
         }
 
+        public HttpApiConfigBuilder tokenDir(String tokenDir) {
+            this.tokenDir = tokenDir;
+            return this;
+        }
+
         public HttpApiConfig build() {
             HttpApiConfig config = new HttpApiConfig();
             config.appKey = this.appKey;
@@ -194,6 +205,7 @@ public class HttpApiConfig {
             config.runtimeOptions = this.runtimeOptions != null ? this.runtimeOptions : new RuntimeOptions();
             config.tokenCheckDurationSeconds = this.tokenCheckDurationSeconds;
             config.tokenCheckIntervalSeconds = this.tokenCheckIntervalSeconds;
+            config.tokenDir = this.tokenDir;
             return config;
         }
     }

@@ -41,6 +41,8 @@ public class ErrorCode {
 
     public static final String INIT_TOKEN_ERROR = "InitTokenError";
 
+    public static final String STORAGE_TOKEN_ERROR = "StorageTokenError";
+
     public static final String LOAD_TOKEN_ERROR = "LoadTokenError";
 
     public static final String SAVE_TOKEN_ERROR = "SaveTokenError";

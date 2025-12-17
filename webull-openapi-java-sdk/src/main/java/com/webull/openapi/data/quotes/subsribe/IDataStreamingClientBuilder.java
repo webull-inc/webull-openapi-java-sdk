@@ -58,6 +58,8 @@ public interface IDataStreamingClientBuilder {
 
     IDataStreamingClientBuilder proxy(ProxyConfig proxyConfig);
 
+    IDataStreamingClientBuilder tokenDir(String tokenDir);
+
     IDataStreamingClientBuilder addHandler(QuotesSubsHandler handler);
 
     IDataStreamingClientBuilder onMessage(Consumer<MarketData> consumer);

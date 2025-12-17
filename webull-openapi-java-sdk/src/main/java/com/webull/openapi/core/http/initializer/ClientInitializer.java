@@ -15,7 +15,6 @@
  */
 package com.webull.openapi.core.http.initializer;
 
-import com.google.api.client.util.Lists;
 import com.webull.openapi.core.common.Region;
 import com.webull.openapi.core.execption.ClientException;
 import com.webull.openapi.core.execption.ErrorCode;
@@ -60,7 +59,8 @@ public class ClientInitializer {
             return;
         }
 
-        TokenManager tokenManager = new TokenManager();
+        String customTokenDir = Objects.nonNull(apiClient.getConfig()) ? apiClient.getConfig().getTokenDir() : null;
+        TokenManager tokenManager = new TokenManager(customTokenDir);
         tokenManager.initToken(apiClient);
 
     }

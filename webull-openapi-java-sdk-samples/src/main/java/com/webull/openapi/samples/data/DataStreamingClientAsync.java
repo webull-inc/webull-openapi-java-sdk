@@ -41,6 +41,12 @@ public class DataStreamingClientAsync {
                 .regionId(Env.REGION_ID)
                 //.http_host("<api_endpoint>")
                 //.mqtt_host("<quotes_endpoint>")
+                /*
+                 * The tokenDir parameter can be used to specify the directory for storing the 2FA token. Both absolute and relative paths are supported and this option has the highest priority.
+                 * Alternatively, the storage directory can be configured via an environment variable with the key WEBULL_OPENAPI_TOKEN_DIR, which also supports both absolute and relative paths.
+                 * If neither is specified, the default configuration will be used, and the token will be stored at conf/token.txt under the current working directory.
+                 */
+                //.tokenDir("conf_custom_relative")
                 .onMessage(DataStreamingClientAsync::handleMarketData)
                 .addSubscription(symbols, category, subTypes, depth, overnightRequired)
                 .build()) {

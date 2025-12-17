@@ -1,6 +1,5 @@
 package com.webull.openapi.samples.order;
 
-import com.webull.openapi.core.common.Region;
 import com.webull.openapi.core.common.dict.*;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
@@ -29,6 +28,12 @@ public class OrderStockTradeClient {
                  * Webull US: PRD env host: api.webull.com; Test env host: us-openapi-alb.uat.webullbroker.com
                  */
                 .endpoint("<api_endpoint>")
+                /*
+                 * The tokenDir parameter can be used to specify the directory for storing the 2FA token. Both absolute and relative paths are supported and this option has the highest priority.
+                 * Alternatively, the storage directory can be configured via an environment variable with the key WEBULL_OPENAPI_TOKEN_DIR, which also supports both absolute and relative paths.
+                 * If neither is specified, the default configuration will be used, and the token will be stored at conf/token.txt under the current working directory.
+                 */
+                //.tokenDir("conf_custom_relative")
                 .build();
 
         // get accountId from account_list interface , you can look @see com.webull.openapi.samples.account.AccountList
