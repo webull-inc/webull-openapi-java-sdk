@@ -19,12 +19,7 @@ import com.webull.openapi.samples.config.Env;
 import com.webull.openapi.trade.request.v3.OptionOrderItemLeg;
 import com.webull.openapi.trade.request.v3.TradeOrder;
 import com.webull.openapi.trade.request.v3.TradeOrderItem;
-import com.webull.openapi.trade.response.v3.Account;
-import com.webull.openapi.trade.response.v3.AccountBalanceInfo;
-import com.webull.openapi.trade.response.v3.AccountPositionsInfo;
-import com.webull.openapi.trade.response.v3.OrderHistory;
-import com.webull.openapi.trade.response.v3.PreviewOrderResponse;
-import com.webull.openapi.trade.response.v3.TradeOrderResponse;
+import com.webull.openapi.trade.response.v3.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,6 +49,8 @@ public class TradeClientV3 {
         AccountIds accountIds = initAccount(apiService);
         if (CollectionUtils.isNotEmpty(accountIds.getSecurityAccountIds())) {
             runEquityNormalOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runEquityBatchOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
 
             runEquityComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
 
@@ -102,9 +99,36 @@ public class TradeClientV3 {
         return accountIds;
     }
 
-    private static void runEquityNormalOrderExample(
+    private static void runEquityBatchOrderExample(
         com.webull.openapi.trade.TradeClientV3 apiService,
         String accountId
+    ) throws InterruptedException {
+        TradeOrder newBatchOrder = new TradeOrder();
+        List<TradeOrderItem> batchOrders = new ArrayList<>();
+        TradeOrderItem normalEquityOrder = new TradeOrderItem();
+        normalEquityOrder.setClientOrderId(GUID.get());
+        normalEquityOrder.setComboType(ComboType.NORMAL.name());
+        normalEquityOrder.setSymbol("AAPL");
+        normalEquityOrder.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        normalEquityOrder.setMarket(Markets.US.name());
+        normalEquityOrder.setOrderType(OrderType.LIMIT.name());
+        normalEquityOrder.setQuantity("1");
+        normalEquityOrder.setLimitPrice("280");
+        normalEquityOrder.setSupportTradingSession("CORE");
+        normalEquityOrder.setSide(OrderSide.BUY.name());
+        normalEquityOrder.setTimeInForce(OrderTIF.DAY.name());
+        normalEquityOrder.setEntrustType(EntrustType.QTY.name());
+        batchOrders.add(normalEquityOrder);
+        newBatchOrder.setBatchOrders(batchOrders);
+
+        TradeBatchPlaceResponse placeNormalEquityResponse =
+                apiService.batchPlaceOrder(accountId, newBatchOrder);
+        logger.info("batchPlaceNormalEquityResponse:{}", placeNormalEquityResponse);
+    }
+
+    private static void runEquityNormalOrderExample(
+            com.webull.openapi.trade.TradeClientV3 apiService,
+            String accountId
     ) throws InterruptedException {
         TradeOrder newNormalEquityOrder = new TradeOrder();
         List<TradeOrderItem> newNormalEquityOrders = new ArrayList<>();
@@ -126,11 +150,11 @@ public class TradeClientV3 {
         newNormalEquityOrder.setNewOrders(newNormalEquityOrders);
 
         PreviewOrderResponse previewNormalEquityResponse =
-            apiService.previewOrder(accountId, newNormalEquityOrder);
+                apiService.previewOrder(accountId, newNormalEquityOrder);
         logger.info("previewNormalEquityResponse: {}", previewNormalEquityResponse);
 
         TradeOrderResponse placeNormalEquityResponse =
-            apiService.placeOrder(accountId, newNormalEquityOrder);
+                apiService.placeOrder(accountId, newNormalEquityOrder);
         logger.info("placeNormalEquityResponse: {}", placeNormalEquityResponse);
         doSleep();
 
@@ -144,26 +168,26 @@ public class TradeClientV3 {
         replaceNormalEquityOrder.setModifyOrders(replaceNormalEquityOrders);
 
         TradeOrderResponse replaceNormalEquityResponse =
-            apiService.replaceOrder(accountId, replaceNormalEquityOrder);
+                apiService.replaceOrder(accountId, replaceNormalEquityOrder);
         logger.info("replaceNormalEquityResponse: {}", replaceNormalEquityResponse);
         doSleep();
 
         TradeOrder cancelNormalEquityOrder = new TradeOrder();
         cancelNormalEquityOrder.setClientOrderId(normalEquityOrder.getClientOrderId());
         TradeOrderResponse cancelNormalEquityResponse =
-            apiService.cancelOrder(accountId, cancelNormalEquityOrder);
+                apiService.cancelOrder(accountId, cancelNormalEquityOrder);
         logger.info("cancelNormalEquityResponse: {}", cancelNormalEquityResponse);
 
         List<OrderHistory> listOrdersResponse =
-            apiService.listOrders(accountId, 10, null, null, null);
+                apiService.listOrders(accountId, 10, null, null, null);
         logger.info("listOrdersResponse: {}", listOrdersResponse);
 
         List<OrderHistory> openOrdersResponse =
-            apiService.openOrders(accountId, 10, null);
+                apiService.openOrders(accountId, 10, null);
         logger.info("openOrdersResponse: {}", openOrdersResponse);
 
         OrderHistory orderDetailResponse =
-            apiService.getOrderDetails(accountId, normalEquityOrder.getClientOrderId());
+                apiService.getOrderDetails(accountId, normalEquityOrder.getClientOrderId());
         logger.info("orderDetailResponse: {}", orderDetailResponse);
     }
 

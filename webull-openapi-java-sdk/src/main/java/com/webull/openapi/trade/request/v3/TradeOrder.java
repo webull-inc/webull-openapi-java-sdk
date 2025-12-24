@@ -8,6 +8,7 @@ public class TradeOrder implements Serializable {
 	private static final long serialVersionUID = 4846716278564624438L;
 	private String clientComboOrderId;
 	private List<TradeOrderItem> newOrders;
+    private List<TradeOrderItem> batchOrders;
 	private List<TradeOrderItem> modifyOrders;
 	private String clientOrderId;
 
@@ -27,7 +28,15 @@ public class TradeOrder implements Serializable {
 		this.newOrders = newOrders;
 	}
 
-	public List<TradeOrderItem> getModifyOrders() {
+    public List<TradeOrderItem> getBatchOrders() {
+        return batchOrders;
+    }
+
+    public void setBatchOrders(List<TradeOrderItem> batchOrders) {
+        this.batchOrders = batchOrders;
+    }
+
+    public List<TradeOrderItem> getModifyOrders() {
 		return modifyOrders;
 	}
 

@@ -1136,6 +1136,174 @@ public final class Quotes {
      */
     com.google.protobuf.ByteString
         getChangeRatioBytes();
+
+    /**
+     * <code>string ext_trade_time = 11;</code>
+     * @return The extTradeTime.
+     */
+    java.lang.String getExtTradeTime();
+    /**
+     * <code>string ext_trade_time = 11;</code>
+     * @return The bytes for extTradeTime.
+     */
+    com.google.protobuf.ByteString
+        getExtTradeTimeBytes();
+
+    /**
+     * <code>string ext_price = 12;</code>
+     * @return The extPrice.
+     */
+    java.lang.String getExtPrice();
+    /**
+     * <code>string ext_price = 12;</code>
+     * @return The bytes for extPrice.
+     */
+    com.google.protobuf.ByteString
+        getExtPriceBytes();
+
+    /**
+     * <code>string ext_high = 13;</code>
+     * @return The extHigh.
+     */
+    java.lang.String getExtHigh();
+    /**
+     * <code>string ext_high = 13;</code>
+     * @return The bytes for extHigh.
+     */
+    com.google.protobuf.ByteString
+        getExtHighBytes();
+
+    /**
+     * <code>string ext_low = 14;</code>
+     * @return The extLow.
+     */
+    java.lang.String getExtLow();
+    /**
+     * <code>string ext_low = 14;</code>
+     * @return The bytes for extLow.
+     */
+    com.google.protobuf.ByteString
+        getExtLowBytes();
+
+    /**
+     * <code>string ext_volume = 15;</code>
+     * @return The extVolume.
+     */
+    java.lang.String getExtVolume();
+    /**
+     * <code>string ext_volume = 15;</code>
+     * @return The bytes for extVolume.
+     */
+    com.google.protobuf.ByteString
+        getExtVolumeBytes();
+
+    /**
+     * <code>string ext_change = 16;</code>
+     * @return The extChange.
+     */
+    java.lang.String getExtChange();
+    /**
+     * <code>string ext_change = 16;</code>
+     * @return The bytes for extChange.
+     */
+    com.google.protobuf.ByteString
+        getExtChangeBytes();
+
+    /**
+     * <code>string ext_change_ratio = 17;</code>
+     * @return The extChangeRatio.
+     */
+    java.lang.String getExtChangeRatio();
+    /**
+     * <code>string ext_change_ratio = 17;</code>
+     * @return The bytes for extChangeRatio.
+     */
+    com.google.protobuf.ByteString
+        getExtChangeRatioBytes();
+
+    /**
+     * <code>string ovn_trade_time = 18;</code>
+     * @return The ovnTradeTime.
+     */
+    java.lang.String getOvnTradeTime();
+    /**
+     * <code>string ovn_trade_time = 18;</code>
+     * @return The bytes for ovnTradeTime.
+     */
+    com.google.protobuf.ByteString
+        getOvnTradeTimeBytes();
+
+    /**
+     * <code>string ovn_price = 19;</code>
+     * @return The ovnPrice.
+     */
+    java.lang.String getOvnPrice();
+    /**
+     * <code>string ovn_price = 19;</code>
+     * @return The bytes for ovnPrice.
+     */
+    com.google.protobuf.ByteString
+        getOvnPriceBytes();
+
+    /**
+     * <code>string ovn_high = 20;</code>
+     * @return The ovnHigh.
+     */
+    java.lang.String getOvnHigh();
+    /**
+     * <code>string ovn_high = 20;</code>
+     * @return The bytes for ovnHigh.
+     */
+    com.google.protobuf.ByteString
+        getOvnHighBytes();
+
+    /**
+     * <code>string ovn_low = 21;</code>
+     * @return The ovnLow.
+     */
+    java.lang.String getOvnLow();
+    /**
+     * <code>string ovn_low = 21;</code>
+     * @return The bytes for ovnLow.
+     */
+    com.google.protobuf.ByteString
+        getOvnLowBytes();
+
+    /**
+     * <code>string ovn_volume = 22;</code>
+     * @return The ovnVolume.
+     */
+    java.lang.String getOvnVolume();
+    /**
+     * <code>string ovn_volume = 22;</code>
+     * @return The bytes for ovnVolume.
+     */
+    com.google.protobuf.ByteString
+        getOvnVolumeBytes();
+
+    /**
+     * <code>string ovn_change = 23;</code>
+     * @return The ovnChange.
+     */
+    java.lang.String getOvnChange();
+    /**
+     * <code>string ovn_change = 23;</code>
+     * @return The bytes for ovnChange.
+     */
+    com.google.protobuf.ByteString
+        getOvnChangeBytes();
+
+    /**
+     * <code>string ovn_change_ratio = 24;</code>
+     * @return The ovnChangeRatio.
+     */
+    java.lang.String getOvnChangeRatio();
+    /**
+     * <code>string ovn_change_ratio = 24;</code>
+     * @return The bytes for ovnChangeRatio.
+     */
+    com.google.protobuf.ByteString
+        getOvnChangeRatioBytes();
   }
   /**
    * Protobuf type {@code quotes.Snapshot}
@@ -1159,6 +1327,20 @@ public final class Quotes {
       volume_ = "";
       change_ = "";
       changeRatio_ = "";
+      extTradeTime_ = "";
+      extPrice_ = "";
+      extHigh_ = "";
+      extLow_ = "";
+      extVolume_ = "";
+      extChange_ = "";
+      extChangeRatio_ = "";
+      ovnTradeTime_ = "";
+      ovnPrice_ = "";
+      ovnHigh_ = "";
+      ovnLow_ = "";
+      ovnVolume_ = "";
+      ovnChange_ = "";
+      ovnChangeRatio_ = "";
     }
 
     @java.lang.Override
@@ -1554,6 +1736,538 @@ public final class Quotes {
       }
     }
 
+    public static final int EXT_TRADE_TIME_FIELD_NUMBER = 11;
+    private volatile java.lang.Object extTradeTime_;
+    /**
+     * <code>string ext_trade_time = 11;</code>
+     * @return The extTradeTime.
+     */
+    @java.lang.Override
+    public java.lang.String getExtTradeTime() {
+      java.lang.Object ref = extTradeTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extTradeTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_trade_time = 11;</code>
+     * @return The bytes for extTradeTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtTradeTimeBytes() {
+      java.lang.Object ref = extTradeTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extTradeTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_PRICE_FIELD_NUMBER = 12;
+    private volatile java.lang.Object extPrice_;
+    /**
+     * <code>string ext_price = 12;</code>
+     * @return The extPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getExtPrice() {
+      java.lang.Object ref = extPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_price = 12;</code>
+     * @return The bytes for extPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtPriceBytes() {
+      java.lang.Object ref = extPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_HIGH_FIELD_NUMBER = 13;
+    private volatile java.lang.Object extHigh_;
+    /**
+     * <code>string ext_high = 13;</code>
+     * @return The extHigh.
+     */
+    @java.lang.Override
+    public java.lang.String getExtHigh() {
+      java.lang.Object ref = extHigh_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extHigh_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_high = 13;</code>
+     * @return The bytes for extHigh.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtHighBytes() {
+      java.lang.Object ref = extHigh_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extHigh_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_LOW_FIELD_NUMBER = 14;
+    private volatile java.lang.Object extLow_;
+    /**
+     * <code>string ext_low = 14;</code>
+     * @return The extLow.
+     */
+    @java.lang.Override
+    public java.lang.String getExtLow() {
+      java.lang.Object ref = extLow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extLow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_low = 14;</code>
+     * @return The bytes for extLow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtLowBytes() {
+      java.lang.Object ref = extLow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extLow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_VOLUME_FIELD_NUMBER = 15;
+    private volatile java.lang.Object extVolume_;
+    /**
+     * <code>string ext_volume = 15;</code>
+     * @return The extVolume.
+     */
+    @java.lang.Override
+    public java.lang.String getExtVolume() {
+      java.lang.Object ref = extVolume_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extVolume_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_volume = 15;</code>
+     * @return The bytes for extVolume.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtVolumeBytes() {
+      java.lang.Object ref = extVolume_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extVolume_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_CHANGE_FIELD_NUMBER = 16;
+    private volatile java.lang.Object extChange_;
+    /**
+     * <code>string ext_change = 16;</code>
+     * @return The extChange.
+     */
+    @java.lang.Override
+    public java.lang.String getExtChange() {
+      java.lang.Object ref = extChange_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extChange_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_change = 16;</code>
+     * @return The bytes for extChange.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtChangeBytes() {
+      java.lang.Object ref = extChange_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extChange_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int EXT_CHANGE_RATIO_FIELD_NUMBER = 17;
+    private volatile java.lang.Object extChangeRatio_;
+    /**
+     * <code>string ext_change_ratio = 17;</code>
+     * @return The extChangeRatio.
+     */
+    @java.lang.Override
+    public java.lang.String getExtChangeRatio() {
+      java.lang.Object ref = extChangeRatio_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        extChangeRatio_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ext_change_ratio = 17;</code>
+     * @return The bytes for extChangeRatio.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getExtChangeRatioBytes() {
+      java.lang.Object ref = extChangeRatio_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        extChangeRatio_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_TRADE_TIME_FIELD_NUMBER = 18;
+    private volatile java.lang.Object ovnTradeTime_;
+    /**
+     * <code>string ovn_trade_time = 18;</code>
+     * @return The ovnTradeTime.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnTradeTime() {
+      java.lang.Object ref = ovnTradeTime_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnTradeTime_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_trade_time = 18;</code>
+     * @return The bytes for ovnTradeTime.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnTradeTimeBytes() {
+      java.lang.Object ref = ovnTradeTime_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnTradeTime_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_PRICE_FIELD_NUMBER = 19;
+    private volatile java.lang.Object ovnPrice_;
+    /**
+     * <code>string ovn_price = 19;</code>
+     * @return The ovnPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnPrice() {
+      java.lang.Object ref = ovnPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_price = 19;</code>
+     * @return The bytes for ovnPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnPriceBytes() {
+      java.lang.Object ref = ovnPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_HIGH_FIELD_NUMBER = 20;
+    private volatile java.lang.Object ovnHigh_;
+    /**
+     * <code>string ovn_high = 20;</code>
+     * @return The ovnHigh.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnHigh() {
+      java.lang.Object ref = ovnHigh_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnHigh_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_high = 20;</code>
+     * @return The bytes for ovnHigh.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnHighBytes() {
+      java.lang.Object ref = ovnHigh_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnHigh_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_LOW_FIELD_NUMBER = 21;
+    private volatile java.lang.Object ovnLow_;
+    /**
+     * <code>string ovn_low = 21;</code>
+     * @return The ovnLow.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnLow() {
+      java.lang.Object ref = ovnLow_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnLow_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_low = 21;</code>
+     * @return The bytes for ovnLow.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnLowBytes() {
+      java.lang.Object ref = ovnLow_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnLow_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_VOLUME_FIELD_NUMBER = 22;
+    private volatile java.lang.Object ovnVolume_;
+    /**
+     * <code>string ovn_volume = 22;</code>
+     * @return The ovnVolume.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnVolume() {
+      java.lang.Object ref = ovnVolume_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnVolume_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_volume = 22;</code>
+     * @return The bytes for ovnVolume.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnVolumeBytes() {
+      java.lang.Object ref = ovnVolume_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnVolume_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_CHANGE_FIELD_NUMBER = 23;
+    private volatile java.lang.Object ovnChange_;
+    /**
+     * <code>string ovn_change = 23;</code>
+     * @return The ovnChange.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnChange() {
+      java.lang.Object ref = ovnChange_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnChange_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_change = 23;</code>
+     * @return The bytes for ovnChange.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnChangeBytes() {
+      java.lang.Object ref = ovnChange_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnChange_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int OVN_CHANGE_RATIO_FIELD_NUMBER = 24;
+    private volatile java.lang.Object ovnChangeRatio_;
+    /**
+     * <code>string ovn_change_ratio = 24;</code>
+     * @return The ovnChangeRatio.
+     */
+    @java.lang.Override
+    public java.lang.String getOvnChangeRatio() {
+      java.lang.Object ref = ovnChangeRatio_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        ovnChangeRatio_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string ovn_change_ratio = 24;</code>
+     * @return The bytes for ovnChangeRatio.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getOvnChangeRatioBytes() {
+      java.lang.Object ref = ovnChangeRatio_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        ovnChangeRatio_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -1598,6 +2312,48 @@ public final class Quotes {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(changeRatio_)) {
         com.google.protobuf.GeneratedMessageV3.writeString(output, 10, changeRatio_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extTradeTime_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 11, extTradeTime_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extPrice_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 12, extPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extHigh_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 13, extHigh_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extLow_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 14, extLow_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extVolume_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 15, extVolume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extChange_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 16, extChange_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extChangeRatio_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 17, extChangeRatio_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnTradeTime_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 18, ovnTradeTime_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnPrice_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 19, ovnPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnHigh_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 20, ovnHigh_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnLow_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 21, ovnLow_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnVolume_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 22, ovnVolume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnChange_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 23, ovnChange_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnChangeRatio_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 24, ovnChangeRatio_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -1638,6 +2394,48 @@ public final class Quotes {
       if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(changeRatio_)) {
         size += com.google.protobuf.GeneratedMessageV3.computeStringSize(10, changeRatio_);
       }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extTradeTime_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(11, extTradeTime_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extPrice_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(12, extPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extHigh_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(13, extHigh_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extLow_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(14, extLow_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extVolume_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(15, extVolume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extChange_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(16, extChange_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(extChangeRatio_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(17, extChangeRatio_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnTradeTime_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(18, ovnTradeTime_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnPrice_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(19, ovnPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnHigh_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(20, ovnHigh_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnLow_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(21, ovnLow_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnVolume_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(22, ovnVolume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnChange_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(23, ovnChange_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(ovnChangeRatio_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(24, ovnChangeRatio_);
+      }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
       return size;
@@ -1676,6 +2474,34 @@ public final class Quotes {
           .equals(other.getChange())) return false;
       if (!getChangeRatio()
           .equals(other.getChangeRatio())) return false;
+      if (!getExtTradeTime()
+          .equals(other.getExtTradeTime())) return false;
+      if (!getExtPrice()
+          .equals(other.getExtPrice())) return false;
+      if (!getExtHigh()
+          .equals(other.getExtHigh())) return false;
+      if (!getExtLow()
+          .equals(other.getExtLow())) return false;
+      if (!getExtVolume()
+          .equals(other.getExtVolume())) return false;
+      if (!getExtChange()
+          .equals(other.getExtChange())) return false;
+      if (!getExtChangeRatio()
+          .equals(other.getExtChangeRatio())) return false;
+      if (!getOvnTradeTime()
+          .equals(other.getOvnTradeTime())) return false;
+      if (!getOvnPrice()
+          .equals(other.getOvnPrice())) return false;
+      if (!getOvnHigh()
+          .equals(other.getOvnHigh())) return false;
+      if (!getOvnLow()
+          .equals(other.getOvnLow())) return false;
+      if (!getOvnVolume()
+          .equals(other.getOvnVolume())) return false;
+      if (!getOvnChange()
+          .equals(other.getOvnChange())) return false;
+      if (!getOvnChangeRatio()
+          .equals(other.getOvnChangeRatio())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -1709,6 +2535,34 @@ public final class Quotes {
       hash = (53 * hash) + getChange().hashCode();
       hash = (37 * hash) + CHANGE_RATIO_FIELD_NUMBER;
       hash = (53 * hash) + getChangeRatio().hashCode();
+      hash = (37 * hash) + EXT_TRADE_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getExtTradeTime().hashCode();
+      hash = (37 * hash) + EXT_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getExtPrice().hashCode();
+      hash = (37 * hash) + EXT_HIGH_FIELD_NUMBER;
+      hash = (53 * hash) + getExtHigh().hashCode();
+      hash = (37 * hash) + EXT_LOW_FIELD_NUMBER;
+      hash = (53 * hash) + getExtLow().hashCode();
+      hash = (37 * hash) + EXT_VOLUME_FIELD_NUMBER;
+      hash = (53 * hash) + getExtVolume().hashCode();
+      hash = (37 * hash) + EXT_CHANGE_FIELD_NUMBER;
+      hash = (53 * hash) + getExtChange().hashCode();
+      hash = (37 * hash) + EXT_CHANGE_RATIO_FIELD_NUMBER;
+      hash = (53 * hash) + getExtChangeRatio().hashCode();
+      hash = (37 * hash) + OVN_TRADE_TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnTradeTime().hashCode();
+      hash = (37 * hash) + OVN_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnPrice().hashCode();
+      hash = (37 * hash) + OVN_HIGH_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnHigh().hashCode();
+      hash = (37 * hash) + OVN_LOW_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnLow().hashCode();
+      hash = (37 * hash) + OVN_VOLUME_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnVolume().hashCode();
+      hash = (37 * hash) + OVN_CHANGE_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnChange().hashCode();
+      hash = (37 * hash) + OVN_CHANGE_RATIO_FIELD_NUMBER;
+      hash = (53 * hash) + getOvnChangeRatio().hashCode();
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -1861,6 +2715,34 @@ public final class Quotes {
 
         changeRatio_ = "";
 
+        extTradeTime_ = "";
+
+        extPrice_ = "";
+
+        extHigh_ = "";
+
+        extLow_ = "";
+
+        extVolume_ = "";
+
+        extChange_ = "";
+
+        extChangeRatio_ = "";
+
+        ovnTradeTime_ = "";
+
+        ovnPrice_ = "";
+
+        ovnHigh_ = "";
+
+        ovnLow_ = "";
+
+        ovnVolume_ = "";
+
+        ovnChange_ = "";
+
+        ovnChangeRatio_ = "";
+
         return this;
       }
 
@@ -1901,6 +2783,20 @@ public final class Quotes {
         result.volume_ = volume_;
         result.change_ = change_;
         result.changeRatio_ = changeRatio_;
+        result.extTradeTime_ = extTradeTime_;
+        result.extPrice_ = extPrice_;
+        result.extHigh_ = extHigh_;
+        result.extLow_ = extLow_;
+        result.extVolume_ = extVolume_;
+        result.extChange_ = extChange_;
+        result.extChangeRatio_ = extChangeRatio_;
+        result.ovnTradeTime_ = ovnTradeTime_;
+        result.ovnPrice_ = ovnPrice_;
+        result.ovnHigh_ = ovnHigh_;
+        result.ovnLow_ = ovnLow_;
+        result.ovnVolume_ = ovnVolume_;
+        result.ovnChange_ = ovnChange_;
+        result.ovnChangeRatio_ = ovnChangeRatio_;
         onBuilt();
         return result;
       }
@@ -1988,6 +2884,62 @@ public final class Quotes {
           changeRatio_ = other.changeRatio_;
           onChanged();
         }
+        if (!other.getExtTradeTime().isEmpty()) {
+          extTradeTime_ = other.extTradeTime_;
+          onChanged();
+        }
+        if (!other.getExtPrice().isEmpty()) {
+          extPrice_ = other.extPrice_;
+          onChanged();
+        }
+        if (!other.getExtHigh().isEmpty()) {
+          extHigh_ = other.extHigh_;
+          onChanged();
+        }
+        if (!other.getExtLow().isEmpty()) {
+          extLow_ = other.extLow_;
+          onChanged();
+        }
+        if (!other.getExtVolume().isEmpty()) {
+          extVolume_ = other.extVolume_;
+          onChanged();
+        }
+        if (!other.getExtChange().isEmpty()) {
+          extChange_ = other.extChange_;
+          onChanged();
+        }
+        if (!other.getExtChangeRatio().isEmpty()) {
+          extChangeRatio_ = other.extChangeRatio_;
+          onChanged();
+        }
+        if (!other.getOvnTradeTime().isEmpty()) {
+          ovnTradeTime_ = other.ovnTradeTime_;
+          onChanged();
+        }
+        if (!other.getOvnPrice().isEmpty()) {
+          ovnPrice_ = other.ovnPrice_;
+          onChanged();
+        }
+        if (!other.getOvnHigh().isEmpty()) {
+          ovnHigh_ = other.ovnHigh_;
+          onChanged();
+        }
+        if (!other.getOvnLow().isEmpty()) {
+          ovnLow_ = other.ovnLow_;
+          onChanged();
+        }
+        if (!other.getOvnVolume().isEmpty()) {
+          ovnVolume_ = other.ovnVolume_;
+          onChanged();
+        }
+        if (!other.getOvnChange().isEmpty()) {
+          ovnChange_ = other.ovnChange_;
+          onChanged();
+        }
+        if (!other.getOvnChangeRatio().isEmpty()) {
+          ovnChangeRatio_ = other.ovnChangeRatio_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
         return this;
@@ -2066,6 +3018,76 @@ public final class Quotes {
 
                 break;
               } // case 82
+              case 90: {
+                extTradeTime_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 90
+              case 98: {
+                extPrice_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 98
+              case 106: {
+                extHigh_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 106
+              case 114: {
+                extLow_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 114
+              case 122: {
+                extVolume_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 122
+              case 130: {
+                extChange_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 130
+              case 138: {
+                extChangeRatio_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 138
+              case 146: {
+                ovnTradeTime_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 146
+              case 154: {
+                ovnPrice_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 154
+              case 162: {
+                ovnHigh_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 162
+              case 170: {
+                ovnLow_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 170
+              case 178: {
+                ovnVolume_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 178
+              case 186: {
+                ovnChange_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 186
+              case 194: {
+                ovnChangeRatio_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 194
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2881,6 +3903,1070 @@ public final class Quotes {
   checkByteStringIsUtf8(value);
         
         changeRatio_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extTradeTime_ = "";
+      /**
+       * <code>string ext_trade_time = 11;</code>
+       * @return The extTradeTime.
+       */
+      public java.lang.String getExtTradeTime() {
+        java.lang.Object ref = extTradeTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extTradeTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_trade_time = 11;</code>
+       * @return The bytes for extTradeTime.
+       */
+      public com.google.protobuf.ByteString
+          getExtTradeTimeBytes() {
+        java.lang.Object ref = extTradeTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extTradeTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_trade_time = 11;</code>
+       * @param value The extTradeTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtTradeTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extTradeTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_trade_time = 11;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtTradeTime() {
+        
+        extTradeTime_ = getDefaultInstance().getExtTradeTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_trade_time = 11;</code>
+       * @param value The bytes for extTradeTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtTradeTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extTradeTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extPrice_ = "";
+      /**
+       * <code>string ext_price = 12;</code>
+       * @return The extPrice.
+       */
+      public java.lang.String getExtPrice() {
+        java.lang.Object ref = extPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_price = 12;</code>
+       * @return The bytes for extPrice.
+       */
+      public com.google.protobuf.ByteString
+          getExtPriceBytes() {
+        java.lang.Object ref = extPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_price = 12;</code>
+       * @param value The extPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_price = 12;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtPrice() {
+        
+        extPrice_ = getDefaultInstance().getExtPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_price = 12;</code>
+       * @param value The bytes for extPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extPrice_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extHigh_ = "";
+      /**
+       * <code>string ext_high = 13;</code>
+       * @return The extHigh.
+       */
+      public java.lang.String getExtHigh() {
+        java.lang.Object ref = extHigh_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extHigh_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_high = 13;</code>
+       * @return The bytes for extHigh.
+       */
+      public com.google.protobuf.ByteString
+          getExtHighBytes() {
+        java.lang.Object ref = extHigh_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extHigh_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_high = 13;</code>
+       * @param value The extHigh to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtHigh(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extHigh_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_high = 13;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtHigh() {
+        
+        extHigh_ = getDefaultInstance().getExtHigh();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_high = 13;</code>
+       * @param value The bytes for extHigh to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtHighBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extHigh_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extLow_ = "";
+      /**
+       * <code>string ext_low = 14;</code>
+       * @return The extLow.
+       */
+      public java.lang.String getExtLow() {
+        java.lang.Object ref = extLow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extLow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_low = 14;</code>
+       * @return The bytes for extLow.
+       */
+      public com.google.protobuf.ByteString
+          getExtLowBytes() {
+        java.lang.Object ref = extLow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extLow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_low = 14;</code>
+       * @param value The extLow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtLow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extLow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_low = 14;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtLow() {
+        
+        extLow_ = getDefaultInstance().getExtLow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_low = 14;</code>
+       * @param value The bytes for extLow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtLowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extLow_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extVolume_ = "";
+      /**
+       * <code>string ext_volume = 15;</code>
+       * @return The extVolume.
+       */
+      public java.lang.String getExtVolume() {
+        java.lang.Object ref = extVolume_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extVolume_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_volume = 15;</code>
+       * @return The bytes for extVolume.
+       */
+      public com.google.protobuf.ByteString
+          getExtVolumeBytes() {
+        java.lang.Object ref = extVolume_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extVolume_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_volume = 15;</code>
+       * @param value The extVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtVolume(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extVolume_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_volume = 15;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtVolume() {
+        
+        extVolume_ = getDefaultInstance().getExtVolume();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_volume = 15;</code>
+       * @param value The bytes for extVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtVolumeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extVolume_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extChange_ = "";
+      /**
+       * <code>string ext_change = 16;</code>
+       * @return The extChange.
+       */
+      public java.lang.String getExtChange() {
+        java.lang.Object ref = extChange_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extChange_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_change = 16;</code>
+       * @return The bytes for extChange.
+       */
+      public com.google.protobuf.ByteString
+          getExtChangeBytes() {
+        java.lang.Object ref = extChange_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extChange_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_change = 16;</code>
+       * @param value The extChange to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtChange(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extChange_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_change = 16;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtChange() {
+        
+        extChange_ = getDefaultInstance().getExtChange();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_change = 16;</code>
+       * @param value The bytes for extChange to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtChangeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extChange_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object extChangeRatio_ = "";
+      /**
+       * <code>string ext_change_ratio = 17;</code>
+       * @return The extChangeRatio.
+       */
+      public java.lang.String getExtChangeRatio() {
+        java.lang.Object ref = extChangeRatio_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          extChangeRatio_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ext_change_ratio = 17;</code>
+       * @return The bytes for extChangeRatio.
+       */
+      public com.google.protobuf.ByteString
+          getExtChangeRatioBytes() {
+        java.lang.Object ref = extChangeRatio_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          extChangeRatio_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ext_change_ratio = 17;</code>
+       * @param value The extChangeRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtChangeRatio(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        extChangeRatio_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_change_ratio = 17;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearExtChangeRatio() {
+        
+        extChangeRatio_ = getDefaultInstance().getExtChangeRatio();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ext_change_ratio = 17;</code>
+       * @param value The bytes for extChangeRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setExtChangeRatioBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        extChangeRatio_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnTradeTime_ = "";
+      /**
+       * <code>string ovn_trade_time = 18;</code>
+       * @return The ovnTradeTime.
+       */
+      public java.lang.String getOvnTradeTime() {
+        java.lang.Object ref = ovnTradeTime_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnTradeTime_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_trade_time = 18;</code>
+       * @return The bytes for ovnTradeTime.
+       */
+      public com.google.protobuf.ByteString
+          getOvnTradeTimeBytes() {
+        java.lang.Object ref = ovnTradeTime_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnTradeTime_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_trade_time = 18;</code>
+       * @param value The ovnTradeTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnTradeTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnTradeTime_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_trade_time = 18;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnTradeTime() {
+        
+        ovnTradeTime_ = getDefaultInstance().getOvnTradeTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_trade_time = 18;</code>
+       * @param value The bytes for ovnTradeTime to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnTradeTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnTradeTime_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnPrice_ = "";
+      /**
+       * <code>string ovn_price = 19;</code>
+       * @return The ovnPrice.
+       */
+      public java.lang.String getOvnPrice() {
+        java.lang.Object ref = ovnPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_price = 19;</code>
+       * @return The bytes for ovnPrice.
+       */
+      public com.google.protobuf.ByteString
+          getOvnPriceBytes() {
+        java.lang.Object ref = ovnPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_price = 19;</code>
+       * @param value The ovnPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_price = 19;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnPrice() {
+        
+        ovnPrice_ = getDefaultInstance().getOvnPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_price = 19;</code>
+       * @param value The bytes for ovnPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnPrice_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnHigh_ = "";
+      /**
+       * <code>string ovn_high = 20;</code>
+       * @return The ovnHigh.
+       */
+      public java.lang.String getOvnHigh() {
+        java.lang.Object ref = ovnHigh_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnHigh_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_high = 20;</code>
+       * @return The bytes for ovnHigh.
+       */
+      public com.google.protobuf.ByteString
+          getOvnHighBytes() {
+        java.lang.Object ref = ovnHigh_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnHigh_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_high = 20;</code>
+       * @param value The ovnHigh to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnHigh(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnHigh_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_high = 20;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnHigh() {
+        
+        ovnHigh_ = getDefaultInstance().getOvnHigh();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_high = 20;</code>
+       * @param value The bytes for ovnHigh to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnHighBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnHigh_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnLow_ = "";
+      /**
+       * <code>string ovn_low = 21;</code>
+       * @return The ovnLow.
+       */
+      public java.lang.String getOvnLow() {
+        java.lang.Object ref = ovnLow_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnLow_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_low = 21;</code>
+       * @return The bytes for ovnLow.
+       */
+      public com.google.protobuf.ByteString
+          getOvnLowBytes() {
+        java.lang.Object ref = ovnLow_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnLow_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_low = 21;</code>
+       * @param value The ovnLow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnLow(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnLow_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_low = 21;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnLow() {
+        
+        ovnLow_ = getDefaultInstance().getOvnLow();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_low = 21;</code>
+       * @param value The bytes for ovnLow to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnLowBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnLow_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnVolume_ = "";
+      /**
+       * <code>string ovn_volume = 22;</code>
+       * @return The ovnVolume.
+       */
+      public java.lang.String getOvnVolume() {
+        java.lang.Object ref = ovnVolume_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnVolume_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_volume = 22;</code>
+       * @return The bytes for ovnVolume.
+       */
+      public com.google.protobuf.ByteString
+          getOvnVolumeBytes() {
+        java.lang.Object ref = ovnVolume_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnVolume_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_volume = 22;</code>
+       * @param value The ovnVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnVolume(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnVolume_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_volume = 22;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnVolume() {
+        
+        ovnVolume_ = getDefaultInstance().getOvnVolume();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_volume = 22;</code>
+       * @param value The bytes for ovnVolume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnVolumeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnVolume_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnChange_ = "";
+      /**
+       * <code>string ovn_change = 23;</code>
+       * @return The ovnChange.
+       */
+      public java.lang.String getOvnChange() {
+        java.lang.Object ref = ovnChange_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnChange_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_change = 23;</code>
+       * @return The bytes for ovnChange.
+       */
+      public com.google.protobuf.ByteString
+          getOvnChangeBytes() {
+        java.lang.Object ref = ovnChange_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnChange_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_change = 23;</code>
+       * @param value The ovnChange to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnChange(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnChange_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_change = 23;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnChange() {
+        
+        ovnChange_ = getDefaultInstance().getOvnChange();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_change = 23;</code>
+       * @param value The bytes for ovnChange to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnChangeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnChange_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object ovnChangeRatio_ = "";
+      /**
+       * <code>string ovn_change_ratio = 24;</code>
+       * @return The ovnChangeRatio.
+       */
+      public java.lang.String getOvnChangeRatio() {
+        java.lang.Object ref = ovnChangeRatio_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          ovnChangeRatio_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string ovn_change_ratio = 24;</code>
+       * @return The bytes for ovnChangeRatio.
+       */
+      public com.google.protobuf.ByteString
+          getOvnChangeRatioBytes() {
+        java.lang.Object ref = ovnChangeRatio_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          ovnChangeRatio_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string ovn_change_ratio = 24;</code>
+       * @param value The ovnChangeRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnChangeRatio(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        ovnChangeRatio_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_change_ratio = 24;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOvnChangeRatio() {
+        
+        ovnChangeRatio_ = getDefaultInstance().getOvnChangeRatio();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string ovn_change_ratio = 24;</code>
+       * @param value The bytes for ovnChangeRatio to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOvnChangeRatioBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        ovnChangeRatio_ = value;
         onChanged();
         return this;
       }
@@ -8374,23 +10460,30 @@ public final class Quotes {
     java.lang.String[] descriptorData = {
       "\n\014quotes.proto\022\006quotes\"Z\n\005Basic\022\016\n\006symbo" +
       "l\030\001 \001(\t\022\025\n\rinstrument_id\030\002 \001(\t\022\021\n\ttimest" +
-      "amp\030\003 \001(\t\022\027\n\017trading_session\030\004 \001(\t\"\275\001\n\010S" +
+      "amp\030\003 \001(\t\022\027\n\017trading_session\030\004 \001(\t\"\335\003\n\010S" +
       "napshot\022\034\n\005basic\030\001 \001(\0132\r.quotes.Basic\022\022\n" +
       "\ntrade_time\030\002 \001(\t\022\r\n\005price\030\003 \001(\t\022\014\n\004open" +
       "\030\004 \001(\t\022\014\n\004high\030\005 \001(\t\022\013\n\003low\030\006 \001(\t\022\021\n\tpre" +
       "_close\030\007 \001(\t\022\016\n\006volume\030\010 \001(\t\022\016\n\006change\030\t" +
-      " \001(\t\022\024\n\014change_ratio\030\n \001(\t\"a\n\005Quote\022\034\n\005b" +
-      "asic\030\001 \001(\0132\r.quotes.Basic\022\034\n\004asks\030\002 \003(\0132" +
-      "\016.quotes.AskBid\022\034\n\004bids\030\003 \003(\0132\016.quotes.A" +
-      "skBid\"_\n\004Tick\022\034\n\005basic\030\001 \001(\0132\r.quotes.Ba" +
-      "sic\022\014\n\004time\030\002 \001(\t\022\r\n\005price\030\003 \001(\t\022\016\n\006volu" +
-      "me\030\004 \001(\t\022\014\n\004side\030\005 \001(\t\"c\n\006AskBid\022\r\n\005pric" +
-      "e\030\001 \001(\t\022\014\n\004size\030\002 \001(\t\022\034\n\005order\030\003 \003(\0132\r.q" +
-      "uotes.Order\022\036\n\006broker\030\004 \003(\0132\016.quotes.Bro" +
-      "ker\"#\n\005Order\022\014\n\004mpid\030\001 \001(\t\022\014\n\004size\030\002 \001(\t" +
-      "\"#\n\006Broker\022\013\n\003bid\030\001 \001(\t\022\014\n\004name\030\002 \001(\tB-\n" +
-      "+com.webull.openapi.data.internal.mqtt.c" +
-      "odecb\006proto3"
+      " \001(\t\022\024\n\014change_ratio\030\n \001(\t\022\026\n\016ext_trade_" +
+      "time\030\013 \001(\t\022\021\n\text_price\030\014 \001(\t\022\020\n\010ext_hig" +
+      "h\030\r \001(\t\022\017\n\007ext_low\030\016 \001(\t\022\022\n\next_volume\030\017" +
+      " \001(\t\022\022\n\next_change\030\020 \001(\t\022\030\n\020ext_change_r" +
+      "atio\030\021 \001(\t\022\026\n\016ovn_trade_time\030\022 \001(\t\022\021\n\tov" +
+      "n_price\030\023 \001(\t\022\020\n\010ovn_high\030\024 \001(\t\022\017\n\007ovn_l" +
+      "ow\030\025 \001(\t\022\022\n\novn_volume\030\026 \001(\t\022\022\n\novn_chan" +
+      "ge\030\027 \001(\t\022\030\n\020ovn_change_ratio\030\030 \001(\t\"a\n\005Qu" +
+      "ote\022\034\n\005basic\030\001 \001(\0132\r.quotes.Basic\022\034\n\004ask" +
+      "s\030\002 \003(\0132\016.quotes.AskBid\022\034\n\004bids\030\003 \003(\0132\016." +
+      "quotes.AskBid\"_\n\004Tick\022\034\n\005basic\030\001 \001(\0132\r.q" +
+      "uotes.Basic\022\014\n\004time\030\002 \001(\t\022\r\n\005price\030\003 \001(\t" +
+      "\022\016\n\006volume\030\004 \001(\t\022\014\n\004side\030\005 \001(\t\"c\n\006AskBid" +
+      "\022\r\n\005price\030\001 \001(\t\022\014\n\004size\030\002 \001(\t\022\034\n\005order\030\003" +
+      " \003(\0132\r.quotes.Order\022\036\n\006broker\030\004 \003(\0132\016.qu" +
+      "otes.Broker\"#\n\005Order\022\014\n\004mpid\030\001 \001(\t\022\014\n\004si" +
+      "ze\030\002 \001(\t\"#\n\006Broker\022\013\n\003bid\030\001 \001(\t\022\014\n\004name\030" +
+      "\002 \001(\tB-\n+com.webull.openapi.data.interna" +
+      "l.mqtt.codecb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -8407,7 +10500,7 @@ public final class Quotes {
     internal_static_quotes_Snapshot_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_quotes_Snapshot_descriptor,
-        new java.lang.String[] { "Basic", "TradeTime", "Price", "Open", "High", "Low", "PreClose", "Volume", "Change", "ChangeRatio", });
+        new java.lang.String[] { "Basic", "TradeTime", "Price", "Open", "High", "Low", "PreClose", "Volume", "Change", "ChangeRatio", "ExtTradeTime", "ExtPrice", "ExtHigh", "ExtLow", "ExtVolume", "ExtChange", "ExtChangeRatio", "OvnTradeTime", "OvnPrice", "OvnHigh", "OvnLow", "OvnVolume", "OvnChange", "OvnChangeRatio", });
     internal_static_quotes_Quote_descriptor =
       getDescriptor().getMessageTypes().get(2);
     internal_static_quotes_Quote_fieldAccessorTable = new

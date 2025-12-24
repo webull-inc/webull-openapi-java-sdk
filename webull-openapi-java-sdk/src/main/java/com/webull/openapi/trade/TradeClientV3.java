@@ -27,6 +27,7 @@ public class TradeClientV3 implements ITradeV3Client {
 	private static final String ACCOUNT_ID_ARG = "accountId";
 	private static final String TRADE_ORDER_ARG = "tradeOrder";
 	private static final String NEW_ORDERS_ARG = "newOrders";
+    private static final String BATCH_ORDERS_ARG = "batchOrders";
 	private static final String MODIFY_ORDERS_ARG = "modifyOrders";
 	private static final String CLIENT_ORDER_ID_ARG = "clientOrderId";
 
@@ -40,6 +41,7 @@ public class TradeClientV3 implements ITradeV3Client {
 
 	private static final String CLIENT_COMBO_ORDER_ID_PARAM = "client_combo_order_id";
 	private static final String NEW_ORDERS_PARAM = "new_orders";
+    private static final String BATCH_ORDERS_PARAM = "batch_orders";
 	private static final String MODIFY_ORDERS_PARAM = "modify_orders";
 
 	private final Region region;
@@ -108,7 +110,7 @@ public class TradeClientV3 implements ITradeV3Client {
 		Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
 		Assert.notEmpty(NEW_ORDERS_ARG, tradeOrder.getNewOrders());
 		HttpRequest request = new HttpRequest("/openapi/trade/order/place", Versions.V2, HttpMethod.POST);
-		addCustomHeadersFromOrder(request, tradeOrder);
+		addCustomHeadersFromOrder(request, tradeOrder.getNewOrders());
 
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
@@ -122,7 +124,24 @@ public class TradeClientV3 implements ITradeV3Client {
 		}.getType()).doAction();
 	}
 
-	@Override
+    @Override
+    public TradeBatchPlaceResponse batchPlaceOrder(String accountId, TradeOrder tradeOrder) {
+        Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+        Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
+        Assert.notEmpty(BATCH_ORDERS_ARG, tradeOrder.getBatchOrders());
+        HttpRequest request = new HttpRequest("/openapi/trade/order/batch-place", Versions.V2, HttpMethod.POST);
+        addCustomHeadersFromOrder(request, tradeOrder.getBatchOrders());
+
+        Map<String, Object> params = new HashMap<>();
+        params.put(ACCOUNT_ID_PARAM, accountId);
+        params.put(BATCH_ORDERS_PARAM, tradeOrder.getBatchOrders());
+        request.setBody(params);
+
+        return apiClient.request(request).responseType(new TypeToken<TradeBatchPlaceResponse>() {
+        }.getType()).doAction();
+    }
+
+    @Override
 	public TradeOrderResponse replaceOrder(String accountId, TradeOrder tradeOrder) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 		Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
@@ -213,22 +232,20 @@ public class TradeClientV3 implements ITradeV3Client {
 		return Collections.emptyList();
 	}
 
-	private void addCustomHeadersFromOrder(HttpRequest request, TradeOrder tradeOrder) {
-		if (Objects.isNull(tradeOrder)
-			|| CollectionUtils.isEmpty(tradeOrder.getNewOrders())
-			|| Objects.isNull(tradeOrder.getNewOrders().get(0))) {
+	private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {
+		if (CollectionUtils.isEmpty(orders)
+			|| Objects.isNull(orders.get(0))) {
 			return;
 		}
-
-		if(CollectionUtils.isEmpty(tradeOrder.getNewOrders().get(0).getLegs())){
-			TradeOrderItem item = tradeOrder.getNewOrders().get(0);
-			List<String> categoryList = Arrays.asList(item.getMarket(), item.getInstrumentType());
+        TradeOrderItem tradeOrderItem = orders.get(0);
+		if(CollectionUtils.isEmpty(tradeOrderItem.getLegs())){
+			List<String> categoryList = Arrays.asList(tradeOrderItem.getMarket(), tradeOrderItem.getInstrumentType());
 			String category = StringUtils.join(categoryList, "_");
 			if (StringUtils.isNotBlank(category)) {
 				request.getHeaders().put(Headers.CATEGORY_KEY, category);
 			}
 		}else{
-			OptionOrderItemLeg item = tradeOrder.getNewOrders().get(0).getLegs().stream().
+			OptionOrderItemLeg item = tradeOrderItem.getLegs().stream().
 					filter(v-> Objects.nonNull(v) && Objects.equals(InstrumentSuperType.OPTION.name(), v.getInstrumentType()))
 					.findFirst().orElse(null);
 			if(Objects.isNull(item)){

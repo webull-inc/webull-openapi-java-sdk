@@ -18,28 +18,30 @@ package com.webull.openapi.data.quotes.domain;
 public class Snapshot extends QuotesBasic {
 
     private String tradeTime;
+    private Long lastTradeTime;
     private String price;
     private String open;
     private String high;
     private String low;
     private String preClose;
+    private String close;
     private String volume;
     private String change;
     private String changeRatio;
-    private String close;
-    private Long lastTradeTime;
+    private Long ovnLastTradeTime;
     private String ovnPrice;
     private String ovnHigh;
     private String ovnLow;
     private String ovnVolume;
     private String ovnChange;
     private String ovnChangeRatio;
-    private Long ovnLastTradeTime;
+    private Long extendHourLastTradeTime;
+    private String extendHourLastPrice;
+    private String extendHourHigh;
+    private String extendHourLow;
+    private String extendHourVolume;
     private String extendHourChange;
     private String extendHourChangeRatio;
-    private String extendHourVolume;
-    private String extendHourLastPrice;
-    private Long extendHourLastTradeTime;
     private String tradingSession;
     private String openInterest;
     private Long quoteTime;
@@ -47,6 +49,10 @@ public class Snapshot extends QuotesBasic {
     private String ask;
     private String askSize;
     private String bidSize;
+    private String ovnBid;
+    private String ovnAsk;
+    private String ovnBidSize;
+    private String ovnAskSize;
     private String settleDate;
     private String settlePrice;
 
@@ -138,6 +144,15 @@ public class Snapshot extends QuotesBasic {
         this.lastTradeTime = lastTradeTime;
     }
 
+
+    public Long getExtendHourLastTradeTime() {
+        return extendHourLastTradeTime;
+    }
+
+    public void setExtendHourLastTradeTime(Long extendHourLastTradeTime) {
+        this.extendHourLastTradeTime = extendHourLastTradeTime;
+    }
+
     public String getExtendHourLastPrice() {
         return extendHourLastPrice;
     }
@@ -146,12 +161,21 @@ public class Snapshot extends QuotesBasic {
         this.extendHourLastPrice = extendHourLastPrice;
     }
 
-    public Long getExtendHourLastTradeTime() {
-        return extendHourLastTradeTime;
+
+    public String getExtendHourLow() {
+        return extendHourLow;
     }
 
-    public void setExtendHourLastTradeTime(Long extendHourLastTradeTime) {
-        this.extendHourLastTradeTime = extendHourLastTradeTime;
+    public void setExtendHourLow(String extendHourLow) {
+        this.extendHourLow = extendHourLow;
+    }
+
+    public String getExtendHourHigh() {
+        return extendHourHigh;
+    }
+
+    public void setExtendHourHigh(String extendHourHigh) {
+        this.extendHourHigh = extendHourHigh;
     }
 
     public String getOvnPrice() {
@@ -306,40 +330,81 @@ public class Snapshot extends QuotesBasic {
         this.settlePrice = settlePrice;
     }
 
+    public String getOvnBid() {
+        return ovnBid;
+    }
+
+    public void setOvnBid(String ovnBid) {
+        this.ovnBid = ovnBid;
+    }
+
+    public String getOvnAsk() {
+        return ovnAsk;
+    }
+
+    public void setOvnAsk(String ovnAsk) {
+        this.ovnAsk = ovnAsk;
+    }
+
+    public String getOvnBidSize() {
+        return ovnBidSize;
+    }
+
+    public void setOvnBidSize(String ovnBidSize) {
+        this.ovnBidSize = ovnBidSize;
+    }
+
+    public String getOvnAskSize() {
+        return ovnAskSize;
+    }
+
+    public void setOvnAskSize(String ovnAskSize) {
+        this.ovnAskSize = ovnAskSize;
+    }
+
     @Override
     public String toString() {
         return "Snapshot{" +
-                "tradeTime='" + tradeTime + '\'' +
+                "symbol='" + symbol + '\'' +
+                ", instrumentId='" + instrumentId + '\'' +
+                ", tradingSession='" + tradingSession + '\'' +
+                ", tradeTime='" + tradeTime + '\'' +
+                ", lastTradeTime='" + lastTradeTime + '\'' +
                 ", price='" + price + '\'' +
                 ", open='" + open + '\'' +
                 ", high='" + high + '\'' +
                 ", low='" + low + '\'' +
+                ", close='" + close + '\'' +
                 ", preClose='" + preClose + '\'' +
                 ", volume='" + volume + '\'' +
                 ", change='" + change + '\'' +
                 ", changeRatio='" + changeRatio + '\'' +
-                ", symbol='" + symbol + '\'' +
-                ", instrumentId='" + instrumentId + '\'' +
-                ", close='" + close + '\'' +
-                ", lastTradeTime='" + lastTradeTime + '\'' +
-                ", extendHourLastPrice='" + extendHourLastPrice + '\'' +
                 ", extendHourLastTradeTime='" + extendHourLastTradeTime + '\'' +
+                ", extendHourLastPrice='" + extendHourLastPrice + '\'' +
+                ", extendHourHigh='" + extendHourHigh + '\'' +
+                ", extendHourLow='" + extendHourLow + '\'' +
+                ", extendHourVolume='" + extendHourVolume + '\'' +
+                ", extendHourChange='" + extendHourChange + '\'' +
+                ", extendHourChangeRatio='" + extendHourChangeRatio + '\'' +
+                ", ovnLastTradeTime='" + ovnLastTradeTime + '\'' +
                 ", ovnHigh='" + ovnHigh + '\'' +
                 ", ovnLow='" + ovnLow + '\'' +
                 ", ovnVolume='" + ovnVolume + '\'' +
                 ", ovnChange='" + ovnChange + '\'' +
                 ", ovnChangeRatio='" + ovnChangeRatio + '\'' +
-                ", ovnLastTradeTime='" + ovnLastTradeTime + '\'' +
                 ", extendHourChange='" + extendHourChange + '\'' +
                 ", extendHourChangeRatio='" + extendHourChangeRatio + '\'' +
                 ", extendHourVolume='" + extendHourVolume + '\'' +
-                ", tradingSession='" + tradingSession + '\'' +
                 ", openInterest='" + openInterest + '\'' +
                 ", quoteTime='" + quoteTime + '\'' +
                 ", bid='" + bid + '\'' +
+                ", bidSize='" + bidSize + '\'' +
                 ", ask='" + ask + '\'' +
                 ", askSize='" + askSize + '\'' +
-                ", bidSize='" + bidSize + '\'' +
+                ", ovnBid='" + ovnBid + '\'' +
+                ", ovnBidSize='" + ovnBidSize + '\'' +
+                ", ovnAsk='" + ovnAsk + '\'' +
+                ", ovnAskSize='" + ovnAskSize + '\'' +
                 ", settleDate='" + settleDate + '\'' +
                 ", settlePrice='" + settlePrice + '\'' +
                 '}';
