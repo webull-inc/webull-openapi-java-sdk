@@ -17,6 +17,10 @@ package com.webull.openapi.core.common.dict;
 
 public enum Timespan {
 
+    S5,
+
+    S15,
+
     /** 1 minute k */
     M1,
 

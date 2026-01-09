@@ -219,6 +219,27 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<FootprintResponse> getFootprint(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, String tradingSessions) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/stock/footprint", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.TIMESPAN, timespan);
+        params.put(ArgNames.COUNT, count);
+        if(Objects.nonNull(realTimeRequired)){
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        if(StringUtils.isNotEmpty(tradingSessions)){
+            params.put(ArgNames.TRADING_SESSIONS, tradingSessions);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<FootprintResponse>>() {}.getType()).doAction();
+    }
+
+    @Override
     public List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -317,6 +338,27 @@ public class DataClient implements IDataClient {
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<FuturesInstrument>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FootprintResponse> getFuturesFootprint(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, String tradingSessions) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/futures/footprint", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.TIMESPAN, timespan);
+        params.put(ArgNames.COUNT, count);
+        if(Objects.nonNull(realTimeRequired)){
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        if(StringUtils.isNotEmpty(tradingSessions)){
+            params.put(ArgNames.TRADING_SESSIONS, tradingSessions);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<FootprintResponse>>() {}.getType()).doAction();
     }
 
     @Override
