@@ -38,6 +38,12 @@ public interface ITradeV3Client {
 	 */
 	TradeOrderResponse placeOrder(String accountId, TradeOrder tradeOrder);
 
+    /**
+     * This interface is currently supported only for Webull US.
+     * Support for other regions will be available in future updates.
+     */
+    TradeBatchPlaceResponse batchPlaceOrder(String accountId, TradeOrder tradeOrder);
+
 	/**
 	 * This interface is currently supported only for Webull US.
 	 * Support for other regions will be available in future updates.
