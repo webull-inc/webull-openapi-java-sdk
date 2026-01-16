@@ -63,6 +63,8 @@ public interface IDataClient {
 
     Tick getTicks(String symbol, String category, int count, List<String> tradingSessions);
 
+    List<FootprintResponse> getFootprint(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, String tradingSessions);
+
     List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
 
     DepthOfBook getFuturesDepth(String symbol, String category, String depth);
@@ -76,6 +78,8 @@ public interface IDataClient {
     List<FuturesInstrument> getFuturesInstruments(Set<String> symbols, String category);
 
     List<FuturesInstrument> getFuturesInstrumentsByCode(String code, String category, String contractType);
+
+    List<FootprintResponse> getFuturesFootprint(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, String tradingSessions);
 
     List<Snapshot> getCryptoSnapshots(Set<String> symbols, String category);
 

@@ -85,6 +85,9 @@ public class DataClient {
         Tick tick = dataClient.getTicks("AAPL", Category.US_STOCK.name(), 100, tradingSessions);
         logger.info("Tick: {}", tick);
 
+        List<FootprintResponse> footprint = dataClient.getFootprint(symbols, Category.US_STOCK.name(), Timespan.S5.name(), 200, null, null);
+        logger.info("Footprint: {}", footprint);
+
         DepthOfBook futureDepth = dataClient.getFuturesDepth("SILZ5", Category.US_FUTURES.name(), "1");
         logger.info("Futures depth: {}", futureDepth);
 
@@ -108,6 +111,9 @@ public class DataClient {
 
         List<FuturesInstrument> futuresInstrumentsByCode = dataClient.getFuturesInstrumentsByCode("ES", Category.US_FUTURES.name(), ContractType.MONTHLY.name());
         logger.info("Futures Instruments By Code: {}", futuresInstrumentsByCode);
+
+        List<FootprintResponse> futuresFootprint = dataClient.getFuturesFootprint(futuresSymbols, Category.US_FUTURES.name(), Timespan.S5.name(), 200, null, null);
+        logger.info("FuturesFootprint: {}", futuresFootprint);
 
 //        // get end of day market
 //        List<EodBars> eodBars = IDataClient.getEodBars(instrumentIds, "2023-01-01", 10);
