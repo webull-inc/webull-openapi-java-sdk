@@ -1,14 +1,6 @@
 package com.webull.openapi.samples.trade;
 
-import com.webull.openapi.core.common.dict.ComboType;
-import com.webull.openapi.core.common.dict.EntrustType;
-import com.webull.openapi.core.common.dict.InstrumentSuperType;
-import com.webull.openapi.core.common.dict.Markets;
-import com.webull.openapi.core.common.dict.OptionStrategy;
-import com.webull.openapi.core.common.dict.OptionType;
-import com.webull.openapi.core.common.dict.OrderSide;
-import com.webull.openapi.core.common.dict.OrderTIF;
-import com.webull.openapi.core.common.dict.OrderType;
+import com.webull.openapi.core.common.dict.*;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
@@ -55,6 +47,9 @@ public class TradeClientV3 {
             runEquityComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
 
             runOptionOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runAlgoComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
         }
 
         if (CollectionUtils.isNotEmpty(accountIds.getCryptoAccountIds())) {
@@ -502,6 +497,73 @@ public class TradeClientV3 {
         OrderHistory orderDetailResponse = apiService.getOrderDetails(accountId, normalFuturesOrder.getClientOrderId());
         logger.info("orderDetailResponse: {}", orderDetailResponse);
     }
+
+    private static void runAlgoComboOrderExample(
+            com.webull.openapi.trade.TradeClientV3 apiService,
+            String accountId
+    ) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem algoOrderItem = new TradeOrderItem();
+        algoOrderItem.setClientOrderId(GUID.get());
+        algoOrderItem.setComboType(ComboType.NORMAL.name());
+        algoOrderItem.setSymbol("AAPL");
+        algoOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        algoOrderItem.setMarket(Markets.US.name());
+        algoOrderItem.setOrderType(OrderType.LIMIT.name());
+        algoOrderItem.setQuantity("1");
+        algoOrderItem.setLimitPrice("200");
+        algoOrderItem.setSupportTradingSession("CORE");
+        algoOrderItem.setSide(OrderSide.BUY.name());
+        algoOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        algoOrderItem.setEntrustType(EntrustType.QTY.name());
+        algoOrderItem.setAlgoType(AlgoType.POV.name());
+        algoOrderItem.setTargetVolPercent("10");
+        algoOrderItem.setAlgoStartTime("16:00:00");
+        algoOrderItem.setAlgoEndTime("23:00:00");
+        newComboEquityOrders.add(algoOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        PreviewOrderResponse previewAlgoOrderResponse =
+                apiService.previewOrder(accountId, newComboEquityOrder);
+        logger.info("previewAlgoResponse: {}", previewAlgoOrderResponse);
+
+        TradeOrderResponse placeAlgoOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeAlgoOrderResponse: {}", placeAlgoOrderResponse);
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceAlgoOrders = new ArrayList<>();
+
+        TradeOrderItem replaceAlgoOrderItem = new TradeOrderItem();
+        replaceAlgoOrderItem.setClientOrderId(algoOrderItem.getClientOrderId());
+        algoOrderItem.setAlgoEndTime("23:30:00");
+        replaceAlgoOrders.add(replaceAlgoOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceAlgoOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceAlgoResponse: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelAlgoOrder = new TradeOrder();
+        cancelAlgoOrder.setClientOrderId(algoOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelAlgoOrder);
+        logger.info("cancelAlgoOrderResponse: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, algoOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+
 
     private static void doSleep() throws InterruptedException {
         final int totalSeconds = 5;

@@ -48,4 +48,5 @@ public final class ArgNames {
     public static final String NEXT_CURSOR = "next_cursor";
     public static final String STATUS = "status";
     public static final String PARAMETER = "parameter";
+    public static final String SERIES_SYMBOL = "series_symbol";
 }

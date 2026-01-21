@@ -444,4 +444,66 @@ public class DataClient implements IDataClient {
         return apiClient.request(request).responseType(new TypeToken<List<CryptoInstrumentDetail>>() {}.getType()).doAction();
     }
 
+    @Override
+    public List<EventSeries> getEventSeriesList(EventInstrumentParam eventInstrumentParam) {
+        Assert.notNull(ArgNames.PARAMETER, eventInstrumentParam);
+        String category = eventInstrumentParam.getCategory();
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/event/series/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if(StringUtils.isNotEmpty(eventInstrumentParam.getLastInstrumentId())){
+            params.put(ArgNames.LAST_INSTRUMENT_ID, eventInstrumentParam.getLastInstrumentId());
+        }
+        params.put(ArgNames.PAGE_SIZE, eventInstrumentParam.getPageSize());
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<EventSeries>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EventMarket> getEventInstrumentsList(EventInstrumentParam eventInstrumentParam) {
+        Assert.notNull(ArgNames.PARAMETER, eventInstrumentParam);
+        Assert.notBlank(ArgNames.SERIES_SYMBOL, eventInstrumentParam.getSeriesSymbol());
+        HttpRequest request = new HttpRequest("/openapi/instrument/event/market/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SERIES_SYMBOL, eventInstrumentParam.getSeriesSymbol());
+        if(StringUtils.isNotEmpty(eventInstrumentParam.getLastInstrumentId())){
+            params.put(ArgNames.LAST_INSTRUMENT_ID, eventInstrumentParam.getLastInstrumentId());
+        }
+        params.put(ArgNames.PAGE_SIZE, eventInstrumentParam.getPageSize());
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<EventMarket>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EventSnapshot> getEventSnapshot(Set<String> symbols, String category) {
+        Assert.notNull(ArgNames.SYMBOLS, symbols);
+        HttpRequest request = new HttpRequest("/openapi/market-data/event/snapshot", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if(CollectionUtils.isNotEmpty(symbols)){
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if(StringUtils.isNotBlank(category)){
+            params.put(ArgNames.CATEGORY, category);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<EventSnapshot>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public EventDepth getEventDepth(String symbol, String category, String depth) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        HttpRequest request = new HttpRequest("/openapi/market-data/event/depth", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        if(StringUtils.isNotBlank(category)){
+            params.put(ArgNames.CATEGORY, category);
+        }
+        if(StringUtils.isNotBlank(depth)){
+            params.put(ArgNames.DEPTH, depth);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<EventDepth>() {}.getType()).doAction();
+    }
+
 }

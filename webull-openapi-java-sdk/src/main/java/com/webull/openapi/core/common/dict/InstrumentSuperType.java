@@ -32,4 +32,5 @@ public enum InstrumentSuperType {
     /** Futures */
     FUTURES,
 
+    EVENT
 }

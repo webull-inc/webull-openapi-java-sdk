@@ -55,5 +55,10 @@ public enum Category {
     /**
      * US Cryptocurrency
      */
-    US_CRYPTO
+    US_CRYPTO,
+
+    /**
+     * US Event
+     */
+    US_EVENT
 }

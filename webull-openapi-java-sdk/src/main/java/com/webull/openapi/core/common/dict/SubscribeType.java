@@ -36,7 +36,14 @@ public enum SubscribeType {
     /**
      * Tick-by-Tick
      */
-    TICK(2, "tick");
+    TICK(2, "tick"),
+
+    /**
+     * No need to subscribe, just a decoder
+     */
+    EVENT_QUOTE(3, "event-quote"),
+
+    EVENT_SNAPSHOT(4, "event-snapshot");
 
     private final int code;
     private final String type;

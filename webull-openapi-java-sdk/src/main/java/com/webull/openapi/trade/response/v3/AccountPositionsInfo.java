@@ -36,6 +36,7 @@ public class AccountPositionsInfo implements Serializable {
     private String marketValue;
     private String dayRealizedProfitLoss;
     private String proportion;
+    private String eventOutcome;
     private List<CommonPositionInfo> legs;
 
     public String getPositionId() {
@@ -142,6 +143,14 @@ public class AccountPositionsInfo implements Serializable {
         this.proportion = proportion;
     }
 
+    public String getEventOutcome() {
+        return eventOutcome;
+    }
+
+    public void setEventOutcome(String eventOutcome) {
+        this.eventOutcome = eventOutcome;
+    }
+
     public List<CommonPositionInfo> getLegs() {
         return legs;
     }
@@ -166,6 +175,7 @@ public class AccountPositionsInfo implements Serializable {
                 ", unrealizedProfitLossRate='" + unrealizedProfitLossRate + '\'' +
                 ", dayRealizedProfitLoss='" + dayRealizedProfitLoss + '\'' +
                 ", proportion='" + proportion + '\'' +
+                ", eventOutcome='" + eventOutcome + '\'' +
                 ", legs=" + legs +
                 '}';
     }
