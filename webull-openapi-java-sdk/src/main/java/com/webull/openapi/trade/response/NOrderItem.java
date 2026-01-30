@@ -44,6 +44,12 @@ public class NOrderItem {
     private String trailingStopStep;
     private String trailingType;
     private String accountTaxType;
+    private String eventOutcome;
+    private String algoType;
+    private String targetVolPercent;
+    private String maxTargetPercent;
+    private String algoStartTime;
+    private String algoEndTime;
     private List<NOrderItemLeg> legs;
 
     @Deprecated
@@ -262,6 +268,14 @@ public class NOrderItem {
         this.trailingType = trailingType;
     }
 
+    public String getEventOutcome() {
+        return eventOutcome;
+    }
+
+    public void setEventOutcome(String eventOutcome) {
+        this.eventOutcome = eventOutcome;
+    }
+
     public List<NOrderItemLeg> getLegs() {
         return legs;
     }
@@ -340,6 +354,46 @@ public class NOrderItem {
         this.optionContractMultiplier = optionContractMultiplier;
     }
 
+    public String getAlgoType() {
+        return algoType;
+    }
+
+    public void setAlgoType(String algoType) {
+        this.algoType = algoType;
+    }
+
+    public String getTargetVolPercent() {
+        return targetVolPercent;
+    }
+
+    public void setTargetVolPercent(String targetVolPercent) {
+        this.targetVolPercent = targetVolPercent;
+    }
+
+    public String getMaxTargetPercent() {
+        return maxTargetPercent;
+    }
+
+    public void setMaxTargetPercent(String maxTargetPercent) {
+        this.maxTargetPercent = maxTargetPercent;
+    }
+
+    public String getAlgoStartTime() {
+        return algoStartTime;
+    }
+
+    public void setAlgoStartTime(String algoStartTime) {
+        this.algoStartTime = algoStartTime;
+    }
+
+    public String getAlgoEndTime() {
+        return algoEndTime;
+    }
+
+    public void setAlgoEndTime(String algoEndTime) {
+        this.algoEndTime = algoEndTime;
+    }
+
     @Override
     public String toString() {
         return "NOrderItem{" +
@@ -368,6 +422,12 @@ public class NOrderItem {
                 ", filledTime='" + filledTime + '\'' +
                 ", filledTimeAt='" + filledTimeAt + '\'' +
                 ", optionStrategy='" + optionStrategy + '\'' +
+                ", eventOutcome='" + eventOutcome + '\'' +
+                ", algoType='" + algoType + '\'' +
+                ", algoStartTime='" + algoStartTime + '\'' +
+                ", algoEndTime='" + algoEndTime + '\'' +
+                ", targetVolPercent='" + targetVolPercent + '\'' +
+                ", maxTargetPercent='" + maxTargetPercent + '\'' +
                 ", legs='" + legs + '\'' +
                 '}';
     }

@@ -46,11 +46,14 @@ public class TradeEventsClient {
         if (SubscribeResponse.CONTENT_TYPE_JSON.equals(response.getContentType())) {
             Map<String, String> payload = JsonSerializer.fromJson(response.getPayload(),
                     new TypeToken<Map<String, String>>(){}.getType());
-            if (EventType.Order.getCode() == response.getEventType() || EventType.Position.getCode() == response.getEventType()) {
+            if (EventType.Order.getCode() == response.getEventType()) {
                 logger.info("----request_id:{}----", payload.get("request_id"));
                 logger.info(payload.get("account_id"));
                 logger.info(payload.get("client_order_id"));
                 logger.info(payload.get("order_status"));
+            }
+            if (EventType.Position.getCode() == response.getEventType()) {
+                logger.info("event payload:{}", payload);
             }
         }
     }

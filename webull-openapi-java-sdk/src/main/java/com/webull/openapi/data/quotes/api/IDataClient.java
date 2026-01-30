@@ -88,4 +88,13 @@ public interface IDataClient {
     List<StockInstrumentDetail> getInstrumentsV1(InstrumentQueryParam param);
 
     List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param);
+
+    List<EventSeries> getEventSeriesList(EventInstrumentParam eventInstrumentParam);
+
+    List<EventMarket> getEventInstrumentsList(EventInstrumentParam eventInstrumentParam);
+
+    List<EventSnapshot> getEventSnapshot(Set<String> symbols, String category);
+
+    EventDepth getEventDepth(String symbol, String category, String depth);
+
 }

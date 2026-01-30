@@ -30,8 +30,13 @@ public class TradeOrderItem implements Serializable {
 	private String senderSubId;
 	private List<NoPartyId> noPartyIds;
 	private String totalCashAmount;
-
 	private String optionStrategy;
+    private String eventOutcome;
+    private String algoType;
+    private String targetVolPercent;
+    private String maxTargetPercent;
+    private String algoStartTime;
+    private String algoEndTime;
 	private List<OptionOrderItemLeg> legs;
 
 	public String getClientOrderId() {
@@ -234,7 +239,15 @@ public class TradeOrderItem implements Serializable {
 		this.optionStrategy = optionStrategy;
 	}
 
-	public List<OptionOrderItemLeg> getLegs() {
+    public String getEventOutcome() {
+        return eventOutcome;
+    }
+
+    public void setEventOutcome(String eventOutcome) {
+        this.eventOutcome = eventOutcome;
+    }
+
+    public List<OptionOrderItemLeg> getLegs() {
 		return legs;
 	}
 
@@ -242,7 +255,47 @@ public class TradeOrderItem implements Serializable {
 		this.legs = legs;
 	}
 
-	@Override
+    public String getAlgoType() {
+        return algoType;
+    }
+
+    public void setAlgoType(String algoType) {
+        this.algoType = algoType;
+    }
+
+    public String getTargetVolPercent() {
+        return targetVolPercent;
+    }
+
+    public void setTargetVolPercent(String targetVolPercent) {
+        this.targetVolPercent = targetVolPercent;
+    }
+
+    public String getMaxTargetPercent() {
+        return maxTargetPercent;
+    }
+
+    public void setMaxTargetPercent(String maxTargetPercent) {
+        this.maxTargetPercent = maxTargetPercent;
+    }
+
+    public String getAlgoStartTime() {
+        return algoStartTime;
+    }
+
+    public void setAlgoStartTime(String algoStartTime) {
+        this.algoStartTime = algoStartTime;
+    }
+
+    public String getAlgoEndTime() {
+        return algoEndTime;
+    }
+
+    public void setAlgoEndTime(String algoEndTime) {
+        this.algoEndTime = algoEndTime;
+    }
+
+    @Override
 	public String toString() {
 		return "TradeOrderItem{" +
 			"clientOrderId='" + clientOrderId + '\'' +
@@ -270,6 +323,12 @@ public class TradeOrderItem implements Serializable {
 			", noPartyIds=" + noPartyIds +
 			", totalCashAmount='" + totalCashAmount + '\'' +
 			", optionStrategy='" + optionStrategy + '\'' +
+            ", eventOutcome='" + eventOutcome + '\'' +
+			", algoType='" + algoType + '\'' +
+			", algoStartTime='" + algoStartTime + '\'' +
+			", algoEndTime='" + algoEndTime + '\'' +
+			", targetVolPercent='" + targetVolPercent + '\'' +
+			", maxTargetPercent='" + maxTargetPercent + '\'' +
 			", legs=" + legs +
 			'}';
 	}
