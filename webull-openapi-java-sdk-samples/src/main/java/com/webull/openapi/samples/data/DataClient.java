@@ -45,9 +45,13 @@ public class DataClient {
         List<Instrument> instruments = dataClient.getInstruments(symbols, Category.US_STOCK.name());
         logger.info("Instruments: {}", instruments);
 
-        // get all crypto instruments
+        // get instrumentsv1
         InstrumentQueryParam instrumentQueryParam = new InstrumentQueryParam();
         instrumentQueryParam.setCategory(Category.US_CRYPTO.name());
+        List<StockInstrumentDetail> instrumentsv1 = dataClient.getInstrumentsV1(instrumentQueryParam);
+        logger.info("Instruments v1: {}", instrumentsv1);
+
+        // get all crypto instruments
         List<CryptoInstrumentDetail> cryptoInstruments = dataClient.getCryptoInstrument(instrumentQueryParam);
         logger.info("Crypto instruments(all): {}", cryptoInstruments);
         // get all crypto instruments

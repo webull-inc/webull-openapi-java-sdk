@@ -120,7 +120,12 @@ public class StockInstrumentDetail extends Instrument{
     @Override
     public String toString() {
         return "StockInstrumentDetail{" +
-                "category='" + category + '\'' +
+                "instrumentId='" + getInstrumentId() + '\'' +
+                ", category='" + category + '\'' +
+                ", symbol='" + getSymbol() + '\'' +
+                ", name='" + getName() + '\'' +
+                ", exchangeCode='" + getExchangeCode() + '\'' +
+                ", currency='" + getCurrency() + '\'' +
                 ", status='" + status + '\'' +
                 ", fractionable=" + fractionable +
                 ", overnightTradingSupported=" + overnightTradingSupported +
