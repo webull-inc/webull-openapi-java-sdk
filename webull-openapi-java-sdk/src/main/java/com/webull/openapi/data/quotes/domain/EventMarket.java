@@ -1,5 +1,7 @@
 package com.webull.openapi.data.quotes.domain;
 
+import java.util.List;
+
 public class EventMarket {
 
     private String seriesId;
@@ -16,6 +18,47 @@ public class EventMarket {
     private String expectedExpDate;
     private String latestExpDate;
     private String payoutDate;
+    private Boolean fractionable;
+    private List<PriceRange> priceRanges;
+
+    public static class PriceRange {
+        private String start;
+        private String end;
+        private String step;
+
+        public String getStart() {
+            return start;
+        }
+
+        public void setStart(String start) {
+            this.start = start;
+        }
+
+        public String getEnd() {
+            return end;
+        }
+
+        public void setEnd(String end) {
+            this.end = end;
+        }
+
+        public String getStep() {
+            return step;
+        }
+
+        public void setStep(String step) {
+            this.step = step;
+        }
+
+        @Override
+        public String toString() {
+            return "PriceRange{" +
+                    "start='" + start + '\'' +
+                    ", end='" + end + '\'' +
+                    ", step='" + step + '\'' +
+                    '}';
+        }
+    }
 
     public String getSeriesId() {
         return seriesId;
@@ -129,6 +172,22 @@ public class EventMarket {
         this.payoutDate = payoutDate;
     }
 
+    public Boolean getFractionable() {
+        return fractionable;
+    }
+
+    public void setFractionable(Boolean fractionable) {
+        this.fractionable = fractionable;
+    }
+
+    public List<PriceRange> getPriceRanges() {
+        return priceRanges;
+    }
+
+    public void setPriceRanges(List<PriceRange> priceRanges) {
+        this.priceRanges = priceRanges;
+    }
+
     @Override
     public String toString() {
         return "EventMarket{" +
@@ -146,6 +205,8 @@ public class EventMarket {
                 ", expectedExpDate='" + expectedExpDate + '\'' +
                 ", latestExpDate='" + latestExpDate + '\'' +
                 ", payoutDate='" + payoutDate + '\'' +
+                ", fractionable='" + fractionable + '\'' +
+                ", priceRanges='" + priceRanges + '\'' +
                 '}';
     }
 }
