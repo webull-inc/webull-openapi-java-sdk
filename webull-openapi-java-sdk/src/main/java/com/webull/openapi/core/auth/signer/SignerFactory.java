@@ -29,6 +29,7 @@ public class SignerFactory {
 
     private SignerFactory() {
         this.signerAlgorithmMap.put(SignAlgorithm.HMAC_SHA1, new HmacSHA1Signer());
+        this.signerAlgorithmMap.put(SignAlgorithm.HMAC_SHA256, new HmacSHA256Signer());
         this.signerAlgorithmMap.put(SignAlgorithm.SHA256_WITH_RSA, new SHA256withRSASigner());
     }
 

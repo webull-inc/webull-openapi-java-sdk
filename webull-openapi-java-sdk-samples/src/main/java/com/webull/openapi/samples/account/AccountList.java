@@ -19,6 +19,7 @@ public class AccountList {
                 /*
                  * Webull HK: PRD env host: api.webull.hk. Test env host: api.sanbox.webull.hk
                  * Webull US: PRD env host: api.webull.com; Test env host: us-openapi-alb.uat.webullbroker.com
+                 * Webull JP: PRD env host: api.webull.co.jp; Test env host: jp-openapi-alb.uat.webullbroker.com
                  */
                 .endpoint("<api_endpoint>")
                 /*

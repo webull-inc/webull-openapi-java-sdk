@@ -15,23 +15,22 @@
  */
 package com.webull.openapi.core.auth.composer;
 
+import com.webull.openapi.core.auth.signer.SignAlgorithm;
 import com.webull.openapi.core.auth.signer.Signer;
 import com.webull.openapi.core.auth.signer.SignerFactory;
+import com.webull.openapi.core.common.DefaultHost;
 import com.webull.openapi.core.common.Headers;
+import com.webull.openapi.core.common.PreDefaultHost;
+import com.webull.openapi.core.common.UatDefaultHost;
 import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.core.http.HttpRequest;
-import com.webull.openapi.core.utils.DateUtils;
-import com.webull.openapi.core.utils.GUID;
-import com.webull.openapi.core.utils.MD5Utils;
-import com.webull.openapi.core.utils.StringUtils;
+import com.webull.openapi.core.utils.*;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DefaultSignatureComposer {
@@ -39,8 +38,16 @@ public class DefaultSignatureComposer {
     private static final String PARAMS_JOIN = "&";
     private static final String SECRET_TAILER = "&";
     private static final String PARAM_KV_JOIN = "=";
+    private static final List<String> NOT_UPGRADE_SIGN_REGIONS =
+            Arrays.asList(DefaultHost.API_US,DefaultHost.EVENTS_US,
+                    PreDefaultHost.API_US,PreDefaultHost.EVENTS_US,
+                    UatDefaultHost.API_US,UatDefaultHost.EVENTS_US,
+                    DefaultHost.API_HK,DefaultHost.EVENTS_HK,
+                    PreDefaultHost.API_HK,PreDefaultHost.EVENTS_HK,
+                    UatDefaultHost.API_HK,UatDefaultHost.EVENTS_HK);
 
     private DefaultSignatureComposer() {
+
     }
 
     private static Map<String, String> refreshSignHeaders(String host,
@@ -95,6 +102,10 @@ public class DefaultSignatureComposer {
 
 
     public static String getSign(String host, String appKey, String appSecret, HttpRequest request) {
+        //Upgrade encryption algorithm regions
+        if (!NOT_UPGRADE_SIGN_REGIONS.contains(host)) {
+            request.setSignAlgorithm(SignAlgorithm.HMAC_SHA256);
+        }
         Signer signer = SignerFactory.getInstance().get(request.getSignAlgorithm());
         Map<String, String> signParams = refreshSignHeaders(host, appKey, request.getHeaders(), signer);
         Map<String, Object> queryParams = request.getQuery();
@@ -109,8 +120,13 @@ public class DefaultSignatureComposer {
         });
 
         String bodyString = "";
+
         if (request.getBodyString() != null) {
-            bodyString = MD5Utils.md5(request.getBodyString().getBytes(StandardCharsets.UTF_8)).toUpperCase();
+            if (SignAlgorithm.HMAC_SHA256.equals(request.getSignAlgorithm())) {
+                bodyString = SHA256Utils.sha256(request.getBodyString()).toUpperCase();
+            }else {
+                bodyString = MD5Utils.md5(request.getBodyString().getBytes(StandardCharsets.UTF_8)).toUpperCase();
+            }
         }
         String signString = buildSignString(signParams, request.getUri(), bodyString);
         return getSign(signString, appSecret, signer);

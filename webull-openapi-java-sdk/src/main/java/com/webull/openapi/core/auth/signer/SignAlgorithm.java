@@ -18,7 +18,7 @@ package com.webull.openapi.core.auth.signer;
 public enum SignAlgorithm {
 
     HMAC_SHA1("HMAC-SHA1"),
-
+    HMAC_SHA256("HMAC-SHA256"),
     SHA256_WITH_RSA("SHA256withRSA");
 
     private final String signerName;

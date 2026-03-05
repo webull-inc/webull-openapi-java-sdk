@@ -31,6 +31,8 @@ public class AccountBalanceInfo implements Serializable {
     private String maintenanceMargin;
     private String usedMargin;
     private String usedMarginForOpenOrder;
+    private String oneDayUsedMargin;
+    private String oneDayUsedMarginForOpenOrder;
     private String initMargin;
     private String intradayMargin;
     private String marginExcess;
@@ -134,6 +136,22 @@ public class AccountBalanceInfo implements Serializable {
         this.usedMarginForOpenOrder = usedMarginForOpenOrder;
     }
 
+    public String getOneDayUsedMargin() {
+        return oneDayUsedMargin;
+    }
+
+    public void setOneDayUsedMargin(String oneDayUsedMargin) {
+        this.oneDayUsedMargin = oneDayUsedMargin;
+    }
+
+    public String getOneDayUsedMarginForOpenOrder() {
+        return oneDayUsedMarginForOpenOrder;
+    }
+
+    public void setOneDayUsedMarginForOpenOrder(String oneDayUsedMarginForOpenOrder) {
+        this.oneDayUsedMarginForOpenOrder = oneDayUsedMarginForOpenOrder;
+    }
+
     public String getInitMargin() {
         return initMargin;
     }
@@ -179,6 +197,8 @@ public class AccountBalanceInfo implements Serializable {
                 ", maintenanceMargin='" + maintenanceMargin + '\'' +
                 ", usedMargin='" + usedMargin + '\'' +
                 ", usedMarginForOpenOrder='" + usedMarginForOpenOrder + '\'' +
+                ", oneDayUsedMargin='" + oneDayUsedMargin + '\'' +
+                ", oneDayUsedMarginForOpenOrder='" + oneDayUsedMarginForOpenOrder + '\'' +
                 ", initMargin='" + initMargin + '\'' +
                 ", intradayMargin='" + intradayMargin + '\'' +
                 ", marginExcess='" + marginExcess + '\'' +
