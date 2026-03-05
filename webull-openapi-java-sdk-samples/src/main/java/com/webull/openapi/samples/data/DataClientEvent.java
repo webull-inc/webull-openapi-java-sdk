@@ -1,7 +1,6 @@
 package com.webull.openapi.samples.data;
 
 import com.webull.openapi.core.common.dict.Category;
-import com.webull.openapi.core.common.dict.ContractType;
 import com.webull.openapi.core.common.dict.Timespan;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
@@ -31,15 +30,24 @@ public class DataClientEvent {
                 //.tokenDir("conf_custom_relative")
                 .build();
         IDataClient dataClient = new com.webull.openapi.data.DataClient(apiConfig);
+        List<EventCategories> eventCategories = dataClient.getEventCategories();
+        logger.info("Event categories: {}", eventCategories);
 
-        EventInstrumentParam eventInstrumentParam = new EventInstrumentParam();
-        eventInstrumentParam.setCategory("ECONOMICS");
-        List<EventSeries> eventSeriesList = dataClient.getEventSeriesList(eventInstrumentParam);
+        if (CollectionUtils.isEmpty(eventCategories)) {
+            return;
+        }
+
+        List<EventSeries> eventSeriesList = dataClient.getEventSeriesList(eventCategories.get(0).getCategoryCode(), null, null, 500);
         logger.info("Event Series: {}", eventSeriesList);
 
         if (CollectionUtils.isEmpty(eventSeriesList)) {
             return;
         }
+
+        List<EventEvents> eventEvents = dataClient.getEventEvents(eventSeriesList.get(0).getSymbol(), null, "active");
+        logger.info("Event eventEvents: {}", eventEvents);
+
+        EventInstrumentParam eventInstrumentParam = new EventInstrumentParam();
         eventInstrumentParam.setSeriesSymbol(eventSeriesList.get(0).getSymbol());
         List<EventMarket> eventInstrumentsList = dataClient.getEventInstrumentsList(eventInstrumentParam);
         logger.info("Event Instruments: {}", eventInstrumentsList);
@@ -57,5 +65,10 @@ public class DataClientEvent {
         EventDepth eventDepth = dataClient.getEventDepth(symbol, Category.US_EVENT.name(), "10");
         logger.info("Event Depth: {}", eventDepth);
 
+        List<EventBars> eventBars = dataClient.getEventBars(symbols, Category.US_EVENT.name(), Timespan.M1.name(), 200, false);
+        logger.info("Event Bars: {}", eventBars);
+
+        EventTick eventTick = dataClient.getEventTick(symbol, Category.US_EVENT.name(), 200);
+        logger.info("Event Tick: {}", eventTick);
     }
 }

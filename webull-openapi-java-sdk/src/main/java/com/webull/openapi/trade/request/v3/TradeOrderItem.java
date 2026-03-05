@@ -26,6 +26,7 @@ public class TradeOrderItem implements Serializable {
 	private String accountTaxType;
 	private String tradeCurrency;
 	private String marginType;
+	private String expireDate;
 	private List<CloseContract> closeContracts;
 	private String senderSubId;
 	private List<NoPartyId> noPartyIds;
@@ -295,7 +296,15 @@ public class TradeOrderItem implements Serializable {
         this.algoEndTime = algoEndTime;
     }
 
-    @Override
+	public String getExpireDate() {
+		return expireDate;
+	}
+
+	public void setExpireDate(String expireDate) {
+		this.expireDate = expireDate;
+	}
+
+	@Override
 	public String toString() {
 		return "TradeOrderItem{" +
 			"clientOrderId='" + clientOrderId + '\'' +
@@ -316,6 +325,7 @@ public class TradeOrderItem implements Serializable {
 			", currentAsk='" + currentAsk + '\'' +
 			", currentBid='" + currentBid + '\'' +
 			", accountTaxType='" + accountTaxType + '\'' +
+			", expireDate='" + expireDate + '\'' +
 			", tradeCurrency='" + tradeCurrency + '\'' +
 			", marginType='" + marginType + '\'' +
 			", closeContracts=" + closeContracts +

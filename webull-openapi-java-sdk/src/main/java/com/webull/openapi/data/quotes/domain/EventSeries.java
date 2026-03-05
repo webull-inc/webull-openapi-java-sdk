@@ -3,7 +3,7 @@ package com.webull.openapi.data.quotes.domain;
 public class EventSeries {
 
     private String category;
-    private Integer instrumentId;
+    private String seriesId;
     private String symbol;
     private String name;
     private String frequency;
@@ -16,12 +16,12 @@ public class EventSeries {
         this.category = category;
     }
 
-    public Integer getInstrumentId() {
-        return instrumentId;
+    public String getSeriesId() {
+        return seriesId;
     }
 
-    public void setInstrumentId(Integer instrumentId) {
-        this.instrumentId = instrumentId;
+    public void setSeriesId(String seriesId) {
+        this.seriesId = seriesId;
     }
 
     public String getSymbol() {
@@ -52,7 +52,7 @@ public class EventSeries {
     public String toString() {
         return "EventSeries{" +
                 "category='" + category + '\'' +
-                ", instrumentId=" + instrumentId +
+                ", seriesId=" + seriesId +
                 ", symbol='" + symbol + '\'' +
                 ", name='" + name + '\'' +
                 ", frequency='" + frequency + '\'' +

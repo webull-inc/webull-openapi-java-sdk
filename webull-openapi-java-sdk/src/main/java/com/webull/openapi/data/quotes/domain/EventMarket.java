@@ -7,6 +7,8 @@ public class EventMarket {
     private String seriesId;
     private String seriesSymbol;
     private String seriesName;
+    private String eventSymbol;
+    private String eventName;
     private String instrumentId;
     private String symbol;
     private String name;
@@ -82,6 +84,22 @@ public class EventMarket {
 
     public void setSeriesName(String seriesName) {
         this.seriesName = seriesName;
+    }
+
+    public String getEventSymbol() {
+        return eventSymbol;
+    }
+
+    public void setEventSymbol(String eventSymbol) {
+        this.eventSymbol = eventSymbol;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
     public String getInstrumentId() {

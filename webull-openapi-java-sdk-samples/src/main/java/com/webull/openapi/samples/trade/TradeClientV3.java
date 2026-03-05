@@ -5,6 +5,7 @@ import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.utils.CollectionUtils;
+import com.webull.openapi.core.utils.DateUtils;
 import com.webull.openapi.core.utils.GUID;
 import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.samples.config.Env;
@@ -140,7 +141,8 @@ public class TradeClientV3 {
         normalEquityOrder.setLimitPrice("280");
         normalEquityOrder.setSupportTradingSession("N");
         normalEquityOrder.setSide(OrderSide.BUY.name());
-        normalEquityOrder.setTimeInForce(OrderTIF.GTC.name());
+        normalEquityOrder.setTimeInForce(OrderTIF.GTD.name());
+        normalEquityOrder.setExpireDate("2026-03-12");
         normalEquityOrder.setEntrustType(EntrustType.QTY.name());
         newNormalEquityOrder.setNewOrders(newNormalEquityOrders);
 
