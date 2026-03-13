@@ -445,32 +445,67 @@ public class DataClient implements IDataClient {
     }
 
     @Override
-    public List<EventSeries> getEventSeriesList(EventInstrumentParam eventInstrumentParam) {
-        Assert.notNull(ArgNames.PARAMETER, eventInstrumentParam);
-        String category = eventInstrumentParam.getCategory();
-        Assert.notBlank(ArgNames.CATEGORY, category);
+    public List<EventCategories> getEventCategories() {
+        HttpRequest request = new HttpRequest("/openapi/instrument/event/categories", Versions.V2, HttpMethod.GET);
+        return apiClient.request(request).responseType(new TypeToken<List<EventCategories>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EventSeries> getEventSeriesList(String category, Set<String> symbols, String lastSeriesId, int pageSize) {
         HttpRequest request = new HttpRequest("/openapi/instrument/event/series/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.CATEGORY, category);
-        if(StringUtils.isNotEmpty(eventInstrumentParam.getLastInstrumentId())){
-            params.put(ArgNames.LAST_INSTRUMENT_ID, eventInstrumentParam.getLastInstrumentId());
+        if (StringUtils.isNotEmpty(category)){
+            params.put(ArgNames.CATEGORY, category);
         }
-        params.put(ArgNames.PAGE_SIZE, eventInstrumentParam.getPageSize());
+        if (CollectionUtils.isNotEmpty(symbols)) {
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if (StringUtils.isNotEmpty(lastSeriesId)){
+            params.put(ArgNames.LAST_SERIES_ID, lastSeriesId);
+        }
+        if (pageSize > 0){
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<List<EventSeries>>() {}.getType()).doAction();
     }
 
     @Override
-    public List<EventMarket> getEventInstrumentsList(EventInstrumentParam eventInstrumentParam) {
-        Assert.notNull(ArgNames.PARAMETER, eventInstrumentParam);
-        Assert.notBlank(ArgNames.SERIES_SYMBOL, eventInstrumentParam.getSeriesSymbol());
+    public List<EventEvents> getEventEvents(String seriesSymbol, Set<String> symbols, String status) {
+        Assert.notBlank(ArgNames.SERIES_SYMBOL, seriesSymbol);
+        HttpRequest request = new HttpRequest("/openapi/instrument/event/events", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SERIES_SYMBOL, seriesSymbol);
+        if (CollectionUtils.isNotEmpty(symbols)) {
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if (StringUtils.isNotEmpty(status)) {
+            params.put(ArgNames.STATUS, status);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<EventEvents>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EventMarket> getEventInstrumentsList(EventInstrumentParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.SERIES_SYMBOL, param.getSeriesSymbol());
         HttpRequest request = new HttpRequest("/openapi/instrument/event/market/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SERIES_SYMBOL, eventInstrumentParam.getSeriesSymbol());
-        if(StringUtils.isNotEmpty(eventInstrumentParam.getLastInstrumentId())){
-            params.put(ArgNames.LAST_INSTRUMENT_ID, eventInstrumentParam.getLastInstrumentId());
+        params.put(ArgNames.SERIES_SYMBOL, param.getSeriesSymbol());
+        if (StringUtils.isNotEmpty(param.getEventSymbol())) {
+            params.put(ArgNames.EVNET_SYMBOL, param.getEventSymbol());
         }
-        params.put(ArgNames.PAGE_SIZE, eventInstrumentParam.getPageSize());
+        if (CollectionUtils.isNotEmpty(param.getSymbols())) {
+            params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        }
+        if (StringUtils.isNotEmpty(param.getExpirationDateAfter())) {
+            params.put(ArgNames.EXPIRATION_DATE_AFTER, param.getExpirationDateAfter());
+        }
+        if (StringUtils.isNotEmpty(param.getLastInstrumentId())) {
+            params.put(ArgNames.LAST_INSTRUMENT_ID, param.getLastInstrumentId());
+        }
+        params.put(ArgNames.PAGE_SIZE, param.getPageSize());
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<List<EventMarket>>() {}.getType()).doAction();
     }
@@ -504,6 +539,43 @@ public class DataClient implements IDataClient {
         }
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<EventDepth>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EventBars> getEventBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
+        Assert.notNull(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/event/bars", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.TIMESPAN, timespan);
+        if (StringUtils.isNotBlank(category)) {
+            params.put(ArgNames.CATEGORY, category);
+        }
+        if (count > 0) {
+            params.put(ArgNames.COUNT, count);
+        }
+        if (Objects.nonNull(realTimeRequired)) {
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<EventBars>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public EventTick getEventTick(String symbol, String category, int count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        HttpRequest request = new HttpRequest("/openapi/market-data/event/tick", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        if (StringUtils.isNotBlank(category)) {
+            params.put(ArgNames.CATEGORY, category);
+        }
+        if (count > 0) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<EventTick>() {}.getType()).doAction();
     }
 
 }

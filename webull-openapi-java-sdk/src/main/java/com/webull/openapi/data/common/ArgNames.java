@@ -49,4 +49,7 @@ public final class ArgNames {
     public static final String STATUS = "status";
     public static final String PARAMETER = "parameter";
     public static final String SERIES_SYMBOL = "series_symbol";
+    public static final String EVNET_SYMBOL = "event_symbol";
+    public static final String EXPIRATION_DATE_AFTER = "expiration_date_after";
+    public static final String LAST_SERIES_ID = "last_series_id";
 }

@@ -89,12 +89,20 @@ public interface IDataClient {
 
     List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param);
 
-    List<EventSeries> getEventSeriesList(EventInstrumentParam eventInstrumentParam);
+    List<EventCategories> getEventCategories();
+
+    List<EventSeries> getEventSeriesList(String category, Set<String> symbols, String lastSeriesId, int pageSize);
+
+    List<EventEvents> getEventEvents(String seriesSymbol, Set<String> symbols, String status);
 
     List<EventMarket> getEventInstrumentsList(EventInstrumentParam eventInstrumentParam);
 
     List<EventSnapshot> getEventSnapshot(Set<String> symbols, String category);
 
     EventDepth getEventDepth(String symbol, String category, String depth);
+
+    List<EventBars> getEventBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    EventTick getEventTick(String symbol, String category, int count);
 
 }

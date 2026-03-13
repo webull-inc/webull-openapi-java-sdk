@@ -27,6 +27,11 @@ public enum OrderTIF {
     GTC,
 
     /**
+     * GTD Order
+     */
+    GTD,
+
+    /**
      * Immediate deal or cancel
      */
     IOC
