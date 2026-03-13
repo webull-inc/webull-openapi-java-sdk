@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.core.http.okhttp;
 
-import com.webull.openapi.core.execption.ClientException;
+import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.http.certificate.IgnoreHostnameVerifier;
 import com.webull.openapi.core.http.certificate.IgnoreX509TrustManager;
 import com.webull.openapi.core.http.okhttp.interceptors.SocksProxyAuthInterceptor;

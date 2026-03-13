@@ -16,9 +16,9 @@
 package com.webull.openapi.data.internal.mqtt.lifecycle.binder;
 
 import com.hivemq.client.mqtt.mqtt3.Mqtt3ClientBuilder;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.AuthProvider;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.ClientStateMachine;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsHandler;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.AuthProvider;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.ClientStateMachine;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsHandler;
 import io.reactivex.Flowable;
 
 public interface MqttClientHandlerBinder {

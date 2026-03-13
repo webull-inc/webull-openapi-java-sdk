@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.data.internal.mqtt.lifecycle.binder;
 
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsHandler;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsHandler;
 
 import java.util.Comparator;
 import java.util.LinkedHashSet;

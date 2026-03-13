@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.core.http.okhttp;
 
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.core.http.RuntimeOptions;
 import com.webull.openapi.core.http.common.ProxyType;
 import okhttp3.OkHttpClient;

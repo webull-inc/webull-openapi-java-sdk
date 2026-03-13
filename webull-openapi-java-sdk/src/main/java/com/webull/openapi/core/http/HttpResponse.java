@@ -17,8 +17,8 @@ package com.webull.openapi.core.http;
 
 import com.google.gson.reflect.TypeToken;
 import com.webull.openapi.core.common.Headers;
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.core.http.common.HttpStatus;
 import com.webull.openapi.core.http.exception.HttpServerException;
 import com.webull.openapi.core.logger.Logger;

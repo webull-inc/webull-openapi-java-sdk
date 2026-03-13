@@ -15,9 +15,9 @@
  */
 package com.webull.openapi.data.internal.mqtt.lifecycle;
 
-import com.webull.openapi.data.quotes.subsribe.lifecycle.AuthProvider;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.ClientStateMachine;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsConnectedContext;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.AuthProvider;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.ClientStateMachine;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsConnectedContext;
 
 public class MqttConnectedContextAdapter implements QuotesSubsConnectedContext {
 

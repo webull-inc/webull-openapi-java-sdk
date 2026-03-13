@@ -19,7 +19,7 @@ import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.utils.Assert;
 import com.webull.openapi.data.quotes.api.subsribe.IMarketStreamingClient;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.AuthProvider;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.AuthProvider;
 
 public class ApiAuthProvider implements AuthProvider {
 

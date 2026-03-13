@@ -17,11 +17,10 @@ package com.webull.openapi.data.internal.mqtt.codec;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.webull.openapi.data.quotes.domain.*;
-import com.webull.openapi.data.quotes.subsribe.exception.DecoderException;
-import com.webull.openapi.data.quotes.subsribe.message.QuotesPublish;
+import com.webull.openapi.data.quotes.subscribe.exception.DecoderException;
+import com.webull.openapi.data.quotes.subscribe.message.QuotesPublish;
 
 import java.nio.ByteBuffer;
-import java.util.List;
 import java.util.stream.Collectors;
 
 public class EventDepthDecoder implements QuotesPublishDecoder<EventDepth> {

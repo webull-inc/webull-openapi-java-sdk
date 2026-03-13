@@ -16,8 +16,8 @@
 package com.webull.openapi.core.http.initializer.token;
 
 
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.utils.StringUtils;
