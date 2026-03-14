@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.data.internal.mqtt.lifecycle.binder;
 
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsHandler;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsInboundHandler;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsHandler;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsInboundHandler;
 import io.reactivex.Flowable;
 
 public final class MqttInboundHandlerBinder implements MqttClientHandlerBinder {

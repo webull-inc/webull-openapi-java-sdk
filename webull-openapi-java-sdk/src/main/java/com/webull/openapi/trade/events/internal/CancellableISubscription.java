@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.trade.events.internal;
 
-import com.webull.openapi.core.execption.ClientException;
+import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.trade.events.subscribe.ISubscription;
 import com.webull.openapi.trade.grpc.StatefulResponseObserver;
 

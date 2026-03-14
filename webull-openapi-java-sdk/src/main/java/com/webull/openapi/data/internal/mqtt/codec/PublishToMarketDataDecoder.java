@@ -20,10 +20,10 @@ import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.data.internal.mqtt.message.MqttPublish;
 import com.webull.openapi.data.quotes.domain.QuotesBasic;
-import com.webull.openapi.data.quotes.subsribe.codec.AbstractInboundDecoder;
-import com.webull.openapi.data.quotes.subsribe.message.MarketData;
-import com.webull.openapi.data.quotes.subsribe.message.Metadata;
-import com.webull.openapi.data.quotes.subsribe.message.QuotesPublish;
+import com.webull.openapi.data.quotes.subscribe.codec.AbstractInboundDecoder;
+import com.webull.openapi.data.quotes.subscribe.message.MarketData;
+import com.webull.openapi.data.quotes.subscribe.message.Metadata;
+import com.webull.openapi.data.quotes.subscribe.message.QuotesPublish;
 
 import java.util.ArrayList;
 import java.util.EnumMap;

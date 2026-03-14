@@ -20,8 +20,8 @@ import com.webull.openapi.data.quotes.domain.AskBid;
 import com.webull.openapi.data.quotes.domain.Broker;
 import com.webull.openapi.data.quotes.domain.Order;
 import com.webull.openapi.data.quotes.domain.Quote;
-import com.webull.openapi.data.quotes.subsribe.exception.DecoderException;
-import com.webull.openapi.data.quotes.subsribe.message.QuotesPublish;
+import com.webull.openapi.data.quotes.subscribe.exception.DecoderException;
+import com.webull.openapi.data.quotes.subscribe.message.QuotesPublish;
 
 import java.nio.ByteBuffer;
 import java.util.List;

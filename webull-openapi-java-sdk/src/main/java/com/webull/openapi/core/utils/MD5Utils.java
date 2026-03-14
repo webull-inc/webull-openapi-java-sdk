@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.core.utils;
 
-import com.webull.openapi.core.execption.ClientException;
+import com.webull.openapi.core.exception.ClientException;
 
 import java.security.MessageDigest;
 

@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.core.http.retry;
 
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ServerException;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ServerException;
 import com.webull.openapi.core.http.common.HttpMethod;
 import com.webull.openapi.core.retry.RetryContext;
 import com.webull.openapi.core.retry.condition.RetryCondition;

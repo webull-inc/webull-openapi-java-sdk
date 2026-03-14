@@ -17,8 +17,8 @@ package com.webull.openapi.trade.events.internal;
 
 import com.webull.openapi.core.common.ApiModule;
 import com.webull.openapi.core.endpoint.EndpointResolver;
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.trade.TradeEventClient;
 import com.webull.openapi.trade.grpc.lifecycle.GrpcHandler;
 import com.webull.openapi.trade.grpc.retry.GrpcRetryCondition;

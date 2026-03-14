@@ -17,8 +17,8 @@ package com.webull.openapi.data.internal.mqtt.codec;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.webull.openapi.data.quotes.domain.Snapshot;
-import com.webull.openapi.data.quotes.subsribe.exception.DecoderException;
-import com.webull.openapi.data.quotes.subsribe.message.QuotesPublish;
+import com.webull.openapi.data.quotes.subscribe.exception.DecoderException;
+import com.webull.openapi.data.quotes.subscribe.message.QuotesPublish;
 
 import java.nio.ByteBuffer;
 

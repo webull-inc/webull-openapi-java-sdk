@@ -20,8 +20,8 @@ import com.hivemq.client.mqtt.lifecycle.MqttClientReconnector;
 import com.hivemq.client.mqtt.lifecycle.MqttDisconnectSource;
 import com.hivemq.client.mqtt.mqtt3.exceptions.Mqtt3ConnAckException;
 import com.hivemq.client.mqtt.mqtt3.message.connect.connack.Mqtt3ConnAck;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.ClientStateMachine;
-import com.webull.openapi.data.quotes.subsribe.lifecycle.QuotesSubsFailedContext;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.ClientStateMachine;
+import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsFailedContext;
 
 import java.util.Optional;
 

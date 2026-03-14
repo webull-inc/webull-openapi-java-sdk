@@ -1,8 +1,8 @@
 package com.webull.openapi.samples.trade;
 
 import com.google.gson.reflect.TypeToken;
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ServerException;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ServerException;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.serialize.JsonSerializer;

@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.core.http.exception;
 
-import com.webull.openapi.core.execption.ServerException;
+import com.webull.openapi.core.exception.ServerException;
 
 public class HttpServerException extends ServerException {
 

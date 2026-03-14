@@ -16,7 +16,7 @@
 package com.webull.openapi.core.http;
 
 import com.webull.openapi.core.auth.signer.SignAlgorithm;
-import com.webull.openapi.core.execption.ClientException;
+import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.http.common.HttpMethod;
 import com.webull.openapi.core.http.common.HttpProtocol;
 import com.webull.openapi.core.serialize.JsonSerializer;

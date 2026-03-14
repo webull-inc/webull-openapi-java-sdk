@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.trade.grpc.exception;
 
-import com.webull.openapi.core.execption.ErrorCode;
-import com.webull.openapi.core.execption.ServerException;
+import com.webull.openapi.core.exception.ErrorCode;
+import com.webull.openapi.core.exception.ServerException;
 
 public class ErrorResponseException extends ServerException {
 

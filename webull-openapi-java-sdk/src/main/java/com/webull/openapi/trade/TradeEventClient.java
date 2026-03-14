@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.trade;
 
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.trade.events.internal.CancellableISubscription;
 import com.webull.openapi.trade.grpc.BaseGrpcClient;
 import com.webull.openapi.trade.grpc.StatefulResponseObserver;

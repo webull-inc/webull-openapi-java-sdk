@@ -15,8 +15,8 @@
  */
 package com.webull.openapi.core.auth.signer;
 
-import com.webull.openapi.core.execption.ClientException;
-import com.webull.openapi.core.execption.ErrorCode;
+import com.webull.openapi.core.exception.ClientException;
+import com.webull.openapi.core.exception.ErrorCode;
 
 import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
