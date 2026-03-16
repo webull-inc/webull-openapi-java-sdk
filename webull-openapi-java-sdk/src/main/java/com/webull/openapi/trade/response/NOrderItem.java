@@ -50,7 +50,11 @@ public class NOrderItem {
     private String maxTargetPercent;
     private String algoStartTime;
     private String algoEndTime;
+    private String positionIntent;
     private List<NOrderItemLeg> legs;
+    private OrderCommissionItem commission;
+    private List<OrderFeeItem> fees;
+
 
     @Deprecated
     private String quantity;
@@ -394,6 +398,30 @@ public class NOrderItem {
         this.algoEndTime = algoEndTime;
     }
 
+    public String getPositionIntent() {
+        return positionIntent;
+    }
+
+    public void setPositionIntent(String positionIntent) {
+        this.positionIntent = positionIntent;
+    }
+
+    public OrderCommissionItem getCommission() {
+        return commission;
+    }
+
+    public void setCommission(OrderCommissionItem commission) {
+        this.commission = commission;
+    }
+
+    public List<OrderFeeItem> getFees() {
+        return fees;
+    }
+
+    public void setFees(List<OrderFeeItem> fees) {
+        this.fees = fees;
+    }
+
     @Override
     public String toString() {
         return "NOrderItem{" +
@@ -428,7 +456,10 @@ public class NOrderItem {
                 ", algoEndTime='" + algoEndTime + '\'' +
                 ", targetVolPercent='" + targetVolPercent + '\'' +
                 ", maxTargetPercent='" + maxTargetPercent + '\'' +
+                ", positionIntent='" + positionIntent + '\'' +
                 ", legs='" + legs + '\'' +
+                ", commission='" + commission + '\'' +
+                ", fees='" + fees + '\'' +
                 '}';
     }
 }

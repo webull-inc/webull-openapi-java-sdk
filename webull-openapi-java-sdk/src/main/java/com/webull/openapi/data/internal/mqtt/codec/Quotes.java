@@ -14842,6 +14842,1497 @@ public final class Quotes {
 
   }
 
+  public interface EventTickOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:quotes.EventTick)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     * @return Whether the basic field is set.
+     */
+    boolean hasBasic();
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     * @return The basic.
+     */
+    com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic getBasic();
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     */
+    com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder getBasicOrBuilder();
+
+    /**
+     * <code>string yes_price = 2;</code>
+     * @return The yesPrice.
+     */
+    java.lang.String getYesPrice();
+    /**
+     * <code>string yes_price = 2;</code>
+     * @return The bytes for yesPrice.
+     */
+    com.google.protobuf.ByteString
+        getYesPriceBytes();
+
+    /**
+     * <code>string no_price = 3;</code>
+     * @return The noPrice.
+     */
+    java.lang.String getNoPrice();
+    /**
+     * <code>string no_price = 3;</code>
+     * @return The bytes for noPrice.
+     */
+    com.google.protobuf.ByteString
+        getNoPriceBytes();
+
+    /**
+     * <code>string volume = 4;</code>
+     * @return The volume.
+     */
+    java.lang.String getVolume();
+    /**
+     * <code>string volume = 4;</code>
+     * @return The bytes for volume.
+     */
+    com.google.protobuf.ByteString
+        getVolumeBytes();
+
+    /**
+     * <code>string side = 5;</code>
+     * @return The side.
+     */
+    java.lang.String getSide();
+    /**
+     * <code>string side = 5;</code>
+     * @return The bytes for side.
+     */
+    com.google.protobuf.ByteString
+        getSideBytes();
+
+    /**
+     * <code>string trade_id = 6;</code>
+     * @return The tradeId.
+     */
+    java.lang.String getTradeId();
+    /**
+     * <code>string trade_id = 6;</code>
+     * @return The bytes for tradeId.
+     */
+    com.google.protobuf.ByteString
+        getTradeIdBytes();
+
+    /**
+     * <code>string time = 7;</code>
+     * @return The time.
+     */
+    java.lang.String getTime();
+    /**
+     * <code>string time = 7;</code>
+     * @return The bytes for time.
+     */
+    com.google.protobuf.ByteString
+        getTimeBytes();
+  }
+  /**
+   * Protobuf type {@code quotes.EventTick}
+   */
+  public static final class EventTick extends
+      com.google.protobuf.GeneratedMessageV3 implements
+      // @@protoc_insertion_point(message_implements:quotes.EventTick)
+      EventTickOrBuilder {
+  private static final long serialVersionUID = 0L;
+    // Use EventTick.newBuilder() to construct.
+    private EventTick(com.google.protobuf.GeneratedMessageV3.Builder<?> builder) {
+      super(builder);
+    }
+    private EventTick() {
+      yesPrice_ = "";
+      noPrice_ = "";
+      volume_ = "";
+      side_ = "";
+      tradeId_ = "";
+      time_ = "";
+    }
+
+    @java.lang.Override
+    @SuppressWarnings({"unused"})
+    protected java.lang.Object newInstance(
+        UnusedPrivateParameter unused) {
+      return new EventTick();
+    }
+
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+    getUnknownFields() {
+      return this.unknownFields;
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return com.webull.openapi.data.internal.mqtt.codec.Quotes.internal_static_quotes_EventTick_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return com.webull.openapi.data.internal.mqtt.codec.Quotes.internal_static_quotes_EventTick_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.class, com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.Builder.class);
+    }
+
+    public static final int BASIC_FIELD_NUMBER = 1;
+    private com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic basic_;
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     * @return Whether the basic field is set.
+     */
+    @java.lang.Override
+    public boolean hasBasic() {
+      return basic_ != null;
+    }
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     * @return The basic.
+     */
+    @java.lang.Override
+    public com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic getBasic() {
+      return basic_ == null ? com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.getDefaultInstance() : basic_;
+    }
+    /**
+     * <code>.quotes.Basic basic = 1;</code>
+     */
+    @java.lang.Override
+    public com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder getBasicOrBuilder() {
+      return getBasic();
+    }
+
+    public static final int YES_PRICE_FIELD_NUMBER = 2;
+    private volatile java.lang.Object yesPrice_;
+    /**
+     * <code>string yes_price = 2;</code>
+     * @return The yesPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getYesPrice() {
+      java.lang.Object ref = yesPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        yesPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string yes_price = 2;</code>
+     * @return The bytes for yesPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getYesPriceBytes() {
+      java.lang.Object ref = yesPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        yesPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int NO_PRICE_FIELD_NUMBER = 3;
+    private volatile java.lang.Object noPrice_;
+    /**
+     * <code>string no_price = 3;</code>
+     * @return The noPrice.
+     */
+    @java.lang.Override
+    public java.lang.String getNoPrice() {
+      java.lang.Object ref = noPrice_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        noPrice_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string no_price = 3;</code>
+     * @return The bytes for noPrice.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getNoPriceBytes() {
+      java.lang.Object ref = noPrice_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        noPrice_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int VOLUME_FIELD_NUMBER = 4;
+    private volatile java.lang.Object volume_;
+    /**
+     * <code>string volume = 4;</code>
+     * @return The volume.
+     */
+    @java.lang.Override
+    public java.lang.String getVolume() {
+      java.lang.Object ref = volume_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        volume_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string volume = 4;</code>
+     * @return The bytes for volume.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getVolumeBytes() {
+      java.lang.Object ref = volume_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        volume_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int SIDE_FIELD_NUMBER = 5;
+    private volatile java.lang.Object side_;
+    /**
+     * <code>string side = 5;</code>
+     * @return The side.
+     */
+    @java.lang.Override
+    public java.lang.String getSide() {
+      java.lang.Object ref = side_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        side_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string side = 5;</code>
+     * @return The bytes for side.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getSideBytes() {
+      java.lang.Object ref = side_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        side_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TRADE_ID_FIELD_NUMBER = 6;
+    private volatile java.lang.Object tradeId_;
+    /**
+     * <code>string trade_id = 6;</code>
+     * @return The tradeId.
+     */
+    @java.lang.Override
+    public java.lang.String getTradeId() {
+      java.lang.Object ref = tradeId_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        tradeId_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string trade_id = 6;</code>
+     * @return The bytes for tradeId.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTradeIdBytes() {
+      java.lang.Object ref = tradeId_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        tradeId_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int TIME_FIELD_NUMBER = 7;
+    private volatile java.lang.Object time_;
+    /**
+     * <code>string time = 7;</code>
+     * @return The time.
+     */
+    @java.lang.Override
+    public java.lang.String getTime() {
+      java.lang.Object ref = time_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        time_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string time = 7;</code>
+     * @return The bytes for time.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getTimeBytes() {
+      java.lang.Object ref = time_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        time_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (basic_ != null) {
+        output.writeMessage(1, getBasic());
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(yesPrice_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 2, yesPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(noPrice_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 3, noPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(volume_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 4, volume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(side_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 5, side_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tradeId_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 6, tradeId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(time_)) {
+        com.google.protobuf.GeneratedMessageV3.writeString(output, 7, time_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (basic_ != null) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, getBasic());
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(yesPrice_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(2, yesPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(noPrice_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(3, noPrice_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(volume_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(4, volume_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(side_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, side_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(tradeId_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, tradeId_);
+      }
+      if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(time_)) {
+        size += com.google.protobuf.GeneratedMessageV3.computeStringSize(7, time_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick)) {
+        return super.equals(obj);
+      }
+      com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick other = (com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick) obj;
+
+      if (hasBasic() != other.hasBasic()) return false;
+      if (hasBasic()) {
+        if (!getBasic()
+            .equals(other.getBasic())) return false;
+      }
+      if (!getYesPrice()
+          .equals(other.getYesPrice())) return false;
+      if (!getNoPrice()
+          .equals(other.getNoPrice())) return false;
+      if (!getVolume()
+          .equals(other.getVolume())) return false;
+      if (!getSide()
+          .equals(other.getSide())) return false;
+      if (!getTradeId()
+          .equals(other.getTradeId())) return false;
+      if (!getTime()
+          .equals(other.getTime())) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      if (hasBasic()) {
+        hash = (37 * hash) + BASIC_FIELD_NUMBER;
+        hash = (53 * hash) + getBasic().hashCode();
+      }
+      hash = (37 * hash) + YES_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getYesPrice().hashCode();
+      hash = (37 * hash) + NO_PRICE_FIELD_NUMBER;
+      hash = (53 * hash) + getNoPrice().hashCode();
+      hash = (37 * hash) + VOLUME_FIELD_NUMBER;
+      hash = (53 * hash) + getVolume().hashCode();
+      hash = (37 * hash) + SIDE_FIELD_NUMBER;
+      hash = (53 * hash) + getSide().hashCode();
+      hash = (37 * hash) + TRADE_ID_FIELD_NUMBER;
+      hash = (53 * hash) + getTradeId().hashCode();
+      hash = (37 * hash) + TIME_FIELD_NUMBER;
+      hash = (53 * hash) + getTime().hashCode();
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input);
+    }
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessageV3
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code quotes.EventTick}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessageV3.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:quotes.EventTick)
+        com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTickOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return com.webull.openapi.data.internal.mqtt.codec.Quotes.internal_static_quotes_EventTick_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return com.webull.openapi.data.internal.mqtt.codec.Quotes.internal_static_quotes_EventTick_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.class, com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.Builder.class);
+      }
+
+      // Construct using com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessageV3.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        if (basicBuilder_ == null) {
+          basic_ = null;
+        } else {
+          basic_ = null;
+          basicBuilder_ = null;
+        }
+        yesPrice_ = "";
+
+        noPrice_ = "";
+
+        volume_ = "";
+
+        side_ = "";
+
+        tradeId_ = "";
+
+        time_ = "";
+
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return com.webull.openapi.data.internal.mqtt.codec.Quotes.internal_static_quotes_EventTick_descriptor;
+      }
+
+      @java.lang.Override
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick getDefaultInstanceForType() {
+        return com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick build() {
+        com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick buildPartial() {
+        com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick result = new com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick(this);
+        if (basicBuilder_ == null) {
+          result.basic_ = basic_;
+        } else {
+          result.basic_ = basicBuilder_.build();
+        }
+        result.yesPrice_ = yesPrice_;
+        result.noPrice_ = noPrice_;
+        result.volume_ = volume_;
+        result.side_ = side_;
+        result.tradeId_ = tradeId_;
+        result.time_ = time_;
+        onBuilt();
+        return result;
+      }
+
+      @java.lang.Override
+      public Builder clone() {
+        return super.clone();
+      }
+      @java.lang.Override
+      public Builder setField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.setField(field, value);
+      }
+      @java.lang.Override
+      public Builder clearField(
+          com.google.protobuf.Descriptors.FieldDescriptor field) {
+        return super.clearField(field);
+      }
+      @java.lang.Override
+      public Builder clearOneof(
+          com.google.protobuf.Descriptors.OneofDescriptor oneof) {
+        return super.clearOneof(oneof);
+      }
+      @java.lang.Override
+      public Builder setRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          int index, java.lang.Object value) {
+        return super.setRepeatedField(field, index, value);
+      }
+      @java.lang.Override
+      public Builder addRepeatedField(
+          com.google.protobuf.Descriptors.FieldDescriptor field,
+          java.lang.Object value) {
+        return super.addRepeatedField(field, value);
+      }
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick) {
+          return mergeFrom((com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick other) {
+        if (other == com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick.getDefaultInstance()) return this;
+        if (other.hasBasic()) {
+          mergeBasic(other.getBasic());
+        }
+        if (!other.getYesPrice().isEmpty()) {
+          yesPrice_ = other.yesPrice_;
+          onChanged();
+        }
+        if (!other.getNoPrice().isEmpty()) {
+          noPrice_ = other.noPrice_;
+          onChanged();
+        }
+        if (!other.getVolume().isEmpty()) {
+          volume_ = other.volume_;
+          onChanged();
+        }
+        if (!other.getSide().isEmpty()) {
+          side_ = other.side_;
+          onChanged();
+        }
+        if (!other.getTradeId().isEmpty()) {
+          tradeId_ = other.tradeId_;
+          onChanged();
+        }
+        if (!other.getTime().isEmpty()) {
+          time_ = other.time_;
+          onChanged();
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 10: {
+                input.readMessage(
+                    getBasicFieldBuilder().getBuilder(),
+                    extensionRegistry);
+
+                break;
+              } // case 10
+              case 18: {
+                yesPrice_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 18
+              case 26: {
+                noPrice_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 26
+              case 34: {
+                volume_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 34
+              case 42: {
+                side_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 42
+              case 50: {
+                tradeId_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 50
+              case 58: {
+                time_ = input.readStringRequireUtf8();
+
+                break;
+              } // case 58
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+
+      private com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic basic_;
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic, com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.Builder, com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder> basicBuilder_;
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       * @return Whether the basic field is set.
+       */
+      public boolean hasBasic() {
+        return basicBuilder_ != null || basic_ != null;
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       * @return The basic.
+       */
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic getBasic() {
+        if (basicBuilder_ == null) {
+          return basic_ == null ? com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.getDefaultInstance() : basic_;
+        } else {
+          return basicBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public Builder setBasic(com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic value) {
+        if (basicBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          basic_ = value;
+          onChanged();
+        } else {
+          basicBuilder_.setMessage(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public Builder setBasic(
+          com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.Builder builderForValue) {
+        if (basicBuilder_ == null) {
+          basic_ = builderForValue.build();
+          onChanged();
+        } else {
+          basicBuilder_.setMessage(builderForValue.build());
+        }
+
+        return this;
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public Builder mergeBasic(com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic value) {
+        if (basicBuilder_ == null) {
+          if (basic_ != null) {
+            basic_ =
+              com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.newBuilder(basic_).mergeFrom(value).buildPartial();
+          } else {
+            basic_ = value;
+          }
+          onChanged();
+        } else {
+          basicBuilder_.mergeFrom(value);
+        }
+
+        return this;
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public Builder clearBasic() {
+        if (basicBuilder_ == null) {
+          basic_ = null;
+          onChanged();
+        } else {
+          basic_ = null;
+          basicBuilder_ = null;
+        }
+
+        return this;
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.Builder getBasicBuilder() {
+        
+        onChanged();
+        return getBasicFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      public com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder getBasicOrBuilder() {
+        if (basicBuilder_ != null) {
+          return basicBuilder_.getMessageOrBuilder();
+        } else {
+          return basic_ == null ?
+              com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.getDefaultInstance() : basic_;
+        }
+      }
+      /**
+       * <code>.quotes.Basic basic = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilderV3<
+          com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic, com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.Builder, com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder> 
+          getBasicFieldBuilder() {
+        if (basicBuilder_ == null) {
+          basicBuilder_ = new com.google.protobuf.SingleFieldBuilderV3<
+              com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic, com.webull.openapi.data.internal.mqtt.codec.Quotes.Basic.Builder, com.webull.openapi.data.internal.mqtt.codec.Quotes.BasicOrBuilder>(
+                  getBasic(),
+                  getParentForChildren(),
+                  isClean());
+          basic_ = null;
+        }
+        return basicBuilder_;
+      }
+
+      private java.lang.Object yesPrice_ = "";
+      /**
+       * <code>string yes_price = 2;</code>
+       * @return The yesPrice.
+       */
+      public java.lang.String getYesPrice() {
+        java.lang.Object ref = yesPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          yesPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string yes_price = 2;</code>
+       * @return The bytes for yesPrice.
+       */
+      public com.google.protobuf.ByteString
+          getYesPriceBytes() {
+        java.lang.Object ref = yesPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          yesPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string yes_price = 2;</code>
+       * @param value The yesPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setYesPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        yesPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string yes_price = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearYesPrice() {
+        
+        yesPrice_ = getDefaultInstance().getYesPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string yes_price = 2;</code>
+       * @param value The bytes for yesPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setYesPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        yesPrice_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object noPrice_ = "";
+      /**
+       * <code>string no_price = 3;</code>
+       * @return The noPrice.
+       */
+      public java.lang.String getNoPrice() {
+        java.lang.Object ref = noPrice_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          noPrice_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string no_price = 3;</code>
+       * @return The bytes for noPrice.
+       */
+      public com.google.protobuf.ByteString
+          getNoPriceBytes() {
+        java.lang.Object ref = noPrice_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          noPrice_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string no_price = 3;</code>
+       * @param value The noPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNoPrice(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        noPrice_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string no_price = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearNoPrice() {
+        
+        noPrice_ = getDefaultInstance().getNoPrice();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string no_price = 3;</code>
+       * @param value The bytes for noPrice to set.
+       * @return This builder for chaining.
+       */
+      public Builder setNoPriceBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        noPrice_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object volume_ = "";
+      /**
+       * <code>string volume = 4;</code>
+       * @return The volume.
+       */
+      public java.lang.String getVolume() {
+        java.lang.Object ref = volume_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          volume_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string volume = 4;</code>
+       * @return The bytes for volume.
+       */
+      public com.google.protobuf.ByteString
+          getVolumeBytes() {
+        java.lang.Object ref = volume_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          volume_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string volume = 4;</code>
+       * @param value The volume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVolume(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        volume_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string volume = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearVolume() {
+        
+        volume_ = getDefaultInstance().getVolume();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string volume = 4;</code>
+       * @param value The bytes for volume to set.
+       * @return This builder for chaining.
+       */
+      public Builder setVolumeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        volume_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object side_ = "";
+      /**
+       * <code>string side = 5;</code>
+       * @return The side.
+       */
+      public java.lang.String getSide() {
+        java.lang.Object ref = side_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          side_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string side = 5;</code>
+       * @return The bytes for side.
+       */
+      public com.google.protobuf.ByteString
+          getSideBytes() {
+        java.lang.Object ref = side_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          side_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string side = 5;</code>
+       * @param value The side to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSide(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        side_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string side = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearSide() {
+        
+        side_ = getDefaultInstance().getSide();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string side = 5;</code>
+       * @param value The bytes for side to set.
+       * @return This builder for chaining.
+       */
+      public Builder setSideBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        side_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object tradeId_ = "";
+      /**
+       * <code>string trade_id = 6;</code>
+       * @return The tradeId.
+       */
+      public java.lang.String getTradeId() {
+        java.lang.Object ref = tradeId_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          tradeId_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string trade_id = 6;</code>
+       * @return The bytes for tradeId.
+       */
+      public com.google.protobuf.ByteString
+          getTradeIdBytes() {
+        java.lang.Object ref = tradeId_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          tradeId_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string trade_id = 6;</code>
+       * @param value The tradeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTradeId(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        tradeId_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string trade_id = 6;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTradeId() {
+        
+        tradeId_ = getDefaultInstance().getTradeId();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string trade_id = 6;</code>
+       * @param value The bytes for tradeId to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTradeIdBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        tradeId_ = value;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object time_ = "";
+      /**
+       * <code>string time = 7;</code>
+       * @return The time.
+       */
+      public java.lang.String getTime() {
+        java.lang.Object ref = time_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          time_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string time = 7;</code>
+       * @return The bytes for time.
+       */
+      public com.google.protobuf.ByteString
+          getTimeBytes() {
+        java.lang.Object ref = time_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          time_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string time = 7;</code>
+       * @param value The time to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTime(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  
+        time_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string time = 7;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearTime() {
+        
+        time_ = getDefaultInstance().getTime();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string time = 7;</code>
+       * @param value The bytes for time to set.
+       * @return This builder for chaining.
+       */
+      public Builder setTimeBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  checkByteStringIsUtf8(value);
+        
+        time_ = value;
+        onChanged();
+        return this;
+      }
+      @java.lang.Override
+      public final Builder setUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.setUnknownFields(unknownFields);
+      }
+
+      @java.lang.Override
+      public final Builder mergeUnknownFields(
+          final com.google.protobuf.UnknownFieldSet unknownFields) {
+        return super.mergeUnknownFields(unknownFields);
+      }
+
+
+      // @@protoc_insertion_point(builder_scope:quotes.EventTick)
+    }
+
+    // @@protoc_insertion_point(class_scope:quotes.EventTick)
+    private static final com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick();
+    }
+
+    public static com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<EventTick>
+        PARSER = new com.google.protobuf.AbstractParser<EventTick>() {
+      @java.lang.Override
+      public EventTick parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<EventTick> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<EventTick> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.webull.openapi.data.internal.mqtt.codec.Quotes.EventTick getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_quotes_Basic_descriptor;
   private static final 
@@ -14892,6 +16383,11 @@ public final class Quotes {
   private static final 
     com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_quotes_EventAskBid_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_quotes_EventTick_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_quotes_EventTick_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -14936,8 +16432,12 @@ public final class Quotes {
       "es.Basic\022%\n\010yes_bids\030\002 \003(\0132\023.quotes.Even" +
       "tAskBid\022$\n\007no_bids\030\003 \003(\0132\023.quotes.EventA" +
       "skBid\"*\n\013EventAskBid\022\r\n\005price\030\001 \001(\t\022\014\n\004s" +
-      "ize\030\002 \001(\tB-\n+com.webull.openapi.data.int" +
-      "ernal.mqtt.codecb\006proto3"
+      "ize\030\002 \001(\t\"\214\001\n\tEventTick\022\034\n\005basic\030\001 \001(\0132\r" +
+      ".quotes.Basic\022\021\n\tyes_price\030\002 \001(\t\022\020\n\010no_p" +
+      "rice\030\003 \001(\t\022\016\n\006volume\030\004 \001(\t\022\014\n\004side\030\005 \001(\t" +
+      "\022\020\n\010trade_id\030\006 \001(\t\022\014\n\004time\030\007 \001(\tB-\n+com." +
+      "webull.openapi.data.internal.mqtt.codecb" +
+      "\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -15003,6 +16503,12 @@ public final class Quotes {
       com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
         internal_static_quotes_EventAskBid_descriptor,
         new java.lang.String[] { "Price", "Size", });
+    internal_static_quotes_EventTick_descriptor =
+      getDescriptor().getMessageTypes().get(10);
+    internal_static_quotes_EventTick_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+        internal_static_quotes_EventTick_descriptor,
+        new java.lang.String[] { "Basic", "YesPrice", "NoPrice", "Volume", "Side", "TradeId", "Time", });
   }
 
   // @@protoc_insertion_point(outer_class_scope)
