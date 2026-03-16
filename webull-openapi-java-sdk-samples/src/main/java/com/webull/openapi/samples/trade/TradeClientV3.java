@@ -51,6 +51,17 @@ public class TradeClientV3 {
 
             runAlgoComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
 
+            runStopLossComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runStopLossLimitComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runTouchComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runTouchLimitComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runTrailingStopLossComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runTrailingStopLossLimitComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
         }
 
         if (CollectionUtils.isNotEmpty(accountIds.getCryptoAccountIds())) {
@@ -566,6 +577,362 @@ public class TradeClientV3 {
     }
 
 
+    private static void runStopLossComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem stopLossOrderItem = new TradeOrderItem();
+        stopLossOrderItem.setClientOrderId(GUID.get());
+        stopLossOrderItem.setComboType(ComboType.NORMAL.name());
+        stopLossOrderItem.setSymbol("00700");
+        stopLossOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        stopLossOrderItem.setMarket(Markets.HK.name());
+        stopLossOrderItem.setOrderType(OrderType.STOP_LOSS.name());
+        stopLossOrderItem.setQuantity("200");
+        stopLossOrderItem.setStopPrice("560.35");
+        stopLossOrderItem.setSupportTradingSession("CORE");
+        stopLossOrderItem.setSide(OrderSide.BUY.name());
+        stopLossOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        stopLossOrderItem.setEntrustType(EntrustType.QTY.name());
+        stopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(stopLossOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeStopLossComboOrderExample: {}", placeStopLossOrderResponse);
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(stopLossOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("560.37");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceStopLossOrdersResponse: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(stopLossOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelOrderResponse: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, stopLossOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+    private static void runStopLossLimitComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem stopLossOrderItem = new TradeOrderItem();
+        stopLossOrderItem.setClientOrderId(GUID.get());
+        stopLossOrderItem.setComboType(ComboType.NORMAL.name());
+        stopLossOrderItem.setSymbol("00700");
+        stopLossOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        stopLossOrderItem.setMarket(Markets.HK.name());
+        stopLossOrderItem.setOrderType(OrderType.STOP_LOSS_LIMIT.name());
+        stopLossOrderItem.setQuantity("200");
+        stopLossOrderItem.setStopPrice("560.35");
+        stopLossOrderItem.setLimitPrice("562.21");
+        stopLossOrderItem.setSupportTradingSession("CORE");
+        stopLossOrderItem.setSide(OrderSide.BUY.name());
+        stopLossOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        stopLossOrderItem.setEntrustType(EntrustType.QTY.name());
+        stopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(stopLossOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeStopLossOrderResponse: {}", placeStopLossOrderResponse);
+
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(stopLossOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("560.39");
+        replaceStopLossOrderItem.setLimitPrice("562.69");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceStopLossOrdersResponse: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(stopLossOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelOrderResponse: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, stopLossOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+    private static void runTrailingStopLossComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem trailingStopLossOrderItem = new TradeOrderItem();
+        trailingStopLossOrderItem.setClientOrderId(GUID.get());
+        trailingStopLossOrderItem.setComboType(ComboType.NORMAL.name());
+        trailingStopLossOrderItem.setSymbol("00700");
+        trailingStopLossOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        trailingStopLossOrderItem.setMarket(Markets.HK.name());
+        trailingStopLossOrderItem.setOrderType(OrderType.TRAILING_STOP_LOSS.name());
+        trailingStopLossOrderItem.setQuantity("200");
+        trailingStopLossOrderItem.setTrailingStopStep("0.1");
+        trailingStopLossOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
+        trailingStopLossOrderItem.setSupportTradingSession("CORE");
+        trailingStopLossOrderItem.setSide(OrderSide.BUY.name());
+        trailingStopLossOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        trailingStopLossOrderItem.setEntrustType(EntrustType.QTY.name());
+        trailingStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(trailingStopLossOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeTrailingStopLossComboOrderExample: {}", placeStopLossOrderResponse);
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(trailingStopLossOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("560.47");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrderItem.setTrailingStopStep("0.15");
+        replaceStopLossOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
+        replaceStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceTrailingStopLossComboOrderExample: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(trailingStopLossOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelTrailingStopLossComboOrderExample: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, trailingStopLossOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+    private static void runTrailingStopLossLimitComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem trailingStopLossLimitOrderItem = new TradeOrderItem();
+        trailingStopLossLimitOrderItem.setClientOrderId(GUID.get());
+        trailingStopLossLimitOrderItem.setComboType(ComboType.NORMAL.name());
+        trailingStopLossLimitOrderItem.setSymbol("00700");
+        trailingStopLossLimitOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        trailingStopLossLimitOrderItem.setMarket(Markets.HK.name());
+        trailingStopLossLimitOrderItem.setOrderType(OrderType.TRAILING_STOP_LOSS_LIMIT.name());
+        trailingStopLossLimitOrderItem.setQuantity("200");
+        trailingStopLossLimitOrderItem.setTrailingStopStep("0.1");
+        trailingStopLossLimitOrderItem.setTrailingLimitPrice("580");
+        trailingStopLossLimitOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
+        trailingStopLossLimitOrderItem.setSupportTradingSession("CORE");
+        trailingStopLossLimitOrderItem.setSide(OrderSide.BUY.name());
+        trailingStopLossLimitOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        trailingStopLossLimitOrderItem.setEntrustType(EntrustType.QTY.name());
+        trailingStopLossLimitOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(trailingStopLossLimitOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeTrailingStopLossLimitComboOrderExample: {}", placeStopLossOrderResponse);
+
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(trailingStopLossLimitOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("560.77");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrderItem.setTrailingStopStep("0.15");
+        replaceStopLossOrderItem.setTrailingLimitPrice("581");
+        replaceStopLossOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
+        replaceStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceTrailingStopLossComboOrderExample: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(trailingStopLossLimitOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelTrailingStopLossComboOrderExample: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, trailingStopLossLimitOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+
+    private static void runTouchComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem touchMktOrderItem = new TradeOrderItem();
+        touchMktOrderItem.setClientOrderId(GUID.get());
+        touchMktOrderItem.setComboType(ComboType.NORMAL.name());
+        touchMktOrderItem.setSymbol("00700");
+        touchMktOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        touchMktOrderItem.setMarket(Markets.HK.name());
+        touchMktOrderItem.setOrderType(OrderType.TOUCH_MKT.name());
+        touchMktOrderItem.setQuantity("200");
+        touchMktOrderItem.setStopPrice("540.35");
+        touchMktOrderItem.setSupportTradingSession("CORE");
+        touchMktOrderItem.setSide(OrderSide.BUY.name());
+        touchMktOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        touchMktOrderItem.setEntrustType(EntrustType.QTY.name());
+        touchMktOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(touchMktOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeTouchComboOrderExample: {}", placeStopLossOrderResponse);
+
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(touchMktOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("540.67");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceTrailingStopLossComboOrderExample: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(touchMktOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelTrailingStopLossComboOrderExample: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, touchMktOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+    private static void runTouchLimitComboOrderExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) throws InterruptedException {
+        TradeOrder newComboEquityOrder = new TradeOrder();
+        List<TradeOrderItem> newComboEquityOrders = new ArrayList<>();
+
+        TradeOrderItem touchLimitOrderItem = new TradeOrderItem();
+        touchLimitOrderItem.setClientOrderId(GUID.get());
+        touchLimitOrderItem.setComboType(ComboType.NORMAL.name());
+        touchLimitOrderItem.setSymbol("00700");
+        touchLimitOrderItem.setInstrumentType(InstrumentSuperType.EQUITY.name());
+        touchLimitOrderItem.setMarket(Markets.HK.name());
+        touchLimitOrderItem.setOrderType(OrderType.TOUCH_MKT.name());
+        touchLimitOrderItem.setQuantity("200");
+        touchLimitOrderItem.setStopPrice("540.35");
+        touchLimitOrderItem.setLimitPrice("535.35");
+        touchLimitOrderItem.setSupportTradingSession("CORE");
+        touchLimitOrderItem.setSide(OrderSide.BUY.name());
+        touchLimitOrderItem.setTimeInForce(OrderTIF.DAY.name());
+        touchLimitOrderItem.setEntrustType(EntrustType.QTY.name());
+        touchLimitOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+
+        newComboEquityOrders.add(touchLimitOrderItem);
+        newComboEquityOrder.setNewOrders(newComboEquityOrders);
+
+        TradeOrderResponse placeStopLossOrderResponse =
+                apiService.placeOrder(accountId, newComboEquityOrder);
+        logger.info("placeTouchLimitComboOrderExample: {}", placeStopLossOrderResponse);
+
+        doSleep();
+
+        TradeOrder replaceAlgoOrder = new TradeOrder();
+        List<TradeOrderItem> replaceStopLossOrders = new ArrayList<>();
+        TradeOrderItem replaceStopLossOrderItem = new TradeOrderItem();
+        replaceStopLossOrderItem.setClientOrderId(touchLimitOrderItem.getClientOrderId());
+        replaceStopLossOrderItem.setStopPrice("540.67");
+        replaceStopLossOrderItem.setLimitPrice("536.67");
+        replaceStopLossOrderItem.setQuantity("200");
+        replaceStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
+        replaceStopLossOrders.add(replaceStopLossOrderItem);
+        replaceAlgoOrder.setModifyOrders(replaceStopLossOrders);
+
+        TradeOrderResponse replaceAlgoResponse =
+                apiService.replaceOrder(accountId, replaceAlgoOrder);
+        logger.info("replaceTrailingStopLossComboOrderExample: {}", replaceAlgoResponse);
+        doSleep();
+
+        TradeOrder cancelOrder = new TradeOrder();
+        cancelOrder.setClientOrderId(touchLimitOrderItem.getClientOrderId());
+        TradeOrderResponse cancelAlgoOrderResponse =
+                apiService.cancelOrder(accountId, cancelOrder);
+        logger.info("cancelTrailingStopLossComboOrderExample: {}", cancelAlgoOrderResponse);
+
+        List<OrderHistory> listComboOrdersResponse =
+                apiService.listOrders(accountId, 10, null, null, null);
+        logger.info("listComboOrdersResponse: {}", listComboOrdersResponse);
+
+        OrderHistory masterOrderDetailResponse =
+                apiService.getOrderDetails(accountId, touchLimitOrderItem.getClientOrderId());
+        logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
 
     private static void doSleep() throws InterruptedException {
         final int totalSeconds = 5;
