@@ -43,6 +43,21 @@ public enum OrderType {
     TRAILING_STOP_LOSS,
 
     /**
+     * Trailing Stop Limit Order
+     */
+    TRAILING_STOP_LOSS_LIMIT,
+
+    /**
+     * Touch Market Order
+     */
+    TOUCH_MKT,
+
+    /**
+     * Touch Limit Order
+     */
+    TOUCH_LMT,
+
+    /**
      * Enhanced Limit Order (Hong Kong stocks)
      */
     ENHANCED_LIMIT,
@@ -58,12 +73,22 @@ public enum OrderType {
     AT_AUCTION_LIMIT,
 
     /**
-     * Market On Open order (U.S. Stock)
+     * Opening market order(U.S. Stock)
      */
     MARKET_ON_OPEN,
 
     /**
-     * Market On Close order (U.S. Stock)
+     * Closing market order (U.S. Stock)
      */
     MARKET_ON_CLOSE,
+
+    /**
+     * Opening market limit order (U.S. Stock)
+     */
+    LIMIT_ON_OPEN,
+
+    /**
+     * Closing market limit order (U.S. Stock)
+     */
+    LIMIT_ON_CLOSE
 }
