@@ -27,6 +27,7 @@ public class DataStreamingClientEvent {
         Set<String> subTypes = new HashSet<>();
         subTypes.add(SubscribeType.QUOTE.name());
         subTypes.add(SubscribeType.SNAPSHOT.name());
+        subTypes.add(SubscribeType.TICK.name());
 
         try (IDataStreamingClient client = IDataStreamingClient.builder()
                 .appKey(Env.APP_KEY)

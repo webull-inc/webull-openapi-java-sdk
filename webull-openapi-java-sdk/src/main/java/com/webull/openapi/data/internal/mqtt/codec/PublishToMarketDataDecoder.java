@@ -43,6 +43,7 @@ public class PublishToMarketDataDecoder extends AbstractInboundDecoder<MqttPubli
         delegates.put(SubscribeType.TICK, new TickDecoder());
         delegates.put(SubscribeType.EVENT_QUOTE, new EventDepthDecoder());
         delegates.put(SubscribeType.EVENT_SNAPSHOT, new EventSnapshotDecoder());
+        delegates.put(SubscribeType.EVENT_TICK, new EventTickDecoder());
     }
 
     @Override

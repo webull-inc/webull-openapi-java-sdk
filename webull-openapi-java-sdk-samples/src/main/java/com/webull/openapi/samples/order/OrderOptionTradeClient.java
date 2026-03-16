@@ -95,6 +95,7 @@ public class OrderOptionTradeClient {
         optionOrderItem.setLimitPrice("20.5");
         optionOrderItem.setQuantity("1");
         optionOrderItem.setEntrustType(EntrustType.QTY.name());
+        optionOrderItem.setPositionIntent(PositionIntent.BUY_TO_OPEN.name());
         optionOrderItem.setLegs(optionOrderItemLegList);
         List<OptionOrderItem> optionOrderItemList = new ArrayList<>();
         optionOrderItemList.add(optionOrderItem);

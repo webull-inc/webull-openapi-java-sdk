@@ -331,6 +331,8 @@ public class TradeClientV3 {
         normalOptionOrder.setLimitPrice("20.5");
         normalOptionOrder.setQuantity("1");
         normalOptionOrder.setEntrustType(EntrustType.QTY.name());
+        // Currently, only the US market is supported, and only options orders are allowed.
+        normalOptionOrder.setPositionIntent(PositionIntent.BUY_TO_OPEN.name());
         normalOptionOrder.setLegs(normalOtionOrderLegList);
 
         List<TradeOrderItem> newNormalOptionOrders = new ArrayList<>();

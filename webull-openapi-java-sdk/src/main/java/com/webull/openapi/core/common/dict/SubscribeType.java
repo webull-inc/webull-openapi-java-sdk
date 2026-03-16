@@ -43,7 +43,9 @@ public enum SubscribeType {
      */
     EVENT_QUOTE(3, "event-quote"),
 
-    EVENT_SNAPSHOT(4, "event-snapshot");
+    EVENT_SNAPSHOT(4, "event-snapshot"),
+
+    EVENT_TICK(5, "event-tick");
 
     private final int code;
     private final String type;
