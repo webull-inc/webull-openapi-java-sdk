@@ -16,6 +16,8 @@ public class TradeOrderItem implements Serializable {
 	private String timeInForce;
 	private String stopPrice;
 	private String limitPrice;
+	private String trailingLimitPrice;
+	private String triggerPriceType;
 	private String quantity;
 	private String entrustType;
 	private String supportTradingSession;
@@ -304,6 +306,21 @@ public class TradeOrderItem implements Serializable {
 		this.expireDate = expireDate;
 	}
 
+	public String getTrailingLimitPrice() {
+		return trailingLimitPrice;
+	}
+
+	public void setTrailingLimitPrice(String trailingLimitPrice) {
+		this.trailingLimitPrice = trailingLimitPrice;
+	}
+
+	public String getTriggerPriceType() {
+		return triggerPriceType;
+	}
+
+	public void setTriggerPriceType(String triggerPriceType) {
+		this.triggerPriceType = triggerPriceType;
+	}
 	@Override
 	public String toString() {
 		return "TradeOrderItem{" +
@@ -337,6 +354,8 @@ public class TradeOrderItem implements Serializable {
 			", algoType='" + algoType + '\'' +
 			", algoStartTime='" + algoStartTime + '\'' +
 			", algoEndTime='" + algoEndTime + '\'' +
+			", trailingLimitPrice='" + trailingLimitPrice + '\'' +
+			", triggerPriceType='" + triggerPriceType + '\'' +
 			", targetVolPercent='" + targetVolPercent + '\'' +
 			", maxTargetPercent='" + maxTargetPercent + '\'' +
 			", legs=" + legs +
