@@ -122,6 +122,7 @@ public class ITradeEventClientBuilder implements com.webull.openapi.trade.events
         return new TradeEventClient(
                 this.appKey,
                 this.appSecret,
+                this.regionId,
                 this.host,
                 this.port,
                 this.retryPolicy,
