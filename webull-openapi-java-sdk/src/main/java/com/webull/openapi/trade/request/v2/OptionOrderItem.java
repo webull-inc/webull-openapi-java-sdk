@@ -31,6 +31,7 @@ public class OptionOrderItem {
     private String entrustType;
     private String currentAsk;
     private String currentBid;
+    private String positionIntent;
     private List<OptionOrderItemLeg> legs;
 
     @Deprecated
@@ -132,6 +133,14 @@ public class OptionOrderItem {
         this.currentBid = currentBid;
     }
 
+    public String getPositionIntent() {
+        return positionIntent;
+    }
+
+    public void setPositionIntent(String positionIntent) {
+        this.positionIntent = positionIntent;
+    }
+
     public List<OptionOrderItemLeg> getLegs() {
         return legs;
     }
@@ -165,6 +174,7 @@ public class OptionOrderItem {
                 ", entrustType='" + entrustType + '\'' +
                 ", currentAsk='" + currentAsk + '\'' +
                 ", currentBid='" + currentBid + '\'' +
+                ", positionIntent='" + positionIntent + '\'' +
                 ", legs='" + legs + '\'' +
                 '}';
     }

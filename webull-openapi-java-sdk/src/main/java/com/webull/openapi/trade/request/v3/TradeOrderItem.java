@@ -40,6 +40,10 @@ public class TradeOrderItem implements Serializable {
     private String maxTargetPercent;
     private String algoStartTime;
     private String algoEndTime;
+	/**
+	 * Currently, only the US market is supported, and only options orders are allowed.
+	 */
+	private String positionIntent;
 	private List<OptionOrderItemLeg> legs;
 
 	public String getClientOrderId() {
@@ -321,6 +325,15 @@ public class TradeOrderItem implements Serializable {
 	public void setTriggerPriceType(String triggerPriceType) {
 		this.triggerPriceType = triggerPriceType;
 	}
+
+	public String getPositionIntent() {
+		return positionIntent;
+	}
+
+	public void setPositionIntent(String positionIntent) {
+		this.positionIntent = positionIntent;
+	}
+
 	@Override
 	public String toString() {
 		return "TradeOrderItem{" +
@@ -358,6 +371,7 @@ public class TradeOrderItem implements Serializable {
 			", triggerPriceType='" + triggerPriceType + '\'' +
 			", targetVolPercent='" + targetVolPercent + '\'' +
 			", maxTargetPercent='" + maxTargetPercent + '\'' +
+			", positionIntent='" + positionIntent + '\'' +
 			", legs=" + legs +
 			'}';
 	}
