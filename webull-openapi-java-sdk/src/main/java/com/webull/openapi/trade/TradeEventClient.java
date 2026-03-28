@@ -15,6 +15,7 @@
  */
 package com.webull.openapi.trade;
 
+import com.webull.openapi.core.common.Region;
 import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.trade.events.internal.CancellableISubscription;
@@ -43,19 +44,23 @@ public class TradeEventClient extends BaseGrpcClient<Events.SubscribeResponse> i
 
     private final EventServiceGrpc.EventServiceStub stub;
 
+    private final String regionId;
+
     public TradeEventClient(String appKey,
                             String appSecret,
+                            String regionId,
                             String host,
                             int port,
                             RetryPolicy retryPolicy,
                             boolean enableTls,
                             List<GrpcHandler> handlers) {
-        this(appKey, appSecret, host, port, retryPolicy, enableTls, handlers,
+        this(appKey, appSecret, regionId, host, port, retryPolicy, enableTls, handlers,
                 SubscribeHandlerProxyFactory.getInstance());
     }
 
     protected TradeEventClient(String appKey,
                                String appSecret,
+                               String regionId,
                                String host,
                                int port,
                                RetryPolicy retryPolicy,
@@ -64,6 +69,7 @@ public class TradeEventClient extends BaseGrpcClient<Events.SubscribeResponse> i
                                HandlerProxyFactory<Events.SubscribeResponse> handlerProxyFactory) {
         super(appKey, appSecret, host, port, retryPolicy, enableTls, handlers, handlerProxyFactory);
         this.buildChannel();
+        this.regionId = regionId;
         this.stub = EventServiceGrpc.newStub(this.channel);
     }
 
@@ -73,9 +79,14 @@ public class TradeEventClient extends BaseGrpcClient<Events.SubscribeResponse> i
         if (!subscribing.compareAndSet(false, true)) {
             throw new ClientException(ErrorCode.INVALID_STATE, "Client is already subscribed");
         }
-
+        int subscribeType;
+        if (Region.us.name().equals(this.regionId)) {
+            subscribeType = 3;
+        } else {
+            subscribeType = 1;
+        }
         Events.SubscribeRequest grpcRequest = Events.SubscribeRequest.newBuilder()
-                .setSubscribeType(request.getSubscribeType())
+                .setSubscribeType(subscribeType)
                 .setTimestamp(request.getTimestamp())
                 .addAllAccounts(request.getAccounts())
                 .build();
