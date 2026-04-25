@@ -3,9 +3,11 @@ package com.webull.openapi.samples.assets;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
+import com.webull.openapi.core.serialize.JsonSerializer;
 import com.webull.openapi.samples.config.Env;
-import com.webull.openapi.trade.response.v2.AccountBalanceInfo;
-import com.webull.openapi.trade.response.v2.AccountPositionsInfo;
+import com.webull.openapi.trade.response.v3.AccountBalanceInfo;
+import com.webull.openapi.trade.response.v3.AccountPositionDetailsInfo;
+import com.webull.openapi.trade.response.v3.AccountPositionsInfo;
 
 import java.util.List;
 
@@ -20,6 +22,7 @@ public class AssetsClient {
                 /*
                  * Webull HK: PRD env host: api.webull.hk. Test env host: api.sanbox.webull.hk
                  * Webull US: PRD env host: api.webull.com; Test env host: us-openapi-alb.uat.webullbroker.com
+                 * Webull JP: PRD env host: api.webull.co.jp; Test env host: jp-openapi-alb.uat.webullbroker.com
                  */
                 .endpoint("<api_endpoint>")
                 /*
@@ -29,7 +32,7 @@ public class AssetsClient {
                  */
                 //.tokenDir("conf_custom_relative")
                 .build();
-        com.webull.openapi.trade.TradeClientV2 apiService = new com.webull.openapi.trade.TradeClientV2(apiConfig);
+        com.webull.openapi.trade.TradeClientV3 apiService = new com.webull.openapi.trade.TradeClientV3(apiConfig);
 
         // get accountId from account_list interface , you can look @see com.webull.openapi.samples.account.AccountList
         String accountId = "#{accountId}";
@@ -39,6 +42,11 @@ public class AssetsClient {
 
         List<AccountPositionsInfo> positionsInfos = apiService.positionsAccount(accountId);
         logger.info("PositionsInfos: {}", positionsInfos);
+
+        // Currently, only Webull JP is supported.
+//        String instrumentId = "#{instrumentId}";
+//        List<AccountPositionDetailsInfo> positionDetailsInfo = apiService.positionDetailsAccount(accountId, instrumentId, null, null);
+//        logger.info("AccountPositionDetailsInfo: {}", positionsInfos);
 
     }
 

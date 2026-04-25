@@ -40,6 +40,10 @@ public class AccountBalanceInfo {
 
     private String usedMarginForOpenOrder;
 
+    private String oneDayUsedMargin;
+
+    private String oneDayUsedMarginForOpenOrder;
+
     private String initMargin;
 
     private String intradayMargin;
@@ -148,6 +152,22 @@ public class AccountBalanceInfo {
         this.usedMarginForOpenOrder = usedMarginForOpenOrder;
     }
 
+    public String getOneDayUsedMargin() {
+        return oneDayUsedMargin;
+    }
+
+    public void setOneDayUsedMargin(String oneDayUsedMargin) {
+        this.oneDayUsedMargin = oneDayUsedMargin;
+    }
+
+    public String getOneDayUsedMarginForOpenOrder() {
+        return oneDayUsedMarginForOpenOrder;
+    }
+
+    public void setOneDayUsedMarginForOpenOrder(String oneDayUsedMarginForOpenOrder) {
+        this.oneDayUsedMarginForOpenOrder = oneDayUsedMarginForOpenOrder;
+    }
+
     public String getInitMargin() {
         return initMargin;
     }
@@ -193,6 +213,8 @@ public class AccountBalanceInfo {
                 ", maintenanceMargin='" + maintenanceMargin + '\'' +
                 ", usedMargin='" + usedMargin + '\'' +
                 ", usedMarginForOpenOrder='" + usedMarginForOpenOrder + '\'' +
+                ", oneDayUsedMargin='" + oneDayUsedMargin + '\'' +
+                ", oneDayUsedMarginForOpenOrder='" + oneDayUsedMarginForOpenOrder + '\'' +
                 ", initMargin='" + initMargin + '\'' +
                 ", intradayMargin='" + intradayMargin + '\'' +
                 ", marginExcess='" + marginExcess + '\'' +

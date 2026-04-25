@@ -15,6 +15,8 @@
  */
 package com.webull.openapi.trade.response;
 
+import com.webull.openapi.trade.request.v3.CloseContract;
+
 import java.util.List;
 
 public class NOrderItem {
@@ -51,6 +53,9 @@ public class NOrderItem {
     private String algoStartTime;
     private String algoEndTime;
     private String positionIntent;
+    private String marginType;
+    private String tradeId;
+    private List<CloseContract> closeContracts;
     private List<NOrderItemLeg> legs;
     private OrderCommissionItem commission;
     private List<OrderFeeItem> fees;
@@ -422,6 +427,30 @@ public class NOrderItem {
         this.fees = fees;
     }
 
+    public String getMarginType() {
+        return marginType;
+    }
+
+    public void setMarginType(String marginType) {
+        this.marginType = marginType;
+    }
+
+    public List<CloseContract> getCloseContracts() {
+        return closeContracts;
+    }
+
+    public void setCloseContracts(List<CloseContract> closeContracts) {
+        this.closeContracts = closeContracts;
+    }
+
+    public String getTradeId() {
+        return tradeId;
+    }
+
+    public void setTradeId(String tradeId) {
+        this.tradeId = tradeId;
+    }
+
     @Override
     public String toString() {
         return "NOrderItem{" +
@@ -457,9 +486,12 @@ public class NOrderItem {
                 ", targetVolPercent='" + targetVolPercent + '\'' +
                 ", maxTargetPercent='" + maxTargetPercent + '\'' +
                 ", positionIntent='" + positionIntent + '\'' +
+                ", marginType='" + marginType + '\'' +
+                ", tradeId='" + tradeId + '\'' +
                 ", legs='" + legs + '\'' +
                 ", commission='" + commission + '\'' +
                 ", fees='" + fees + '\'' +
+                ", closeContracts='" + closeContracts + '\'' +
                 '}';
     }
 }

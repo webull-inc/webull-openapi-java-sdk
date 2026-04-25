@@ -26,17 +26,25 @@ public class AccountPositionsInfo implements Serializable {
     private String positionId;
     private String currency;
     private String symbol;
+    private String symbolName;
     private String optionStrategy;
     private String quantity;
+    private String availableQuantity;
     private String costPrice;
     private String lastPrice;
     private String unrealizedProfitLoss;
     private String unrealizedProfitLossRate;
+    private String instrumentId;
     private String instrumentType;
     private String marketValue;
     private String dayRealizedProfitLoss;
     private String proportion;
     private String eventOutcome;
+    private String accountTaxType;
+    private String baseCurrency;
+    private String fxRate;
+    private String baseCurrencyMarketValue;
+    private String exchangeCode;
     private List<CommonPositionInfo> legs;
 
     public String getPositionId() {
@@ -159,15 +167,82 @@ public class AccountPositionsInfo implements Serializable {
         this.legs = legs;
     }
 
+    public String getSymbolName() {
+        return symbolName;
+    }
+
+    public void setSymbolName(String symbolName) {
+        this.symbolName = symbolName;
+    }
+
+    public String getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public void setAvailableQuantity(String availableQuantity) {
+        this.availableQuantity = availableQuantity;
+    }
+
+    public String getInstrumentId() {
+        return instrumentId;
+    }
+
+    public void setInstrumentId(String instrumentId) {
+        this.instrumentId = instrumentId;
+    }
+
+    public String getAccountTaxType() {
+        return accountTaxType;
+    }
+
+    public void setAccountTaxType(String accountTaxType) {
+        this.accountTaxType = accountTaxType;
+    }
+
+    public String getBaseCurrency() {
+        return baseCurrency;
+    }
+
+    public void setBaseCurrency(String baseCurrency) {
+        this.baseCurrency = baseCurrency;
+    }
+
+    public String getFxRate() {
+        return fxRate;
+    }
+
+    public void setFxRate(String fxRate) {
+        this.fxRate = fxRate;
+    }
+
+    public String getBaseCurrencyMarketValue() {
+        return baseCurrencyMarketValue;
+    }
+
+    public void setBaseCurrencyMarketValue(String baseCurrencyMarketValue) {
+        this.baseCurrencyMarketValue = baseCurrencyMarketValue;
+    }
+
+    public String getExchangeCode() {
+        return exchangeCode;
+    }
+
+    public void setExchangeCode(String exchangeCode) {
+        this.exchangeCode = exchangeCode;
+    }
+
     @Override
     public String toString() {
         return "AccountPositionsInfo{" +
                 "positionId='" + positionId + '\'' +
                 ", symbol='" + symbol + '\'' +
+                ", symbolName='" + symbolName + '\'' +
                 ", optionStrategy='" + optionStrategy + '\'' +
                 ", currency='" + currency + '\'' +
+                ", instrumentId='" + instrumentId + '\'' +
                 ", instrumentType='" + instrumentType + '\'' +
                 ", quantity='" + quantity + '\'' +
+                ", availableQuantity='" + availableQuantity + '\'' +
                 ", costPrice='" + costPrice + '\'' +
                 ", lastPrice='" + lastPrice + '\'' +
                 ", marketValue='" + marketValue + '\'' +
@@ -176,6 +251,11 @@ public class AccountPositionsInfo implements Serializable {
                 ", dayRealizedProfitLoss='" + dayRealizedProfitLoss + '\'' +
                 ", proportion='" + proportion + '\'' +
                 ", eventOutcome='" + eventOutcome + '\'' +
+                ", accountTaxType='" + accountTaxType + '\'' +
+                ", baseCurrency='" + baseCurrency + '\'' +
+                ", fxRate='" + fxRate + '\'' +
+                ", baseCurrencyMarketValue='" + baseCurrencyMarketValue + '\'' +
+                ", exchangeCode='" + exchangeCode + '\'' +
                 ", legs=" + legs +
                 '}';
     }

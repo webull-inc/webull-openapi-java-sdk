@@ -37,7 +37,7 @@ public class HttpRequest {
     private final String version;
     private final HttpMethod method;
     private final HttpProtocol protocol;
-    private final SignAlgorithm signAlgorithm;
+    private SignAlgorithm signAlgorithm;
     private Map<String, String> headers;
     private Map<String, Object> query;
     private Object body;
@@ -116,6 +116,10 @@ public class HttpRequest {
 
     public SignAlgorithm getSignAlgorithm() {
         return signAlgorithm;
+    }
+
+    public void setSignAlgorithm(SignAlgorithm signAlgorithm) {
+        this.signAlgorithm = signAlgorithm;
     }
 
     public Map<String, String> getHeaders() {

@@ -13,56 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.core.common.dict;
+package com.webull.openapi.core.common;
 
-public enum Category {
+public final class PreDefaultHost {
 
-    /**
-     * China Connect Stocks
-     */
-    CN_STOCK,
+    private PreDefaultHost() {}
 
-    /**
-     * Hong Kong stocks
-     */
-    HK_STOCK,
+    public static final String API_US = "pre-openapi-us-alb.webullbroker.com";
+    public static final String QUOTES_US = "";
+    public static final String EVENTS_US = "pre-openapi-us-events.webullbroker.com";
 
-    /**
-     * Hong Kong ETFs
-     */
-    HK_ETF,
+    public static final String API_HK = "pre-openapi-alb.webullbroker.com";
+    public static final String QUOTES_HK = "";
+    public static final String EVENTS_HK = "pre-openapi-events.webullbroker.com";
 
-    /**
-     * US Stocks
-     */
-    US_STOCK,
 
-    /**
-     * 	US ETFs
-     */
-    US_ETF,
-
-    /**
-     * U.S. Options
-     */
-    US_OPTION,
-
-    /**
-     * US Futures
-     */
-    US_FUTURES,
-
-    /**
-     * US Cryptocurrency
-     */
-    US_CRYPTO,
-
-    /**
-     * US Event
-     */
-    US_EVENT,
-    /**
-     * HK Futures
-     */
-    HK_FUTURES,
 }

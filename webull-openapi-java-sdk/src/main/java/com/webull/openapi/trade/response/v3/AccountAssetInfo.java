@@ -31,6 +31,8 @@ public class AccountAssetInfo implements Serializable {
 
     private String buyingPower;
 
+    private String oneDayBuyingPower;
+
     private String unrealizedProfitLoss;
 
     private String availableWithdrawal;
@@ -105,6 +107,14 @@ public class AccountAssetInfo implements Serializable {
 
     public void setBuyingPower(String buyingPower) {
         this.buyingPower = buyingPower;
+    }
+
+    public String getOneDayBuyingPower() {
+        return oneDayBuyingPower;
+    }
+
+    public void setOneDayBuyingPower(String oneDayBuyingPower) {
+        this.oneDayBuyingPower = oneDayBuyingPower;
     }
 
     public String getUnrealizedProfitLoss() {
@@ -268,6 +278,7 @@ public class AccountAssetInfo implements Serializable {
                 ", settledCash='" + settledCash + '\'' +
                 ", unsettledCash='" + unsettledCash + '\'' +
                 ", buyingPower='" + buyingPower + '\'' +
+                ", oneDayBuyingPower='" + oneDayBuyingPower + '\'' +
                 ", unrealizedProfitLoss='" + unrealizedProfitLoss + '\'' +
                 ", availableWithdrawal='" + availableWithdrawal + '\'' +
                 ", heldAmount='" + heldAmount + '\'' +

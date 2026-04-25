@@ -30,11 +30,14 @@ public class TradeClientV3 implements ITradeV3Client {
     private static final String BATCH_ORDERS_ARG = "batchOrders";
 	private static final String MODIFY_ORDERS_ARG = "modifyOrders";
 	private static final String CLIENT_ORDER_ID_ARG = "clientOrderId";
+	private static final String INSTRUMENT_ID_ARG = "instrumentId";
 
 	private static final String PAGE_SIZE_PARAM = "page_size";
 	private static final String START_TIME_PARAM = "start_date";
 	private static final String END_TIME_PARAM = "end_date";
 	private static final String LAST_CLIENT_ORDER_ID_PARAM = "last_client_order_id";
+	private static final String INSTRUMENT_ID_PARAM = "instrument_id";
+	private static final String LAST_ID_PARAM = "last_id";
 	private static final String LAST_ORDER_ID_PARAM = "last_order_id";
 	private static final String ACCOUNT_ID_PARAM = "account_id";
 	private static final String CLIENT_ORDER_ID_PARAM = "client_order_id";
@@ -84,6 +87,24 @@ public class TradeClientV3 implements ITradeV3Client {
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		request.setQuery(params);
 		return apiClient.request(request).responseType(new TypeToken<List<AccountPositionsInfo>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
+	public List<AccountPositionDetailsInfo> positionDetailsAccount(String accountId, String instrumentId, Integer pageSize, String lastId) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		Assert.notBlank(INSTRUMENT_ID_ARG, instrumentId);
+
+		HttpRequest request = new HttpRequest("/openapi/assets/position/details", Versions.V2, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		params.put(INSTRUMENT_ID_PARAM, instrumentId);
+		params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
+		if (StringUtils.isNotEmpty(lastId)) {
+			params.put(LAST_ID_PARAM, lastId);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<List<AccountPositionDetailsInfo>>() {
 		}.getType()).doAction();
 	}
 
