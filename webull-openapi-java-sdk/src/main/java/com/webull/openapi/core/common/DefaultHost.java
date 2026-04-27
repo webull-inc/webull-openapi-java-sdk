@@ -31,4 +31,7 @@ public final class DefaultHost {
     public static final String QUOTES_JP = "";
     public static final String EVENTS_JP = "events-api.webull.co.jp";
 
+    public static final String API_HK_SANDBOX = "api.sandbox.webull.hk";
+    public static final String EVENTS_HK_SANDBOX = "events-api.sandbox.webull.hk";
+
 }
