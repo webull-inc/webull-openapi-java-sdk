@@ -44,7 +44,8 @@ public class DefaultSignatureComposer {
                     UatDefaultHost.API_US,UatDefaultHost.EVENTS_US,
                     DefaultHost.API_HK,DefaultHost.EVENTS_HK,
                     PreDefaultHost.API_HK,PreDefaultHost.EVENTS_HK,
-                    UatDefaultHost.API_HK,UatDefaultHost.EVENTS_HK);
+                    UatDefaultHost.API_HK,UatDefaultHost.EVENTS_HK,
+                    DefaultHost.API_HK_SANDBOX,DefaultHost.EVENTS_HK_SANDBOX);
 
     private DefaultSignatureComposer() {
 
