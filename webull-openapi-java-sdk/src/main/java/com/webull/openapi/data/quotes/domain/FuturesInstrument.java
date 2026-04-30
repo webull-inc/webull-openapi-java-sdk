@@ -20,6 +20,9 @@ public class FuturesInstrument {
 	private String lastTradingDate;
 	private String contractType;
 	private String settlement;
+	private Integer productClassId;
+	private String productClassName;
+	private String status;
 
 	public String getSymbol() {
 		return symbol;
@@ -165,6 +168,30 @@ public class FuturesInstrument {
 		this.settlement = settlement;
 	}
 
+	public Integer getProductClassId() {
+		return productClassId;
+	}
+
+	public void setProductClassId(Integer productClassId) {
+		this.productClassId = productClassId;
+	}
+
+	public String getProductClassName() {
+		return productClassName;
+	}
+
+	public void setProductClassName(String productClassName) {
+		this.productClassName = productClassName;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
 	@Override
 	public String toString() {
 		return "FuturesInstrument{" +
@@ -184,9 +211,11 @@ public class FuturesInstrument {
 			", lastNoticeDate='" + lastNoticeDate + '\'' +
 			", firstTradingDate='" + firstTradingDate + '\'' +
 			", lastTradingDate='" + lastTradingDate + '\'' +
-			", contract_type='" + contractType + '\'' +
+			", contractType='" + contractType + '\'' +
 			", settlement='" + settlement + '\'' +
+			", productClassId=" + productClassId +
+			", productClassName='" + productClassName + '\'' +
+			", status='" + status + '\'' +
 			'}';
 	}
-
 }

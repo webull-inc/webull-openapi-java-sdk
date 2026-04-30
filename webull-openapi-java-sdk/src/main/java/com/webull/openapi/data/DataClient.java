@@ -92,6 +92,11 @@ public class DataClient implements IDataClient {
 
     @Override
     public List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions) {
+        return getBars(symbol, category, timespan, count, realTimeRequired, tradingSessions, null, null);
+    }
+
+    @Override
+    public List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions, Long startTime, Long endTime) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY, ArgNames.TIMESPAN), symbol, category, timespan);
         HttpRequest request = new HttpRequest("/openapi/market-data/stock/bars", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
@@ -105,6 +110,12 @@ public class DataClient implements IDataClient {
         if(CollectionUtils.isNotEmpty(tradingSessions)){
             params.put(ArgNames.TRADING_SESSIONS, String.join(",", tradingSessions));
         }
+        if(Objects.nonNull(startTime)){
+            params.put(ArgNames.START_TIME, startTime);
+        }
+        if(Objects.nonNull(endTime)){
+            params.put(ArgNames.END_TIME, endTime);
+        }
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<Bar>>() {}.getType()).doAction();
@@ -112,6 +123,11 @@ public class DataClient implements IDataClient {
 
     @Override
     public BatchBarResponse getBatchBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions) {
+        return getBatchBars(symbols, category, timespan, count, realTimeRequired, tradingSessions, null, null);
+    }
+
+    @Override
+    public BatchBarResponse getBatchBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions, Long startTime, Long endTime) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
@@ -126,6 +142,12 @@ public class DataClient implements IDataClient {
         }
         if(CollectionUtils.isNotEmpty(tradingSessions)){
             params.put(ArgNames.TRADING_SESSIONS, String.join(",", tradingSessions));
+        }
+        if(Objects.nonNull(startTime)){
+            params.put(ArgNames.START_TIME, startTime);
+        }
+        if(Objects.nonNull(endTime)){
+            params.put(ArgNames.END_TIME, endTime);
         }
         request.setBody(params);
         addCustomHeaders(request);
@@ -301,6 +323,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<FuturesProduct> getFuturesProducts(String category) {
         Assert.notBlank(ArgNames.CATEGORY, category);
         HttpRequest request = new HttpRequest("/openapi/instrument/futures/products", Versions.V2, HttpMethod.GET);
@@ -312,6 +335,21 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<FuturesProduct> getFuturesProductsV2(String category, String productClassId) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/products", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotEmpty(productClassId)) {
+            params.put(ArgNames.PRODUCT_CLASS_ID, productClassId);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesProduct>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public List<FuturesInstrument> getFuturesInstruments(Set<String> symbols, String category) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -325,6 +363,27 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<FuturesInstrument> getFuturesInstrumentsV2(String category, Set<String> symbols, String code, String status) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (CollectionUtils.isNotEmpty(symbols)) {
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if (StringUtils.isNotEmpty(code)) {
+            params.put(ArgNames.CODE, code);
+        }
+        if (StringUtils.isNotEmpty(status)) {
+            params.put(ArgNames.STATUS, status);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesInstrument>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public List<FuturesInstrument> getFuturesInstrumentsByCode(String code, String category, String contractType) {
         Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.CODE), category, code);
         HttpRequest request = new HttpRequest("/openapi/instrument/futures/by-code", Versions.V2, HttpMethod.GET);
@@ -338,6 +397,17 @@ public class DataClient implements IDataClient {
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<FuturesInstrument>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FuturesProductClass> getFuturesProductClasses(String category) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/product-classes", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FuturesProductClass>>() {}.getType()).doAction();
     }
 
     @Override
@@ -576,6 +646,234 @@ public class DataClient implements IDataClient {
         }
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<EventTick>() {}.getType()).doAction();
+    }
+
+    // ==================== Company Profile & Analyst APIs ====================
+
+    @Override
+    public CompanyProfile getCompanyProfile(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/company/profile", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<CompanyProfile>() {}.getType()).doAction();
+    }
+
+    @Override
+    public AnalystTargetPrice getAnalystTargetPrice(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/analyst/target-price", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<AnalystTargetPrice>() {}.getType()).doAction();
+    }
+
+    @Override
+    public AnalystRating getAnalystRating(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/instrument/analyst/rating", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<AnalystRating>() {}.getType()).doAction();
+    }
+
+    // ==================== Watchlist APIs ====================
+
+    @Override
+    public List<Watchlist> getWatchlists() {
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/list", Versions.V2, HttpMethod.GET);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<Watchlist>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public WatchlistCreateResponse createWatchlist(String name, Integer sort) {
+        Assert.notBlank(ArgNames.NAME, name);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/create", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.NAME, name);
+        if (Objects.nonNull(sort)) {
+            params.put(ArgNames.SORT, sort);
+        }
+        request.setBody(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<WatchlistCreateResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public void updateWatchlist(String watchlistId, String name, Integer sort) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/update", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        if (StringUtils.isNotBlank(name)) {
+            params.put(ArgNames.NAME, name);
+        }
+        if (Objects.nonNull(sort)) {
+            params.put(ArgNames.SORT, sort);
+        }
+        request.setBody(params);
+        addCustomHeaders(request);
+        apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
+    }
+
+    @Override
+    public void deleteWatchlist(String watchlistId) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/delete", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        request.setBody(params);
+        addCustomHeaders(request);
+        apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
+    }
+
+    @Override
+    public WatchlistInstrumentsResponse getWatchlistInstruments(String watchlistId) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<WatchlistInstrumentsResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public void addWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/add", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        params.put(ArgNames.INSTRUMENTS, instruments);
+        request.setBody(params);
+        addCustomHeaders(request);
+        apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
+    }
+
+    @Override
+    public void removeWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/remove", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        params.put(ArgNames.INSTRUMENTS, instruments);
+        request.setBody(params);
+        addCustomHeaders(request);
+        apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
+    }
+
+    @Override
+    public void updateWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
+        Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
+        Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
+        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/update", Versions.V2, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.WATCHLIST_ID, watchlistId);
+        params.put(ArgNames.INSTRUMENTS, instruments);
+        request.setBody(params);
+        addCustomHeaders(request);
+        apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
+    }
+
+    // ==================== Screener APIs ====================
+
+    @Override
+    public ScreenerResponse getGainersLosers(String rankType, String category, String sortBy,
+                                              Integer pageIndex, Integer pageSize, String direction) {
+        Assert.notBlank(ArgNames.RANK_TYPE, rankType);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.SORT_BY, sortBy);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/gainers-losers", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.RANK_TYPE, rankType);
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.SORT_BY, sortBy);
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<ScreenerResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public ScreenerResponse getMostActive(String category, String rankType, String sortBy,
+                                           Integer pageIndex, Integer pageSize, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/most-active", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(rankType)) {
+            params.put(ArgNames.RANK_TYPE, rankType);
+        }
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<ScreenerResponse>() {}.getType()).doAction();
+    }
+
+    // ==================== NOII APIs ====================
+
+    @Override
+    public List<NoiiBar> getNoiiBars(String symbol, String category, String imbalanceActionType) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
+        HttpRequest request = new HttpRequest("/openapi/market-data/stock/noii/bars", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<NoiiBar>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public NoiiSnapshot getNoiiSnapshot(String symbol, String category, String imbalanceActionType) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
+        HttpRequest request = new HttpRequest("/openapi/market-data/stock/noii/snapshot", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<NoiiSnapshot>() {}.getType()).doAction();
     }
 
 }

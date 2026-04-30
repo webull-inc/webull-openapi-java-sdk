@@ -52,4 +52,28 @@ public final class ArgNames {
     public static final String EVNET_SYMBOL = "event_symbol";
     public static final String EXPIRATION_DATE_AFTER = "expiration_date_after";
     public static final String LAST_SERIES_ID = "last_series_id";
+    public static final String PRODUCT_CLASS_ID = "product_class_id";
+
+    // Watchlist related
+    public static final String WATCHLIST_ID = "watchlist_id";
+    public static final String NAME = "name";
+    public static final String SORT = "sort";
+    public static final String INSTRUMENTS = "instruments";
+
+    // Screener related
+    public static final String RANK_TYPE = "rank_type";
+    public static final String SORT_BY = "sort_by";
+    public static final String PAGE_INDEX = "page_index";
+    public static final String DIRECTION = "direction";
+
+    // News related
+    public static final String CATEGORY_SYMBOLS = "category_symbols";
+    public static final String LANG = "lang";
+
+    // Time range
+    public static final String START_TIME = "start_time";
+    public static final String END_TIME = "end_time";
+
+    // NOII related
+    public static final String IMBALANCE_ACTION_TYPE = "imbalance_action_type";
 }
