@@ -119,6 +119,34 @@ public class DataClient {
         List<FootprintResponse> futuresFootprint = dataClient.getFuturesFootprint(futuresSymbols, Category.US_FUTURES.name(), Timespan.S5.name(), 200, null, null);
         logger.info("FuturesFootprint: {}", futuresFootprint);
 
+        // get company profile
+        CompanyProfile companyProfile = dataClient.getCompanyProfile("AAPL", Category.US_STOCK.name());
+        logger.info("Company Profile: {}", companyProfile);
+
+        // get analyst target price
+        AnalystTargetPrice analystTargetPrice = dataClient.getAnalystTargetPrice("AAPL", Category.US_STOCK.name());
+        logger.info("Analyst Target Price: {}", analystTargetPrice);
+
+        // get analyst rating
+        AnalystRating analystRating = dataClient.getAnalystRating("AAPL", Category.US_STOCK.name());
+        logger.info("Analyst Rating: {}", analystRating);
+
+        // Get NOII bars for opening imbalance
+        List<NoiiBar> openBars = dataClient.getNoiiBars("AAPL", Category.US_STOCK.name(), "PRE_OPEN");
+        logger.info("NOII opening bars: {}", openBars);
+
+        // Get NOII bars for closing imbalance
+        List<NoiiBar> closeBars = dataClient.getNoiiBars("AAPL", Category.US_STOCK.name(), "PRE_CLOSE");
+        logger.info("NOII closing bars: {}", closeBars);
+
+        // Get NOII snapshot for opening imbalance
+        NoiiSnapshot openSnapshot = dataClient.getNoiiSnapshot("AAPL", Category.US_STOCK.name(), "PRE_OPEN");
+        logger.info("NOII opening snapshot: {}", openSnapshot);
+
+        // Get NOII snapshot for closing imbalance
+        NoiiSnapshot closeSnapshot = dataClient.getNoiiSnapshot("AAPL", Category.US_STOCK.name(), "PRE_CLOSE");
+        logger.info("NOII closing snapshot: {}", closeSnapshot);
+
 //        // get end of day market
 //        List<EodBars> eodBars = IDataClient.getEodBars(instrumentIds, "2023-01-01", 10);
 //        logger.info("Eod bars: {}", eodBars);
