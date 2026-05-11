@@ -64,7 +64,7 @@ public class MarketStreamingClient implements IMarketStreamingClient {
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notEmpty(ArgNames.SUBTYPES, subTypes);
 
-        HttpRequest request = new HttpRequest("/market-data/streaming/subscribe", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/openapi/market-data/streaming/subscribe", Versions.V2, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SESSION_ID, sessionId);
         params.put(ArgNames.SYMBOLS, symbols);
@@ -86,7 +86,7 @@ public class MarketStreamingClient implements IMarketStreamingClient {
 
         Assert.notBlank(ArgNames.SESSION_ID, sessionId);
 
-        HttpRequest request = new HttpRequest("/market-data/streaming/unsubscribe", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/openapi/market-data/streaming/unsubscribe", Versions.V2, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SESSION_ID, sessionId);
 
