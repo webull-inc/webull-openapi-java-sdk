@@ -60,8 +60,8 @@ public class SignatureCallCredentials extends CallCredentials {
     private final byte[] requestBytes;
     private String userId;
 
-    public SignatureCallCredentials(String appKey, String appSecret, byte[] requestBytes) {
-        this(appKey, appSecret, null, null, null, requestBytes);
+    public SignatureCallCredentials(String appKey, String appSecret, byte[] requestBytes,String host) {
+        this(appKey, appSecret, host, null, null, requestBytes);
     }
 
     public SignatureCallCredentials(String appKey, String appSecret, String host, Integer port, String url, byte[] requestBytes) {

@@ -92,7 +92,7 @@ public class TradeEventClient extends BaseGrpcClient<Events.SubscribeResponse> i
                 .build();
 
         byte[] requestBytes = grpcRequest.toByteArray();
-        CallCredentials credentials = new SignatureCallCredentials(appKey, appSecret, requestBytes);
+        CallCredentials credentials = new SignatureCallCredentials(appKey, appSecret, requestBytes,host);
         EventServiceGrpc.EventServiceStub credentialsStub = this.stub.withCallCredentials(credentials);
 
         StatefulResponseObserver<Events.SubscribeRequest, Events.SubscribeResponse> responseObserver =
