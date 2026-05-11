@@ -21,15 +21,15 @@ public enum ApiModule {
     /**
      * api
      */
-    API(DefaultHost.API_US, DefaultHost.API_HK, DefaultHost.API_JP),
+    API(DefaultHost.API_US, DefaultHost.API_HK, DefaultHost.API_JP,DefaultHost.API_SG),
     /**
      * quotes api
      */
-    QUOTES(DefaultHost.QUOTES_US, DefaultHost.QUOTES_HK, DefaultHost.QUOTES_JP),
+    QUOTES(DefaultHost.QUOTES_US, DefaultHost.QUOTES_HK, DefaultHost.QUOTES_JP,DefaultHost.QUOTES_SG),
     /**
      * events api
      */
-    EVENTS(DefaultHost.EVENTS_US, DefaultHost.EVENTS_HK, DefaultHost.EVENTS_JP),
+    EVENTS(DefaultHost.EVENTS_US, DefaultHost.EVENTS_HK, DefaultHost.EVENTS_JP,DefaultHost.EVENTS_SG),
     ;
 
     private final EnumMap<Region, String> hosts;
