@@ -32,9 +32,9 @@ public class ScreenerStock {
     private String close;
     private String price;
     private String change;
-    private String changePercent;
+    private String changeRatio;
     private String volume;
-    private String turnoverAmount;
+    private String turnover;
     private String turnoverRate;
     private String marketValue;
     private String amplitude;
@@ -137,12 +137,12 @@ public class ScreenerStock {
         this.change = change;
     }
 
-    public String getChangePercent() {
-        return changePercent;
+    public String getChangeRatio() {
+        return changeRatio;
     }
 
-    public void setChangePercent(String changePercent) {
-        this.changePercent = changePercent;
+    public void setChangeRatio(String changeRatio) {
+        this.changeRatio = changeRatio;
     }
 
     public String getVolume() {
@@ -153,12 +153,12 @@ public class ScreenerStock {
         this.volume = volume;
     }
 
-    public String getTurnoverAmount() {
-        return turnoverAmount;
+    public String getTurnover() {
+        return turnover;
     }
 
-    public void setTurnoverAmount(String turnoverAmount) {
-        this.turnoverAmount = turnoverAmount;
+    public void setTurnover(String turnover) {
+        this.turnover = turnover;
     }
 
     public String getTurnoverRate() {
@@ -216,9 +216,9 @@ public class ScreenerStock {
                 ", close='" + close + '\'' +
                 ", price='" + price + '\'' +
                 ", change='" + change + '\'' +
-                ", changePercent='" + changePercent + '\'' +
+                ", changeRatio='" + changeRatio + '\'' +
                 ", volume='" + volume + '\'' +
-                ", turnoverAmount='" + turnoverAmount + '\'' +
+                ", turnover='" + turnover + '\'' +
                 ", turnoverRate='" + turnoverRate + '\'' +
                 ", marketValue='" + marketValue + '\'' +
                 ", amplitude='" + amplitude + '\'' +
