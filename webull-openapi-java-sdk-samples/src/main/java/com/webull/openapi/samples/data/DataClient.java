@@ -147,6 +147,18 @@ public class DataClient {
         NoiiSnapshot closeSnapshot = dataClient.getNoiiSnapshot("AAPL", Category.US_STOCK.name(), "PRE_CLOSE");
         logger.info("NOII closing snapshot: {}", closeSnapshot);
 
+        Set<String> optionSymbols = new HashSet<>();
+        optionSymbols.add("AAPL260522C00300000");
+        List<OptionSnapshot> optionSnapshots = dataClient.getOptionSnapshots(optionSymbols, Category.US_OPTION.name());
+        logger.info("Option Snapshots: {}", optionSnapshots);
+
+        List<OptionBars> optionBars = dataClient.getOptionBars(new ArrayList<>(optionSymbols), Category.US_OPTION.name(), Timespan.M1.name(), 10, false);
+        logger.info("Option Bars: {}", optionBars);
+
+        OptionTick OptionTicks = dataClient.getOptionTicks("AAPL260522C00300000", Category.US_OPTION.name(), 30);
+        logger.info("Option Ticks: {}", OptionTicks);
+
+
 //        // get end of day market
 //        List<EodBars> eodBars = IDataClient.getEodBars(instrumentIds, "2023-01-01", 10);
 //        logger.info("Eod bars: {}", eodBars);

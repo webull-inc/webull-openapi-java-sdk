@@ -55,6 +55,14 @@ public class Snapshot extends QuotesBasic {
     private String ovnAskSize;
     private String settleDate;
     private String settlePrice;
+    private String strikePrice;
+    private String gamma;
+    private String delta;
+    private String rho;
+    private String theta;
+    private String vega;
+    private String impVol;
+    private String dealAmount;
 
     public String getTradeTime() {
         return tradeTime;
@@ -362,6 +370,71 @@ public class Snapshot extends QuotesBasic {
         this.ovnAskSize = ovnAskSize;
     }
 
+    public String getStrikePrice() {
+        return strikePrice;
+    }
+
+    public void setStrikePrice(String strikePrice) {
+        this.strikePrice = strikePrice;
+    }
+
+    public String getGamma() {
+        return gamma;
+    }
+
+    public void setGamma(String gamma) {
+        this.gamma = gamma;
+    }
+
+    public String getDelta() {
+        return delta;
+    }
+
+    public void setDelta(String delta) {
+        this.delta = delta;
+    }
+
+    public String getRho() {
+        return rho;
+    }
+
+    public void setRho(String rho) {
+        this.rho = rho;
+    }
+
+    public String getTheta() {
+        return theta;
+    }
+
+    public void setTheta(String theta) {
+        this.theta = theta;
+    }
+
+    public String getVega() {
+        return vega;
+    }
+
+    public void setVega(String vega) {
+        this.vega = vega;
+    }
+
+    public String getImpVol() {
+        return impVol;
+    }
+
+    public void setImpVol(String impVol) {
+        this.impVol = impVol;
+    }
+
+    public String getDealAmount() {
+        return dealAmount;
+    }
+
+    public void setDealAmount(String dealAmount) {
+        this.dealAmount = dealAmount;
+    }
+
+
     @Override
     public String toString() {
         return "Snapshot{" +
@@ -407,6 +480,14 @@ public class Snapshot extends QuotesBasic {
                 ", ovnAskSize='" + ovnAskSize + '\'' +
                 ", settleDate='" + settleDate + '\'' +
                 ", settlePrice='" + settlePrice + '\'' +
+                ", strikePrice='" + strikePrice + '\'' +
+                ", gamma='" + gamma + '\'' +
+                ", delta='" + delta + '\'' +
+                ", rho='" + rho + '\'' +
+                ", theta='" + theta + '\'' +
+                ", vega='" + vega + '\'' +
+                ", impVol='" + impVol + '\'' +
+                ", dealAmount='" + dealAmount + '\'' +
                 '}';
     }
 }

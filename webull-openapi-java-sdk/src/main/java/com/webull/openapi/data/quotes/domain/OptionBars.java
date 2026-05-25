@@ -15,14 +15,13 @@
  */
 package com.webull.openapi.data.quotes.domain;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.List;
 
-public abstract class QuotesBasic {
+public class OptionBars {
 
-    protected String symbol;
-
-    @SerializedName(value = "instrument_id", alternate = {"instrumentId"})
-    protected String instrumentId;
+    private String symbol;
+    private String instrument_id;
+    private List<OptionBar> result;
 
     public String getSymbol() {
         return symbol;
@@ -33,10 +32,27 @@ public abstract class QuotesBasic {
     }
 
     public String getInstrumentId() {
-        return instrumentId;
+        return instrument_id;
     }
 
     public void setInstrumentId(String instrumentId) {
-        this.instrumentId = instrumentId;
+        this.instrument_id = instrumentId;
+    }
+
+    public List<OptionBar> getResult() {
+        return result;
+    }
+
+    public void setResult(List<OptionBar> result) {
+        this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "OptionBar{" +
+                "symbol='" + symbol + '\'' +
+                ", instrumentId='" + instrument_id + '\'' +
+                ", bar=" + result +
+                '}';
     }
 }
