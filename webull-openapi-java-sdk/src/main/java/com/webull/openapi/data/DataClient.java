@@ -323,6 +323,51 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<OptionBars> getOptionBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        HttpRequest request = new HttpRequest("/openapi/market-data/option/bars", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.TIMESPAN, timespan);
+        params.put(ArgNames.COUNT, count);
+        if(Objects.nonNull(realTimeRequired)){
+            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<OptionBars>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public OptionTick getOptionTicks(String symbol, String category, int count) {
+        Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/option/tick", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.COUNT, count);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<OptionTick>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<OptionSnapshot> getOptionSnapshots(Set<String> symbols, String category) {
+        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/option/snapshot", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<OptionSnapshot>>() {}.getType()).doAction();
+    }
+
+    @Override
     @Deprecated
     public List<FuturesProduct> getFuturesProducts(String category) {
         Assert.notBlank(ArgNames.CATEGORY, category);

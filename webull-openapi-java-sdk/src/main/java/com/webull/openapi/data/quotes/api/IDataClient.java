@@ -103,6 +103,12 @@ public interface IDataClient {
 
     Tick getFutureTicks(String symbol, String category, int count);
 
+    List<OptionBars> getOptionBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    OptionTick getOptionTicks(String symbol, String category, int count);
+
+    List<OptionSnapshot> getOptionSnapshots(Set<String> symbols, String category);
+
     @Deprecated
     List<FuturesProduct> getFuturesProducts(String category);
 

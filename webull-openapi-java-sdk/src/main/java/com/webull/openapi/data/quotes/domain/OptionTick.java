@@ -13,20 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.webull.openapi.core.common;
+package com.webull.openapi.data.quotes.domain;
 
-import java.util.Optional;
+import java.util.List;
 
-public enum Region {
+public class OptionTick extends QuotesBasic {
 
-    us, hk, jp, sg, th, au, my, uk;
+    private List<OptionTickRecord> result;
 
-    public static Optional<Region> of(String name) {
-        for (Region region : Region.values()) {
-            if (region.name().equals(name)) {
-                return Optional.of(region);
-            }
-        }
-        return Optional.empty();
+    public List<OptionTickRecord> getResult() {
+        return result;
+    }
+
+    public void setResult(List<OptionTickRecord> result) {
+        this.result = result;
+    }
+
+    @Override
+    public String toString() {
+        return "OptionTick{" +
+                "  symbol='" + symbol + '\'' +
+                ", instrumentId='" + instrumentId + '\'' +
+                ", result='" + result + '\'' +
+                '}';
     }
 }
