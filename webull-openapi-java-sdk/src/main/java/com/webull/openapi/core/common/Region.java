@@ -19,7 +19,7 @@ import java.util.Optional;
 
 public enum Region {
 
-    us, hk, jp, sg, th, au, my, uk;
+    us, hk, jp, sg, th, au, my, uk, br, mx;
 
     public static Optional<Region> of(String name) {
         for (Region region : Region.values()) {
