@@ -15,6 +15,7 @@
  */
 package com.webull.openapi.trade.response;
 
+import com.google.gson.annotations.SerializedName;
 import com.webull.openapi.trade.request.v3.CloseContract;
 
 import java.util.List;
@@ -45,6 +46,8 @@ public class NOrderItem {
     private String stopPrice;
     private String trailingStopStep;
     private String trailingType;
+    @SerializedName(value = "trailing_limit_price_offset", alternate = { "trailing_limit_price" })
+    private String trailingLimitPriceOffset;
     private String accountTaxType;
     private String eventOutcome;
     private String algoType;
@@ -59,7 +62,6 @@ public class NOrderItem {
     private List<NOrderItemLeg> legs;
     private OrderCommissionItem commission;
     private List<OrderFeeItem> fees;
-
 
     @Deprecated
     private String quantity;
@@ -131,7 +133,6 @@ public class NOrderItem {
     public void setLimitPrice(String limitPrice) {
         this.limitPrice = limitPrice;
     }
-
 
     public String getFilledQuantity() {
         return filledQuantity;
@@ -275,6 +276,14 @@ public class NOrderItem {
 
     public void setTrailingType(String trailingType) {
         this.trailingType = trailingType;
+    }
+
+    public String getTrailingLimitPriceOffset() {
+        return trailingLimitPriceOffset;
+    }
+
+    public void setTrailingLimitPriceOffset(String trailingLimitPriceOffset) {
+        this.trailingLimitPriceOffset = trailingLimitPriceOffset;
     }
 
     public String getEventOutcome() {
@@ -463,6 +472,7 @@ public class NOrderItem {
                 ", limitPrice='" + limitPrice + '\'' +
                 ", trailingType='" + trailingType + '\'' +
                 ", trailingStopStep='" + trailingStopStep + '\'' +
+                ", trailingLimitPriceOffset='" + trailingLimitPriceOffset + '\'' +
                 ", filledQuantity='" + filledQuantity + '\'' +
                 ", filledPrice='" + filledPrice + '\'' +
                 ", status='" + status + '\'' +
