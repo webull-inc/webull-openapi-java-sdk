@@ -769,7 +769,7 @@ public class TradeClientV3 {
         trailingStopLossLimitOrderItem.setOrderType(OrderType.TRAILING_STOP_LOSS_LIMIT.name());
         trailingStopLossLimitOrderItem.setQuantity("200");
         trailingStopLossLimitOrderItem.setTrailingStopStep("0.1");
-        trailingStopLossLimitOrderItem.setTrailingLimitPrice("580");
+        trailingStopLossLimitOrderItem.setTrailingLimitPriceOffset("580");
         trailingStopLossLimitOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
         trailingStopLossLimitOrderItem.setSupportTradingSession("CORE");
         trailingStopLossLimitOrderItem.setSide(OrderSide.BUY.name());
@@ -793,7 +793,7 @@ public class TradeClientV3 {
         replaceStopLossOrderItem.setStopPrice("560.77");
         replaceStopLossOrderItem.setQuantity("200");
         replaceStopLossOrderItem.setTrailingStopStep("0.15");
-        replaceStopLossOrderItem.setTrailingLimitPrice("581");
+        replaceStopLossOrderItem.setTrailingLimitPriceOffset("581");
         replaceStopLossOrderItem.setTrailingType(TrailingType.PERCENTAGE.name());
         replaceStopLossOrderItem.setTriggerPriceType(TriggerPriceTypes.PRICE.name());
         replaceStopLossOrders.add(replaceStopLossOrderItem);

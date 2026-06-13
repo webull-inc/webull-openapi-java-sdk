@@ -866,7 +866,7 @@ public class DataClient implements IDataClient {
     public ScreenerResponse getMostActive(String category, String rankType, String sortBy,
                                            Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/screener/most-active", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/top-active", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CATEGORY, category);
         if (StringUtils.isNotBlank(rankType)) {

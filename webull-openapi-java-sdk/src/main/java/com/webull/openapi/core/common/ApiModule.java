@@ -23,19 +23,19 @@ public enum ApiModule {
      */
     API(DefaultHost.API_US, DefaultHost.API_HK, DefaultHost.API_JP, DefaultHost.API_SG,
             DefaultHost.API_TH, DefaultHost.API_AU, DefaultHost.API_MY, DefaultHost.API_UK,
-            DefaultHost.API_BR, DefaultHost.API_MX),
+            DefaultHost.API_BR, DefaultHost.API_MX, DefaultHost.API_ZA, DefaultHost.API_EU),
     /**
      * quotes api
      */
     QUOTES(DefaultHost.QUOTES_US, DefaultHost.QUOTES_HK, DefaultHost.QUOTES_JP, DefaultHost.QUOTES_SG,
             DefaultHost.QUOTES_TH, DefaultHost.QUOTES_AU, DefaultHost.QUOTES_MY, DefaultHost.QUOTES_UK,
-            DefaultHost.QUOTES_BR, DefaultHost.QUOTES_MX),
+            DefaultHost.QUOTES_BR, DefaultHost.QUOTES_MX, DefaultHost.QUOTES_ZA, DefaultHost.QUOTES_EU),
     /**
      * events api
      */
     EVENTS(DefaultHost.EVENTS_US, DefaultHost.EVENTS_HK, DefaultHost.EVENTS_JP, DefaultHost.EVENTS_SG,
             DefaultHost.EVENTS_TH, DefaultHost.EVENTS_AU, DefaultHost.EVENTS_MY, DefaultHost.EVENTS_UK,
-            DefaultHost.EVENTS_BR, DefaultHost.EVENTS_MX),
+            DefaultHost.EVENTS_BR, DefaultHost.EVENTS_MX, DefaultHost.EVENTS_ZA, DefaultHost.EVENTS_EU),
     ;
 
     private final EnumMap<Region, String> hosts;

@@ -59,6 +59,14 @@ public final class DefaultHost {
     public static final String QUOTES_MX = "data-api.webull.com";
     public static final String EVENTS_MX = "events-api.webull.com";
 
+    public static final String API_ZA = "api.webull.com.au";
+    public static final String QUOTES_ZA = "data-api.webull.com.au";
+    public static final String EVENTS_ZA = "events-api.webull.com.au";
+
+    public static final String API_EU = "api.webull.eu";
+    public static final String QUOTES_EU = "data-api.webull.eu";
+    public static final String EVENTS_EU = "events-api.webull.eu";
+
     public static final String API_HK_SANDBOX = "api.sandbox.webull.hk";
     public static final String EVENTS_HK_SANDBOX = "events-api.sandbox.webull.hk";
 

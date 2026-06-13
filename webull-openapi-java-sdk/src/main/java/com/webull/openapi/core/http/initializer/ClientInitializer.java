@@ -15,7 +15,6 @@
  */
 package com.webull.openapi.core.http.initializer;
 
-import com.webull.openapi.core.common.Region;
 import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.core.http.HttpApiClient;
@@ -24,10 +23,7 @@ import com.webull.openapi.core.http.initializer.config.bean.ApiConfig;
 import com.webull.openapi.core.http.initializer.token.TokenManager;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
-import com.webull.openapi.core.utils.StringUtils;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class ClientInitializer {
@@ -48,14 +44,7 @@ public class ClientInitializer {
      */
     private static void initToken(HttpApiClient apiClient){
 
-        List<String> disableConfigRegionIds = new ArrayList<>();
-        disableConfigRegionIds.add(Region.hk.name());
-        String regionId = Objects.nonNull(apiClient) && Objects.nonNull(apiClient.getConfig()) ? apiClient.getConfig().getRegionId() : null;
-        if(disableConfigRegionIds.contains(regionId)){
-            if(!checkRegionTokenEnable(apiClient)){
-                return;
-            }
-        }else if(!checkTokenEnable(apiClient)){
+        if(!checkTokenEnable(apiClient)){
             return;
         }
 
@@ -63,35 +52,6 @@ public class ClientInitializer {
         TokenManager tokenManager = new TokenManager(customTokenDir);
         tokenManager.initToken(apiClient);
 
-    }
-
-    /**
-     * Check whether token checking is enabled in the specified region
-     * @param apiClient
-     * @return
-     */
-    private static boolean checkRegionTokenEnable(HttpApiClient apiClient){
-        if(Objects.isNull(apiClient)){
-            logger.warn("CheckRegionTokenEnable apiClient is null return false");
-            return false;
-        }
-
-        if(Objects.isNull(apiClient.getConfig())){
-            logger.warn("CheckRegionTokenEnable apiConfig is null return false");
-            return false;
-        }
-
-        if(StringUtils.isBlank(apiClient.getConfig().getRegionId())){
-            logger.warn("CheckRegionTokenEnable regionId is blank return false");
-            return false;
-        }
-
-        List<String> enableRegionIds = new ArrayList<>();
-        enableRegionIds.add(Region.hk.name());
-
-        boolean result = enableRegionIds.contains(apiClient.getConfig().getRegionId());
-        logger.info("CheckRegionTokenEnable result is {}, enable regionIds is {}.", result, enableRegionIds);
-        return result;
     }
 
     /**
