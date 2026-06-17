@@ -1,0 +1,84 @@
+/*
+ * Copyright 2022 Webull
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package com.webull.openapi.data.quotes.domain;
+
+/**
+ * A single stock entry in the industry comparison data list.
+ */
+public class IndustryComparisonItem {
+
+    /**
+     * Security symbol
+     */
+    private String symbol;
+
+    /**
+     * Security name
+     */
+    private String name;
+
+    /**
+     * Rank within the industry
+     */
+    private Integer rank;
+
+    /**
+     * Indicator value
+     */
+    private String value;
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getRank() {
+        return rank;
+    }
+
+    public void setRank(Integer rank) {
+        this.rank = rank;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "IndustryComparisonItem{" +
+                "symbol='" + symbol + '\'' +
+                ", name='" + name + '\'' +
+                ", rank=" + rank +
+                ", value='" + value + '\'' +
+                '}';
+    }
+}

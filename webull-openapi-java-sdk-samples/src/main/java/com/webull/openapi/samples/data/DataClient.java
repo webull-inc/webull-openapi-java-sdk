@@ -2,6 +2,13 @@ package com.webull.openapi.samples.data;
 
 import com.webull.openapi.core.common.dict.Category;
 import com.webull.openapi.core.common.dict.ContractType;
+import com.webull.openapi.core.common.dict.FiftyTwoWeekRankType;
+import com.webull.openapi.core.common.dict.FinancialReportType;
+import com.webull.openapi.core.common.dict.IndustryComparisonSortBy;
+import com.webull.openapi.core.common.dict.MarketSectorAggType;
+import com.webull.openapi.core.common.dict.MarketSectorPeriod;
+import com.webull.openapi.core.common.dict.ScreenerOrderBy;
+import com.webull.openapi.core.common.dict.SortDirection;
 import com.webull.openapi.core.common.dict.Timespan;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.logger.Logger;
@@ -157,6 +164,110 @@ public class DataClient {
 
         OptionTick OptionTicks = dataClient.getOptionTicks("AAPL260522C00300000", Category.US_OPTION.name(), 30);
         logger.info("Option Ticks: {}", OptionTicks);
+
+        // Get capital flow data (default 5 days)
+        List<CapitalFlow> capitalFlow = dataClient.getCapitalFlow("AAPL", Category.US_STOCK.name(), null);
+        logger.info("Capital Flow (default 5 days): {}", capitalFlow);
+
+        // Get capital flow data with specific count
+        List<CapitalFlow> capitalFlow3 = dataClient.getCapitalFlow("AAPL", Category.US_STOCK.name(), 3);
+        logger.info("Capital Flow (3 days): {}", capitalFlow3);
+
+        // Get industry comparison (default sort by EPS_TTM)
+        IndustryComparison industryComparison = dataClient.getIndustryComparison("AAPL", Category.US_STOCK.name(), null);
+        logger.info("Industry Comparison (default EPS_TTM): {}", industryComparison);
+
+        // Get industry comparison sorted by PE_TTM
+        IndustryComparison industryComparisonPe = dataClient.getIndustryComparison("AAPL", Category.US_STOCK.name(), IndustryComparisonSortBy.PE_TTM.name());
+        logger.info("Industry Comparison (PE_TTM): {}", industryComparisonPe);
+
+        // Get earnings calendar
+        List<EarningsCalendar> earningsCalendar = dataClient.getEarningsCalendar("AAPL", Category.US_STOCK.name());
+        logger.info("Earnings Calendar: {}", earningsCalendar);
+
+        // Get dividend calendar
+        List<DividendCalendar> dividendCalendar = dataClient.getDividendCalendar("AAPL", Category.US_STOCK.name());
+        logger.info("Dividend Calendar: {}", dividendCalendar);
+
+        // Get forecast EPS
+        List<ForecastEps> forecastEps = dataClient.getForecastEps("AAPL", Category.US_STOCK.name());
+        logger.info("Forecast EPS: {}", forecastEps);
+
+        // Get SEC filings
+        SecFilings secFilings = dataClient.getSecFilings("AAPL", Category.US_STOCK.name());
+        logger.info("SEC Filings: {}", secFilings);
+
+        // Get fund splits
+        List<FundSplit> fundSplits = dataClient.getFundSplits("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Splits: {}", fundSplits);
+
+        // Get fund rating
+        List<FundRating> fundRating = dataClient.getFundRating("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Rating: {}", fundRating);
+
+        // Get fund performance
+        FundPerformance fundPerformance = dataClient.getFundPerformance("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Performance: {}", fundPerformance);
+
+        // Get fund net value (default 5 records)
+        List<FundNetValue> fundNetValue = dataClient.getFundNetValue("QQQ", Category.US_STOCK.name(), null, null);
+        logger.info("Fund Net Value: {}", fundNetValue);
+
+        // Get fund holdings
+        List<FundHolding> fundHoldings = dataClient.getFundHoldings("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Holdings: {}", fundHoldings);
+
+        // Get fund files
+        List<FundFile> fundFiles = dataClient.getFundFiles("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Files: {}", fundFiles);
+
+        // Get fund dividends
+        List<FundDividend> fundDividends = dataClient.getFundDividends("QQQ", Category.US_STOCK.name(), 1, 10);
+        logger.info("Fund Dividends: {}", fundDividends);
+
+        // Get fund brief
+        FundBrief fundBrief = dataClient.getFundBrief("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Brief: {}", fundBrief);
+
+        // Get fund allocation
+        List<FundAllocation> fundAllocation = dataClient.getFundAllocation("QQQ", Category.US_STOCK.name());
+        logger.info("Fund Allocation: {}", fundAllocation);
+
+        // Get financial indicators (quarterly, default 5)
+        FinancialIndicators indicators = dataClient.getFinancialsIndicators("AAPL", Category.US_STOCK.name(), FinancialReportType.QUARTERLY.name(), 5);
+        logger.info("Financial Indicators: {}", indicators);
+
+        // Get income statement (quarterly, default 5)
+        List<FinancialIncome> incomeStatements = dataClient.getFinancialsIncome("AAPL", Category.US_STOCK.name(), FinancialReportType.QUARTERLY.name(), 5);
+        logger.info("Income Statements: {}", incomeStatements);
+
+        // Get cash flow statement (quarterly, default 5)
+        List<FinancialCashflow> cashflows = dataClient.getFinancialsCashflow("AAPL", Category.US_STOCK.name(), FinancialReportType.QUARTERLY.name(), 5);
+        logger.info("Cash Flow Statements: {}", cashflows);
+
+        // Get balance sheet (quarterly, default 5)
+        List<FinancialBalanceSheet> balanceSheets = dataClient.getFinancialsBalanceSheet("AAPL", Category.US_STOCK.name(), FinancialReportType.QUARTERLY.name(), 5);
+        logger.info("Balance Sheets: {}", balanceSheets);
+
+        // Get financial alert
+        FinancialAlert financialAlert = dataClient.getFinancialsAlert("AAPL", Category.US_STOCK.name());
+        logger.info("Financial Alert: {}", financialAlert);
+
+        // Get market sectors
+        List<MarketSector> marketSectors = dataClient.getMarketSectors(Category.US_STOCK.name(), MarketSectorAggType.MARKET_VALUE.name(), MarketSectorPeriod.D1.name(), 1, 10, SortDirection.DESC.name());
+        logger.info("Market Sectors: {}", marketSectors);
+
+        // Get market sector detail
+        MarketSectorDetail sectorDetail = dataClient.getMarketSectorsDetail("6391", Category.US_STOCK.name(), MarketSectorPeriod.D1.name(), 1, 10, ScreenerOrderBy.CHANGE_RATIO.name(), SortDirection.DESC.name());
+        logger.info("Market Sector Detail: {}", sectorDetail);
+
+        // Get high dividend stocks
+        HighDividendResponse highDividend = dataClient.getHighDividend(Category.US_STOCK.name(), ScreenerOrderBy.YIELD.name(), 1, 10, SortDirection.DESC.name());
+        logger.info("High Dividend Stocks: {}", highDividend);
+
+        // Get 52-week new high stocks
+        FiftyTwoWeekResponse newHighs = dataClient.get52Whl(FiftyTwoWeekRankType.NEW_HIGH.name(), Category.US_STOCK.name(), ScreenerOrderBy.CHANGE_RATIO_52W.name(), 1, 10, SortDirection.DESC.name());
+        logger.info("52-Week New Highs: {}", newHighs);
 
 
 //        // get end of day market

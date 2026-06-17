@@ -15,6 +15,8 @@
  */
 package com.webull.openapi.data.quotes.domain;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Stock information from screener API (gainers/losers/most active).
  */
@@ -38,6 +40,7 @@ public class ScreenerStock {
     private String turnoverRate;
     private String marketValue;
     private String amplitude;
+    @SerializedName("relative_volume_10d")
     private String relativeVolume10d;
     private String peTtm;
 
