@@ -73,5 +73,20 @@ public enum ScreenerOrderBy {
     /**
      * Trading volume
      */
-    VOLUME
+    VOLUME,
+
+    /**
+     * Dividend yield
+     */
+    YIELD,
+
+    /**
+     * Dividend per share
+     */
+    DIVIDEND,
+
+    /**
+     * 52-week price change ratio
+     */
+    CHANGE_RATIO_52W
 }

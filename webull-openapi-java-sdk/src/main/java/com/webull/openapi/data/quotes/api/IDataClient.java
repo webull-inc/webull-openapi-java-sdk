@@ -248,6 +248,205 @@ public interface IDataClient {
      */
     void updateWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments);
 
+    // ==================== Fundamentals APIs ====================
+
+    /**
+     * Get capital flow data for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type (e.g., US_STOCK, HK_STOCK)
+     * @param count    Number of records (optional, default 5, range 1-5)
+     * @return List of capital flow data by date
+     */
+    List<CapitalFlow> getCapitalFlow(String symbol, String category, Integer count);
+
+    /**
+     * Get industry comparison data for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @param sortBy   Sort field (optional, default EPS_TTM, enum: EPS_TTM/NAPS/DPS_TTM/ROE/DEBT_TO_ASSETS/NET_MARGIN/DIV_YIELD_TTM/PE_TTM/PB_RATIO)
+     * @return Industry comparison data
+     */
+    IndustryComparison getIndustryComparison(String symbol, String category, String sortBy);
+
+    /**
+     * Get SEC filings for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type (only US_STOCK supported)
+     * @return SEC filings data
+     */
+    SecFilings getSecFilings(String symbol, String category);
+
+    /**
+     * Get earnings calendar for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type (supports US/HK/CN/JP_STOCK)
+     * @return List of earnings calendar entries
+     */
+    List<EarningsCalendar> getEarningsCalendar(String symbol, String category);
+
+    /**
+     * Get dividend calendar for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type (supports US/HK/CN/JP_STOCK)
+     * @return List of dividend calendar entries
+     */
+    List<DividendCalendar> getDividendCalendar(String symbol, String category);
+
+    /**
+     * Get forecast EPS data for a stock.
+     * Returns the historical actual EPS of the most recent four disclosed fiscal periods,
+     * as well as the latest analyst consensus estimated EPS (if any).
+     * The list is sorted in ascending chronological order, with a maximum of 5 entries.
+     *
+     * @param symbol   Security symbol (single symbol only)
+     * @param category Security type (supports US_STOCK/HK_STOCK/CN_STOCK)
+     * @return List of forecast EPS entries
+     */
+    List<ForecastEps> getForecastEps(String symbol, String category);
+
+    /**
+     * Get fund splits information.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return List of fund split entries
+     */
+    List<FundSplit> getFundSplits(String symbol, String category);
+
+    /**
+     * Get fund rating information.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return List of fund rating entries
+     */
+    List<FundRating> getFundRating(String symbol, String category);
+
+    /**
+     * Get fund performance data.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return Fund performance data
+     */
+    FundPerformance getFundPerformance(String symbol, String category);
+
+    /**
+     * Get fund net value (NAV) data.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @param lastDate Last date for pagination (optional)
+     * @param count    Number of records (optional, default 5, max 20)
+     * @return List of fund net value entries
+     */
+    List<FundNetValue> getFundNetValue(String symbol, String category, String lastDate, Integer count);
+
+    /**
+     * Get fund holdings data.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return List of fund holding entries
+     */
+    List<FundHolding> getFundHoldings(String symbol, String category);
+
+    /**
+     * Get fund files/documents.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return List of fund file entries
+     */
+    List<FundFile> getFundFiles(String symbol, String category);
+
+    /**
+     * Get fund dividend history.
+     *
+     * @param symbol    Fund symbol
+     * @param category  Security type
+     * @param pageIndex Page number (optional, default 1)
+     * @param pageSize  Page size (optional, default 10, max 20)
+     * @return List of fund dividend entries
+     */
+    List<FundDividend> getFundDividends(String symbol, String category, Integer pageIndex, Integer pageSize);
+
+    /**
+     * Get fund brief information.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return Fund brief information
+     */
+    FundBrief getFundBrief(String symbol, String category);
+
+    /**
+     * Get fund allocation data.
+     *
+     * @param symbol   Fund symbol
+     * @param category Security type
+     * @return List of fund allocation entries
+     */
+    List<FundAllocation> getFundAllocation(String symbol, String category);
+
+    /**
+     * Get financial indicators for a stock.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @param type     Report type (optional, default QUARTERLY, enum: ANNUAL/QUARTERLY)
+     * @param count    Number of records (optional, default 5, max 20)
+     * @return Financial indicators data
+     */
+    FinancialIndicators getFinancialsIndicators(String symbol, String category, String type, Integer count);
+
+    /**
+     * Get income statement data.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @param type     Report type (optional, default QUARTERLY, enum: ANNUAL/QUARTERLY)
+     * @param count    Number of records (optional, default 5, max 20)
+     * @return List of income statement entries
+     */
+    List<FinancialIncome> getFinancialsIncome(String symbol, String category, String type, Integer count);
+
+    /**
+     * Get cash flow statement data.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @param type     Report type (optional, default QUARTERLY, enum: ANNUAL/QUARTERLY)
+     * @param count    Number of records (optional, default 5, max 20)
+     * @return List of cash flow statement entries
+     */
+    List<FinancialCashflow> getFinancialsCashflow(String symbol, String category, String type, Integer count);
+
+    /**
+     * Get balance sheet data.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @param type     Report type (optional, default QUARTERLY, enum: ANNUAL/QUARTERLY)
+     * @param count    Number of records (optional, default 5, max 20)
+     * @return List of balance sheet entries
+     */
+    List<FinancialBalanceSheet> getFinancialsBalanceSheet(String symbol, String category, String type, Integer count);
+
+    /**
+     * Get financial alert data.
+     *
+     * @param symbol   Security symbol
+     * @param category Security type
+     * @return Financial alert data
+     */
+    FinancialAlert getFinancialsAlert(String symbol, String category);
+
     // ==================== Screener APIs ====================
 
     /**
@@ -277,6 +476,62 @@ public interface IDataClient {
      */
     ScreenerResponse getMostActive(String category, String rankType, String sortBy,
                                     Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get market sectors data.
+     *
+     * @param category  Security market category (e.g., US_STOCK)
+     * @param aggType   Aggregation type (optional, default MARKET_VALUE, enum: MARKET_VALUE/VOLUME)
+     * @param period    Time period (optional, default D1, enum: D1/D5/M01/M03)
+     * @param pageIndex Page number (optional)
+     * @param pageSize  Number of records per page (optional)
+     * @param direction Sort direction (optional, enum: ASC/DESC)
+     * @return List of market sectors
+     */
+    List<MarketSector> getMarketSectors(String category, String aggType, String period,
+                                            Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get market sectors detail data.
+     *
+     * @param sectorId  Sector identifier (required)
+     * @param category  Security market category (required)
+     * @param period    Time period (optional, default D1)
+     * @param pageIndex Page number (optional)
+     * @param pageSize  Number of records per page (optional)
+     * @param sortBy    Sort field (optional, default CHANGE_RATIO)
+     * @param direction Sort direction (optional, enum: ASC/DESC)
+     * @return Market sector detail with stock list
+     */
+    MarketSectorDetail getMarketSectorsDetail(String sectorId, String category, String period,
+                                             Integer pageIndex, Integer pageSize, String sortBy, String direction);
+
+    /**
+     * Get high dividend stocks.
+     *
+     * @param category  Security market category (required)
+     * @param sortBy    Sort field (optional, default YIELD)
+     * @param pageIndex Page number (optional)
+     * @param pageSize  Number of records per page (optional)
+     * @param direction Sort direction (optional, enum: ASC/DESC)
+     * @return High dividend response with stock list
+     */
+    HighDividendResponse getHighDividend(String category, String sortBy,
+                                      Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get 52-week high/low stocks.
+     *
+     * @param rankType  Rank type (optional, enum: NEW_HIGH/NEAR_HIGH/NEW_LOW/NEAR_LOW)
+     * @param category  Security market category (required)
+     * @param sortBy    Sort field (optional, default CHANGE_RATIO_52W)
+     * @param pageIndex Page number (optional)
+     * @param pageSize  Number of records per page (optional)
+     * @param direction Sort direction (optional, enum: ASC/DESC)
+     * @return 52-week high/low response with stock list
+     */
+    FiftyTwoWeekResponse get52Whl(String rankType, String category, String sortBy,
+                               Integer pageIndex, Integer pageSize, String direction);
 
     // ==================== NOII APIs ====================
 

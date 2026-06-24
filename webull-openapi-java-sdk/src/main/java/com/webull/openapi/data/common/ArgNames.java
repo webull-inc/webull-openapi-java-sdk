@@ -76,4 +76,12 @@ public final class ArgNames {
 
     // NOII related
     public static final String IMBALANCE_ACTION_TYPE = "imbalance_action_type";
+
+    // Fundamentals related
+    public static final String LAST_DATE = "last_date";
+
+    // Screener market sectors related
+    public static final String AGG_TYPE = "agg_type";
+    public static final String PERIOD = "period";
+    public static final String SECTOR_ID = "sector_id";
 }

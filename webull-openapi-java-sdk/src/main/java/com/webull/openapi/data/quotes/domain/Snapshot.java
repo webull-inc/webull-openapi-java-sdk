@@ -63,6 +63,11 @@ public class Snapshot extends QuotesBasic {
     private String vega;
     private String impVol;
     private String dealAmount;
+    private String turnover;
+    private String eps;
+    private String epsTtm;
+    private String lotSize;
+    private String bps;
 
     public String getTradeTime() {
         return tradeTime;
@@ -434,6 +439,45 @@ public class Snapshot extends QuotesBasic {
         this.dealAmount = dealAmount;
     }
 
+    public String getTurnover() {
+        return turnover;
+    }
+
+    public void setTurnover(String turnover) {
+        this.turnover = turnover;
+    }
+
+    public String getEps() {
+        return eps;
+    }
+
+    public void setEps(String eps) {
+        this.eps = eps;
+    }
+
+    public String getEpsTtm() {
+        return epsTtm;
+    }
+
+    public void setEpsTtm(String epsTtm) {
+        this.epsTtm = epsTtm;
+    }
+
+    public String getLotSize() {
+        return lotSize;
+    }
+
+    public void setLotSize(String lotSize) {
+        this.lotSize = lotSize;
+    }
+
+    public String getBps() {
+        return bps;
+    }
+
+    public void setBps(String bps) {
+        this.bps = bps;
+    }
 
     @Override
     public String toString() {
@@ -488,6 +532,12 @@ public class Snapshot extends QuotesBasic {
                 ", vega='" + vega + '\'' +
                 ", impVol='" + impVol + '\'' +
                 ", dealAmount='" + dealAmount + '\'' +
+                ", turnover='" + turnover + '\'' +
+                ", eps='" + eps + '\'' +
+                ", epsTtm='" + epsTtm + '\'' +
+                ", lotSize='" + lotSize + '\'' +
+                ", bps='" + bps + '\'' +
+
                 '}';
     }
 }

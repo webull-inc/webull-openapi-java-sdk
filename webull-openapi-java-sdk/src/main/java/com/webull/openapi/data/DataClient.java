@@ -835,6 +835,310 @@ public class DataClient implements IDataClient {
         apiClient.request(request).responseType(new TypeToken<Boolean>() {}.getType()).doAction();
     }
 
+    // ==================== Fundamentals APIs ====================
+
+    @Override
+    public List<CapitalFlow> getCapitalFlow(String symbol, String category, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/capital-flow", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<CapitalFlow>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public IndustryComparison getIndustryComparison(String symbol, String category, String sortBy) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/industry-comparison", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<IndustryComparison>() {}.getType()).doAction();
+    }
+
+    @Override
+    public SecFilings getSecFilings(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/filings", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<SecFilings>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<EarningsCalendar> getEarningsCalendar(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/earnings-calendar", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<EarningsCalendar>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<DividendCalendar> getDividendCalendar(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/dividend-calendar", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<DividendCalendar>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<ForecastEps> getForecastEps(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/forecast-eps", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<ForecastEps>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundSplit> getFundSplits(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/splits", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundSplit>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundRating> getFundRating(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/rating", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundRating>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public FundPerformance getFundPerformance(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/performance", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FundPerformance>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundNetValue> getFundNetValue(String symbol, String category, String lastDate, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/net-value", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(lastDate)) {
+            params.put(ArgNames.LAST_DATE, lastDate);
+        }
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundNetValue>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundHolding> getFundHoldings(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/holdings", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundHolding>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundFile> getFundFiles(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/files", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundFile>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundDividend> getFundDividends(String symbol, String category, Integer pageIndex, Integer pageSize) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/dividends", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundDividend>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public FundBrief getFundBrief(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/brief", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FundBrief>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FundAllocation> getFundAllocation(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/allocation", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FundAllocation>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public FinancialIndicators getFinancialsIndicators(String symbol, String category, String type, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/indicators", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(type)) {
+            params.put("type", type);
+        }
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FinancialIndicators>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FinancialIncome> getFinancialsIncome(String symbol, String category, String type, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/income", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(type)) {
+            params.put("type", type);
+        }
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FinancialIncome>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FinancialCashflow> getFinancialsCashflow(String symbol, String category, String type, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/cash-flow", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(type)) {
+            params.put("type", type);
+        }
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FinancialCashflow>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<FinancialBalanceSheet> getFinancialsBalanceSheet(String symbol, String category, String type, Integer count) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/balance-sheet", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(type)) {
+            params.put("type", type);
+        }
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FinancialBalanceSheet>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public FinancialAlert getFinancialsAlert(String symbol, String category) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/alert", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FinancialAlert>() {}.getType()).doAction();
+    }
+
     // ==================== Screener APIs ====================
 
     @Override
@@ -887,6 +1191,113 @@ public class DataClient implements IDataClient {
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<ScreenerResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<MarketSector> getMarketSectors(String category, String aggType, String period,
+                                                   Integer pageIndex, Integer pageSize, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/market-sectors", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(aggType)) {
+            params.put(ArgNames.AGG_TYPE, aggType);
+        }
+        if (StringUtils.isNotBlank(period)) {
+            params.put(ArgNames.PERIOD, period);
+        }
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<MarketSector>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public MarketSectorDetail getMarketSectorsDetail(String sectorId, String category, String period,
+                                                    Integer pageIndex, Integer pageSize, String sortBy, String direction) {
+        Assert.notBlank(ArgNames.SECTOR_ID, sectorId);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/market-sectors-detail", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SECTOR_ID, sectorId);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(period)) {
+            params.put(ArgNames.PERIOD, period);
+        }
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<MarketSectorDetail>() {}.getType()).doAction();
+    }
+
+    @Override
+    public HighDividendResponse getHighDividend(String category, String sortBy,
+                                             Integer pageIndex, Integer pageSize, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/high-dividend", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<HighDividendResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public FiftyTwoWeekResponse get52Whl(String rankType, String category, String sortBy,
+                                      Integer pageIndex, Integer pageSize, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/openapi/market-data/screener/52whl", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if (StringUtils.isNotBlank(rankType)) {
+            params.put(ArgNames.RANK_TYPE, rankType);
+        }
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (Objects.nonNull(pageIndex)) {
+            params.put(ArgNames.PAGE_INDEX, pageIndex);
+        }
+        if (Objects.nonNull(pageSize)) {
+            params.put(ArgNames.PAGE_SIZE, pageSize);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FiftyTwoWeekResponse>() {}.getType()).doAction();
     }
 
     // ==================== NOII APIs ====================
