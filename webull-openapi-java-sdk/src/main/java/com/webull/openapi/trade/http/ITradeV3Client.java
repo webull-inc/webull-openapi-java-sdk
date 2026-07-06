@@ -87,4 +87,12 @@ public interface ITradeV3Client {
 	 */
 	List<TradeCalendar> getTradeCalendar(String market, String start, String end);
 
+	/**
+	 * Get cash activities for an account with optional filters.
+	 * This interface is currently supported only for Webull US.
+	 * Support for other regions will be available in future updates.
+	 */
+	List<Activity> getCashActivities(String accountId, String activityTypes, String startTime, String endTime,
+			String lastActivityId, Integer pageSize);
+
 }

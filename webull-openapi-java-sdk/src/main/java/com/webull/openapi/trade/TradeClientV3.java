@@ -47,6 +47,11 @@ public class TradeClientV3 implements ITradeV3Client {
     private static final String BATCH_ORDERS_PARAM = "batch_orders";
 	private static final String MODIFY_ORDERS_PARAM = "modify_orders";
 
+	private static final String ACTIVITY_TYPES_PARAM = "activity_types";
+	private static final String START_TIME_ACTIVITY_PARAM = "start_time";
+	private static final String END_TIME_ACTIVITY_PARAM = "end_time";
+	private static final String LAST_ACTIVITY_ID_PARAM = "last_activity_id";
+
 	private final Region region;
 	private final HttpApiClient apiClient;
 
@@ -251,6 +256,31 @@ public class TradeClientV3 implements ITradeV3Client {
 	@Override
 	public List<TradeCalendar> getTradeCalendar(String market, String start, String end) {
 		return Collections.emptyList();
+	}
+
+	@Override
+	public List<Activity> getCashActivities(String accountId, String activityTypes, String startTime, String endTime,
+			String lastActivityId, Integer pageSize) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		HttpRequest request = new HttpRequest("/openapi/trade/activities/cash", Versions.V2, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
+		if (StringUtils.isNotEmpty(activityTypes)) {
+			params.put(ACTIVITY_TYPES_PARAM, activityTypes);
+		}
+		if (StringUtils.isNotEmpty(startTime)) {
+			params.put(START_TIME_ACTIVITY_PARAM, startTime);
+		}
+		if (StringUtils.isNotEmpty(endTime)) {
+			params.put(END_TIME_ACTIVITY_PARAM, endTime);
+		}
+		if (StringUtils.isNotEmpty(lastActivityId)) {
+			params.put(LAST_ACTIVITY_ID_PARAM, lastActivityId);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<List<Activity>>() {
+		}.getType()).doAction();
 	}
 
 	private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {
