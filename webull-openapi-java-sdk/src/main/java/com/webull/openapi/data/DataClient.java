@@ -1332,4 +1332,60 @@ public class DataClient implements IDataClient {
         return apiClient.request(request).responseType(new TypeToken<NoiiSnapshot>() {}.getType()).doAction();
     }
 
+
+    // ==================== Option Instrument APIs ====================
+
+    @Override
+    public List<OptionContract> getOptionContracts(OptionContractQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        HttpRequest request = new HttpRequest("/openapi/instrument/option/contracts", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        if (StringUtils.isNotEmpty(param.getUnderlyingSymbols())) {
+            params.put(ArgNames.UNDERLYING_SYMBOLS, param.getUnderlyingSymbols());
+        }
+        if (StringUtils.isNotEmpty(param.getStatus())) {
+            params.put(ArgNames.STATUS, param.getStatus());
+        }
+        if (StringUtils.isNotEmpty(param.getStartDate())) {
+            params.put(ArgNames.START_DATE, param.getStartDate());
+        }
+        if (StringUtils.isNotEmpty(param.getEndDate())) {
+            params.put(ArgNames.END_DATE, param.getEndDate());
+        }
+        if (StringUtils.isNotEmpty(param.getRootSymbol())) {
+            params.put(ArgNames.ROOT_SYMBOL, param.getRootSymbol());
+        }
+        if (StringUtils.isNotEmpty(param.getOptionSymbol())) {
+            params.put(ArgNames.OPTION_SYMBOL, param.getOptionSymbol());
+        }
+        if (StringUtils.isNotEmpty(param.getOptionType())) {
+            params.put(ArgNames.OPTION_TYPE, param.getOptionType());
+        }
+        if (StringUtils.isNotEmpty(param.getStyle())) {
+            params.put(ArgNames.STYLE, param.getStyle());
+        }
+        if (Objects.nonNull(param.getStrikePriceGte())) {
+            params.put(ArgNames.STRIKE_PRICE_GTE, param.getStrikePriceGte());
+        }
+        if (Objects.nonNull(param.getStrikePriceLte())) {
+            params.put(ArgNames.STRIKE_PRICE_LTE, param.getStrikePriceLte());
+        }
+        if (Objects.nonNull(param.getPpind())) {
+            params.put(ArgNames.PPIND, param.getPpind());
+        }
+        if (Objects.nonNull(param.getShowDeliverables())) {
+            params.put(ArgNames.SHOW_DELIVERABLES, param.getShowDeliverables());
+        }
+        if (param.getPageSize() > 0) {
+            params.put(ArgNames.PAGE_SIZE, param.getPageSize());
+        }
+        if (StringUtils.isNotEmpty(param.getLastInstrumentId())) {
+            params.put(ArgNames.LAST_INSTRUMENT_ID, param.getLastInstrumentId());
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<OptionContract>>() {}.getType()).doAction();
+    }
 }
