@@ -560,4 +560,16 @@ public interface IDataClient {
      */
     NoiiSnapshot getNoiiSnapshot(String symbol, String category, String imbalanceActionType);
 
+
+    // ==================== Option Instrument APIs ====================
+
+    /**
+     * Query option contract list by various filters such as underlying symbols, status, expiration date, etc.
+     *
+     * @param param Query parameters including category (required, US_OPTION),
+     *              underlying symbols, status, expiration date range, option type, style,
+     *              strike price range, pagination, etc.
+     * @return List of option contracts matching the query criteria
+     */
+    List<OptionContract> getOptionContracts(OptionContractQueryParam param);
 }

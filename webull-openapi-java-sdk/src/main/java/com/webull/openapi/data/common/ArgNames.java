@@ -84,4 +84,15 @@ public final class ArgNames {
     public static final String AGG_TYPE = "agg_type";
     public static final String PERIOD = "period";
     public static final String SECTOR_ID = "sector_id";
+
+    // Option contract related
+    public static final String UNDERLYING_SYMBOLS = "underlying_symbols";
+    public static final String OPTION_SYMBOL = "option_symbol";
+    public static final String OPTION_TYPE = "option_type";
+    public static final String STYLE = "style";
+    public static final String STRIKE_PRICE_GTE = "strike_price_gte";
+    public static final String STRIKE_PRICE_LTE = "strike_price_lte";
+    public static final String ROOT_SYMBOL = "root_symbol";
+    public static final String PPIND = "ppind";
+    public static final String SHOW_DELIVERABLES = "show_deliverables";
 }

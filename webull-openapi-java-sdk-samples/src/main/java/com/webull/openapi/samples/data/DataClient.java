@@ -18,6 +18,7 @@ import com.webull.openapi.data.quotes.domain.*;
 import com.webull.openapi.samples.config.Env;
 
 import java.util.*;
+import java.math.BigDecimal;
 
 public class DataClient {
 
@@ -268,6 +269,13 @@ public class DataClient {
         // Get 52-week new high stocks
         FiftyTwoWeekResponse newHighs = dataClient.get52Whl(FiftyTwoWeekRankType.NEW_HIGH.name(), Category.US_STOCK.name(), ScreenerOrderBy.CHANGE_RATIO_52W.name(), 1, 10, SortDirection.DESC.name());
         logger.info("52-Week New Highs: {}", newHighs);
+
+        // Get option contracts
+        OptionContractQueryParam optionParam = new OptionContractQueryParam();
+        optionParam.setCategory(Category.US_OPTION.name());
+        optionParam.setUnderlyingSymbols("AAPL");
+        List<OptionContract> optionContracts = dataClient.getOptionContracts(optionParam);
+        logger.info("Option Contracts: {}", optionContracts);
 
 
 //        // get end of day market

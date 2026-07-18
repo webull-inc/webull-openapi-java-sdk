@@ -38,14 +38,6 @@ public class DefaultSignatureComposer {
     private static final String PARAMS_JOIN = "&";
     private static final String SECRET_TAILER = "&";
     private static final String PARAM_KV_JOIN = "=";
-    private static final List<String> NOT_UPGRADE_SIGN_REGIONS =
-            Arrays.asList(DefaultHost.API_US,DefaultHost.EVENTS_US,
-                    PreDefaultHost.API_US,PreDefaultHost.EVENTS_US,
-                    UatDefaultHost.API_US,UatDefaultHost.EVENTS_US,
-                    DefaultHost.API_HK,DefaultHost.EVENTS_HK,
-                    PreDefaultHost.API_HK,PreDefaultHost.EVENTS_HK,
-                    UatDefaultHost.API_HK,UatDefaultHost.EVENTS_HK,
-                    DefaultHost.API_HK_SANDBOX,DefaultHost.EVENTS_HK_SANDBOX);
 
     private DefaultSignatureComposer() {
 
@@ -104,9 +96,7 @@ public class DefaultSignatureComposer {
 
     public static String getSign(String host, String appKey, String appSecret, HttpRequest request) {
         //Upgrade encryption algorithm regions
-        if (!NOT_UPGRADE_SIGN_REGIONS.contains(host)) {
-            request.setSignAlgorithm(SignAlgorithm.HMAC_SHA256);
-        }
+        request.setSignAlgorithm(SignAlgorithm.HMAC_SHA256);
         Signer signer = SignerFactory.getInstance().get(request.getSignAlgorithm());
         Map<String, String> signParams = refreshSignHeaders(host, appKey, request.getHeaders(), signer);
         Map<String, Object> queryParams = request.getQuery();

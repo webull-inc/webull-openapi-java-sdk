@@ -43,13 +43,6 @@ public class SignatureCallCredentials extends CallCredentials {
     private static final Metadata.Key<String> TIMESTAMP = Metadata.Key.of(Headers.TIMESTAMP, Metadata.ASCII_STRING_MARSHALLER);
     private static final Metadata.Key<String> SIGNATURE = Metadata.Key.of(Headers.SIGNATURE, Metadata.ASCII_STRING_MARSHALLER);
     private static final Metadata.Key<String> USER_ID = Metadata.Key.of(Headers.USER_ID_KEY, Metadata.ASCII_STRING_MARSHALLER);
-    private static final List<String> NOT_UPGRADE_SIGN_REGIONS =  Arrays.asList(DefaultHost.API_US,DefaultHost.EVENTS_US,
-            PreDefaultHost.API_US,PreDefaultHost.EVENTS_US,
-            UatDefaultHost.API_US,UatDefaultHost.EVENTS_US,
-            DefaultHost.API_HK,DefaultHost.EVENTS_HK,
-            PreDefaultHost.API_HK,PreDefaultHost.EVENTS_HK,
-            UatDefaultHost.API_HK,UatDefaultHost.EVENTS_HK,
-            DefaultHost.API_HK_SANDBOX,DefaultHost.EVENTS_HK_SANDBOX);
 
     private final String appKey;
     private final String appSecret;
@@ -65,8 +58,7 @@ public class SignatureCallCredentials extends CallCredentials {
     }
 
     public SignatureCallCredentials(String appKey, String appSecret, String host, Integer port, String url, byte[] requestBytes) {
-        this(appKey, appSecret, host, port, url, requestBytes, SignerFactory.getInstance().get(
-                NOT_UPGRADE_SIGN_REGIONS.contains(host)? SignAlgorithm.HMAC_SHA1:SignAlgorithm.HMAC_SHA256));
+        this(appKey, appSecret, host, port, url, requestBytes, SignerFactory.getInstance().get(SignAlgorithm.HMAC_SHA256));
     }
 
     public SignatureCallCredentials(String appKey, String appSecret, String host, Integer port, String url, byte[] requestBytes, Signer signer) {
