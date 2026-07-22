@@ -52,7 +52,7 @@ import com.webull.openapi.trade.response.v2.TradeOrderResponse;
 import com.webull.openapi.core.utils.Assert;
 import com.webull.openapi.core.utils.CollectionUtils;
 import com.webull.openapi.core.utils.StringUtils;
-
+import com.webull.openapi.trade.http.ITradeClient;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -60,7 +60,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
+/**
+ * @deprecated As of 1.x, replaced by {@link TradeClientV3}.
+ * This class will be removed in a future major release. New integrations should use {@link TradeClientV3}.
+ */
+@Deprecated
+public class TradeClient implements ITradeClient {
 
     private static final String ACCOUNT_ID_ARG = "accountId";
     private static final String STOCK_ORDER_ARG = "stockOrder";
@@ -88,7 +93,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
     private static final String CLIENT_ORDER_ID_PARAM = "client_order_id";
     private static final String LAST_CLIENT_ORDER_ID_PARAM = "last_client_order_id";
     private static final String INSTRUMENT_ID_PARAM = "instrument_id";
-    private static final String LAST_SECURITY_ID = "last_security_id";
+    private static final String LAST_SECURITY_ID_PARAM = "last_security_id";
     private static final String MARKET_PARAM = MARKET_ARG;
     private static final String START_PARAM = START_ARG;
     private static final String END_PARAM = END_ARG;
@@ -98,6 +103,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
     private static final String STRIKE_PRICE_PARAM = "strike_price";
     private static final String INIT_EXP_DATE_PARAM = "init_exp_date";
     private static final String START_TIME_PARAM = "start_date";
+    private static final int DEFAULT_PAGE_SIZE = 10;
 
     private final Region region;
     private final HttpApiClient apiClient;
@@ -156,7 +162,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         HttpRequest request = new HttpRequest("/account/positions", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ACCOUNT_ID_PARAM, accountId);
-        params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
+        params.put(PAGE_SIZE_PARAM, pageSize == null ? DEFAULT_PAGE_SIZE : pageSize);
         if (StringUtils.isNotEmpty(lastId)) {
             params.put(LAST_INSTRUMENT_ID_PARAM, lastId);
         }
@@ -169,7 +175,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         Assert.notBlank(ACCOUNT_ID_ARG, accountId);
         Assert.notNull(STOCK_ORDER_ARG, stockOrder);
         HttpRequest request = new HttpRequest("/trade/order/place", Versions.V2, HttpMethod.POST);
-        addCustomHeaderFromContext(request);
+        addCustomHeadersFromContext(request);
         Map<String, Object> params = new HashMap<>();
         params.put(ACCOUNT_ID_PARAM, accountId);
         params.put(STOCK_ORDER_PARAM, stockOrder);
@@ -222,7 +228,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         HttpRequest request = new HttpRequest(uri, Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ACCOUNT_ID_PARAM, accountId);
-        params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
+        params.put(PAGE_SIZE_PARAM, pageSize == null ? DEFAULT_PAGE_SIZE : pageSize);
         if (StringUtils.isNotEmpty(lastClientOrderId)) {
             params.put(LAST_CLIENT_ORDER_ID_PARAM, lastClientOrderId);
         }
@@ -260,9 +266,9 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         HttpRequest request = new HttpRequest("/trade/instrument/tradable/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         if(StringUtils.isNotEmpty(lastSecurityId)){
-            params.put(LAST_SECURITY_ID, lastSecurityId);
+            params.put(LAST_SECURITY_ID_PARAM, lastSecurityId);
         }
-        params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
+        params.put(PAGE_SIZE_PARAM, pageSize == null ? DEFAULT_PAGE_SIZE : pageSize);
         request.setQuery(params);
         return apiClient.request(request).responseType(TradableInstruments.class).doAction();
     }
@@ -283,7 +289,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
     public InstrumentInfo getSecurityInfo(String symbol, String market, String instrumentSuperType, String instrumentType, String strikePrice, String initExpDate) {
         Assert.notBlank(Arrays.asList(SYMBOL_ARG, MARKET_ARG, INSTRUMENT_SUPER_TYPE_ARG) , symbol, market, instrumentSuperType);
         Map<String, Object> params = new HashMap<>();
-        if (instrumentSuperType.equals(InstrumentSuperType.OPTION.name())) {
+        if (InstrumentSuperType.OPTION.name().equals(instrumentSuperType)) {
             Assert.notBlank(Arrays.asList(INSTRUMENT_TYPE_ARG, STRIKE_PRICE_ARG, INIT_EXP_DATE_ARG), instrumentType, strikePrice, initExpDate);
             params.put(INSTRUMENT_TYPE_PARAM, instrumentType);
             params.put(STRIKE_PRICE_PARAM, strikePrice);
@@ -336,7 +342,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         Assert.notEmpty(NEW_ORDERS_ARG, optionOrder.getNewOrders());
         HttpRequest request = new HttpRequest("/openapi/account/orders/option/place", Versions.V2, HttpMethod.POST);
         addCustomHeadersFromOrder(request, optionOrder);
-        addCustomHeaderFromContext(request);
+        addCustomHeadersFromContext(request);
         Map<String, Object> queryMap = new HashMap<>();
         queryMap.put(ACCOUNT_ID_PARAM, accountId);
         request.setQuery(queryMap);
@@ -385,7 +391,7 @@ public class TradeClient implements com.webull.openapi.trade.http.ITradeClient {
         RequestContextHolder.clear();
     }
 
-    private void addCustomHeaderFromContext(HttpRequest request){
+    private void addCustomHeadersFromContext(HttpRequest request){
         try{
             Map<String, String> headersMap =  RequestContextHolder.get();
             if(Objects.isNull(headersMap) || headersMap.isEmpty()){

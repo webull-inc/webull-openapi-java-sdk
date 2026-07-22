@@ -145,7 +145,6 @@ public class HttpApiClient {
             try {
                 return retryable.retry(retryContext);
             } catch (RetriedFailedException ex) {
-                // 异常情况用error，输出所有信息，反馈问题时提供所有信息
                 logger.error("Http request error, Host:{}, SDK version:{}, Request:{}",
                         request.getEndpoint(), ProjectReaderHelper.getClientSDKInfo(), JsonSerializer.toJson(request), ex);
                 if (ex.getCause() instanceof ClientException) {

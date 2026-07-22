@@ -22,5 +22,5 @@ hs_err_pid*
 *.iws
 **/.idea/**
 
-# 忽略token.txt文件
+# ignore
 token.txt
