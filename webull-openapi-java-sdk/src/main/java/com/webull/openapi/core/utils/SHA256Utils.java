@@ -30,7 +30,6 @@ public final class SHA256Utils {
     private SHA256Utils() {
     }
 
-    // 将字节数组转换为16进制字符串
     public static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
@@ -41,13 +40,10 @@ public final class SHA256Utils {
 
     public static String sha256(String body) {
         try {
-            // 获取 SHA-256 实例
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
 
-            // 计算 SHA-256
             byte[] hash = digest.digest(body.getBytes(StandardCharsets.UTF_8));
 
-            // 转成十六进制字符串返回
             return bytesToHex(hash);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 algorithm is not available", e);
@@ -56,20 +52,11 @@ public final class SHA256Utils {
 
     public static String sha256(byte[] body) {
         try {
-            // 获取 SHA-256 实例
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
-
-            // 计算 SHA-256
             byte[] hash = digest.digest(body);
-
-            // 转成十六进制字符串返回
             return bytesToHex(hash);
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("SHA-256 algorithm is not available", e);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(sha256("123456"));
     }
 }

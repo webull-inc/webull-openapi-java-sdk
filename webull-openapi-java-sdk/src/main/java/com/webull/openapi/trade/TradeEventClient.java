@@ -15,7 +15,6 @@
  */
 package com.webull.openapi.trade;
 
-import com.webull.openapi.core.common.Region;
 import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.exception.ErrorCode;
 import com.webull.openapi.trade.events.internal.CancellableISubscription;
@@ -79,14 +78,8 @@ public class TradeEventClient extends BaseGrpcClient<Events.SubscribeResponse> i
         if (!subscribing.compareAndSet(false, true)) {
             throw new ClientException(ErrorCode.INVALID_STATE, "Client is already subscribed");
         }
-        int subscribeType;
-        if (Region.us.name().equals(this.regionId)) {
-            subscribeType = 3;
-        } else {
-            subscribeType = 1;
-        }
         Events.SubscribeRequest grpcRequest = Events.SubscribeRequest.newBuilder()
-                .setSubscribeType(subscribeType)
+                .setSubscribeType(request.getSubscribeType())
                 .setTimestamp(request.getTimestamp())
                 .addAllAccounts(request.getAccounts())
                 .build();

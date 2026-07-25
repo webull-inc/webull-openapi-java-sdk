@@ -51,7 +51,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-
+/**
+ * @deprecated As of 2.x, replaced by {@link TradeClientV3}.
+ * This class will be removed in a future major release. New integrations should use {@link TradeClientV3}.
+ */
+@Deprecated
 public class TradeClientV2 implements ITradeV2Client {
 
     private static final String ACCOUNT_ID_ARG = "accountId";

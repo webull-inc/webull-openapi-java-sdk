@@ -32,7 +32,7 @@ public final class SubscribeRequest implements GrpcMessage {
     }
 
     public SubscribeRequest(Set<String> accounts) {
-        this.subscribeType = 3;
+        this.subscribeType = 7;
         this.timestamp = System.currentTimeMillis();
         this.accounts = accounts;
     }

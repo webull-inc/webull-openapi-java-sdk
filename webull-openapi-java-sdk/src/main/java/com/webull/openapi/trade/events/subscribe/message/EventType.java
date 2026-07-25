@@ -23,7 +23,8 @@ public enum EventType {
     NumOfConnExceed(3),
     SubscribeExpired(4),
     Order(1024),
-    Position(1028);
+    Position(1028),
+    Option(1032);
 
     private final int code;
 

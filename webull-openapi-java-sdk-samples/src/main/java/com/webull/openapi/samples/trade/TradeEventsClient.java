@@ -55,6 +55,10 @@ public class TradeEventsClient {
             if (EventType.Position.getCode() == response.getEventType()) {
                 logger.info("event payload:{}", payload);
             }
+
+            if (EventType.Option.getCode() == response.getEventType()) {
+                logger.info("option payload:{}", payload);
+            }
         }
     }
 }
