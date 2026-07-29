@@ -53,6 +53,7 @@ public final class ArgNames {
     public static final String EXPIRATION_DATE_AFTER = "expiration_date_after";
     public static final String LAST_SERIES_ID = "last_series_id";
     public static final String PRODUCT_CLASS_ID = "product_class_id";
+    public static final String SUB_CATEGORY = "sub_category";
 
     // Watchlist related
     public static final String WATCHLIST_ID = "watchlist_id";

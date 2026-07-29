@@ -95,4 +95,11 @@ public interface ITradeV3Client {
 	List<Activity> getCashActivities(String accountId, String activityTypes, String startTime, String endTime,
 			String lastActivityId, Integer pageSize);
 
+    /**
+     * Get order executions for an account with optional filters.
+     * This interface is currently supported only for Webull HK.
+     * Support for other regions will be available in future updates.
+     */
+    List<OrderExecution> getOrderExecutions(String accountId, String clientOrderId, String startDate, String endDate, String lastExecutionId, Integer pageSize);
+
 }

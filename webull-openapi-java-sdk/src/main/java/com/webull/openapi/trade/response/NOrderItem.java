@@ -56,6 +56,9 @@ public class NOrderItem {
     private String algoStartTime;
     private String algoEndTime;
     private String positionIntent;
+    private String legInOrOut;
+    private String positionId;
+    private String legInStrategy;
     private String marginType;
     private String tradeId;
     private List<CloseContract> closeContracts;
@@ -420,6 +423,30 @@ public class NOrderItem {
         this.positionIntent = positionIntent;
     }
 
+    public String getLegInOrOut() {
+        return legInOrOut;
+    }
+
+    public void setLegInOrOut(String legInOrOut) {
+        this.legInOrOut = legInOrOut;
+    }
+
+    public String getPositionId() {
+        return positionId;
+    }
+
+    public void setPositionId(String positionId) {
+        this.positionId = positionId;
+    }
+
+    public String getLegInStrategy() {
+        return legInStrategy;
+    }
+
+    public void setLegInStrategy(String legInStrategy) {
+        this.legInStrategy = legInStrategy;
+    }
+
     public OrderCommissionItem getCommission() {
         return commission;
     }
@@ -496,6 +523,9 @@ public class NOrderItem {
                 ", targetVolPercent='" + targetVolPercent + '\'' +
                 ", maxTargetPercent='" + maxTargetPercent + '\'' +
                 ", positionIntent='" + positionIntent + '\'' +
+                ", legInOrOut='" + legInOrOut + '\'' +
+                ", positionId='" + positionId + '\'' +
+                ", legInStrategy='" + legInStrategy + '\'' +
                 ", marginType='" + marginType + '\'' +
                 ", tradeId='" + tradeId + '\'' +
                 ", legs='" + legs + '\'' +

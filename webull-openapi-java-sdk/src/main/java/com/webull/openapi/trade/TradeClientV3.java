@@ -52,6 +52,8 @@ public class TradeClientV3 implements ITradeV3Client {
 	private static final String END_TIME_ACTIVITY_PARAM = "end_time";
 	private static final String LAST_ACTIVITY_ID_PARAM = "last_activity_id";
 
+    private static final String LAST_EXECUTION_ID_PARAM = "last_execution_id";
+
 	private final Region region;
 	private final HttpApiClient apiClient;
 
@@ -283,7 +285,32 @@ public class TradeClientV3 implements ITradeV3Client {
 		}.getType()).doAction();
 	}
 
-	private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {
+    @Override
+    public List<OrderExecution> getOrderExecutions(String accountId, String clientOrderId, String startDate, String endDate, String lastExecutionId, Integer pageSize) {
+        Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+
+        HttpRequest request = new HttpRequest("/trading/orders/executions/list", Versions.V2, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ACCOUNT_ID_PARAM, accountId);
+        params.put(PAGE_SIZE_PARAM, pageSize == null ? 20 : pageSize);
+        if (StringUtils.isNotBlank(startDate)) {
+            params.put(START_TIME_PARAM, startDate);
+        }
+        if (StringUtils.isNotBlank(endDate)) {
+            params.put(END_TIME_PARAM, endDate);
+        }
+        if (StringUtils.isNotBlank(lastExecutionId)){
+            params.put(LAST_EXECUTION_ID_PARAM, lastExecutionId);
+        }
+        if (StringUtils.isNotBlank(clientOrderId)){
+            params.put(CLIENT_ORDER_ID_PARAM, clientOrderId);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<List<OrderExecution>>() {
+        }.getType()).doAction();
+    }
+
+    private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {
 		if (CollectionUtils.isEmpty(orders)
 			|| Objects.isNull(orders.get(0))) {
 			return;
