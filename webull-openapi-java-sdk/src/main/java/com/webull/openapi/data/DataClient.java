@@ -515,6 +515,7 @@ public class DataClient implements IDataClient {
         String status = param.getStatus();
         String lastInstrumentId = param.getLastInstrumentId();
         int pageSize = param.getPageSize();
+        String subCategory = param.getSubCategory();
         Assert.notBlank(ArgNames.CATEGORY, category);
         HttpRequest request = new HttpRequest("/openapi/instrument/stock/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
@@ -524,6 +525,9 @@ public class DataClient implements IDataClient {
         params.put(ArgNames.CATEGORY, category);
         if(StringUtils.isNotEmpty(status)){
             params.put(ArgNames.STATUS, status);
+        }
+        if(StringUtils.isNotEmpty(subCategory)){
+            params.put(ArgNames.SUB_CATEGORY, subCategory);
         }
         if(StringUtils.isNotEmpty(lastInstrumentId)){
             params.put(ArgNames.LAST_INSTRUMENT_ID, lastInstrumentId);

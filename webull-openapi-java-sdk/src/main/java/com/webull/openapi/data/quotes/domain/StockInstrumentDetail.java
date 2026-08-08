@@ -15,7 +15,7 @@
  */
 package com.webull.openapi.data.quotes.domain;
 
-public class StockInstrumentDetail extends Instrument{
+public class StockInstrumentDetail extends Instrument {
 
     private String category;
 
@@ -36,6 +36,8 @@ public class StockInstrumentDetail extends Instrument{
     private Boolean easyToBorrow;
 
     private String lotSize;
+
+    private String subCategory;
 
     public Boolean getFractionable() {
         return fractionable;
@@ -117,11 +119,20 @@ public class StockInstrumentDetail extends Instrument{
         this.lotSize = lotSize;
     }
 
+    public String getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(String subCategory) {
+        this.subCategory = subCategory;
+    }
+
     @Override
     public String toString() {
         return "StockInstrumentDetail{" +
                 "instrumentId='" + getInstrumentId() + '\'' +
                 ", category='" + category + '\'' +
+                ", subCategory='" + subCategory + '\'' +
                 ", symbol='" + getSymbol() + '\'' +
                 ", name='" + getName() + '\'' +
                 ", exchangeCode='" + getExchangeCode() + '\'' +
@@ -138,4 +149,3 @@ public class StockInstrumentDetail extends Instrument{
                 '}';
     }
 }
-

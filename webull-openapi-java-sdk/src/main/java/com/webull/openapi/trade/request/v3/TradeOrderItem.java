@@ -44,6 +44,26 @@ public class TradeOrderItem implements Serializable {
 	 * Currently, only the US market is supported, and only options orders are allowed.
 	 */
 	private String positionIntent;
+	/**
+	 * Specifies whether this leg is being legged into or legged out of an existing position.
+	 * Currently, only the US market is supported.
+	 * <p>Possible values: LEG_IN, LEG_OUT</p>
+	 */
+	private String legInOrOut;
+	/**
+	 * The unique position identifier of the target leg to be legged in or legged out.
+	 * Obtained from the Account Positions API. Required when legInOrOut is specified.
+	 * Currently, only the US market is supported.
+	 */
+	private String positionId;
+	/**
+	 * The target strategy type expected after legging in.
+	 * Only applicable when legInOrOut is LEG_IN.
+	 * Currently, only the US market is supported.
+	 * <p>Possible values: VERTICAL, CALENDAR, STRANGLE, STRADDLE, IRON_CONDOR, BUTTERFLY, CUSTOM</p>
+	 */
+	private String legInStrategy;
+
 	private List<OptionOrderItemLeg> legs;
 
 	public String getClientOrderId() {
@@ -350,6 +370,30 @@ public class TradeOrderItem implements Serializable {
 		this.positionIntent = positionIntent;
 	}
 
+	public String getLegInOrOut() {
+		return legInOrOut;
+	}
+
+	public void setLegInOrOut(String legInOrOut) {
+		this.legInOrOut = legInOrOut;
+	}
+
+	public String getPositionId() {
+		return positionId;
+	}
+
+	public void setPositionId(String positionId) {
+		this.positionId = positionId;
+	}
+
+	public String getLegInStrategy() {
+		return legInStrategy;
+	}
+
+	public void setLegInStrategy(String legInStrategy) {
+		this.legInStrategy = legInStrategy;
+	}
+
 	@Override
 	public String toString() {
 		return "TradeOrderItem{" +
@@ -388,6 +432,9 @@ public class TradeOrderItem implements Serializable {
 			", targetVolPercent='" + targetVolPercent + '\'' +
 			", maxTargetPercent='" + maxTargetPercent + '\'' +
 			", positionIntent='" + positionIntent + '\'' +
+			", legInOrOut='" + legInOrOut + '\'' +
+			", positionId='" + positionId + '\'' +
+			", legInStrategy='" + legInStrategy + '\'' +
 			", legs=" + legs +
 			'}';
 	}
