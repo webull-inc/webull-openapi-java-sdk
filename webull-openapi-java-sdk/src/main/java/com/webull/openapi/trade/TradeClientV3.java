@@ -17,6 +17,7 @@ import com.webull.openapi.core.utils.CollectionUtils;
 import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.trade.http.ITradeV3Client;
 import com.webull.openapi.trade.request.v3.*;
+import com.webull.openapi.trade.response.PaginatedResult;
 import com.webull.openapi.trade.response.TradeCalendar;
 import com.webull.openapi.trade.response.v3.*;
 
@@ -33,8 +34,11 @@ public class TradeClientV3 implements ITradeV3Client {
 	private static final String INSTRUMENT_ID_ARG = "instrumentId";
 
 	private static final String PAGE_SIZE_PARAM = "page_size";
-	private static final String START_TIME_PARAM = "start_date";
-	private static final String END_TIME_PARAM = "end_date";
+	private static final String START_DATE_PARAM = "start_date";
+	private static final String END_DATE_PARAM = "end_date";
+    private static final String START_TIME_PARAM = "start_time";
+    private static final String END_TIME_PARAM = "end_time";
+
 	private static final String LAST_CLIENT_ORDER_ID_PARAM = "last_client_order_id";
 	private static final String INSTRUMENT_ID_PARAM = "instrument_id";
 	private static final String LAST_ID_PARAM = "last_id";
@@ -54,6 +58,8 @@ public class TradeClientV3 implements ITradeV3Client {
 
     private static final String LAST_EXECUTION_ID_PARAM = "last_execution_id";
 
+	private static final String PAGINATION_KEY_PARAM = "pagination_key";
+
 	private final Region region;
 	private final HttpApiClient apiClient;
 
@@ -71,7 +77,7 @@ public class TradeClientV3 implements ITradeV3Client {
 
 	@Override
 	public List<Account> listAccount() {
-		HttpRequest request = new HttpRequest("/openapi/account/list", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/accounts/list", Versions.V3, HttpMethod.GET);
 		return apiClient.request(request).responseType(new TypeToken<List<Account>>() {
 		}.getType()).doAction();
 	}
@@ -79,7 +85,7 @@ public class TradeClientV3 implements ITradeV3Client {
 	@Override
 	public AccountBalanceInfo balanceAccount(String accountId) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/assets/balance", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/assets/balances/get", Versions.V3, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		request.setQuery(params);
@@ -89,7 +95,7 @@ public class TradeClientV3 implements ITradeV3Client {
 	@Override
 	public List<AccountPositionsInfo> positionsAccount(String accountId) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/assets/positions", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/assets/positions/list", Versions.V3, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		request.setQuery(params);
@@ -98,11 +104,12 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	@Deprecated
 	public List<AccountPositionDetailsInfo> positionDetailsAccount(String accountId, String instrumentId, Integer pageSize, String lastId) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 		Assert.notBlank(INSTRUMENT_ID_ARG, instrumentId);
 
-		HttpRequest request = new HttpRequest("/openapi/assets/position/details", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/assets/positions/get", Versions.V2, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		params.put(INSTRUMENT_ID_PARAM, instrumentId);
@@ -116,9 +123,26 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	public PaginatedResult<AccountPositionDetailsInfo> positionDetailsAccount(String accountId, String instrumentId, String paginationKey) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		Assert.notBlank(INSTRUMENT_ID_ARG, instrumentId);
+
+		HttpRequest request = new HttpRequest("/trading/assets/positions/get", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		params.put(INSTRUMENT_ID_PARAM, instrumentId);
+		if (StringUtils.isNotEmpty(paginationKey)) {
+			params.put(PAGINATION_KEY_PARAM, paginationKey);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<AccountPositionDetailsInfo>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
 	public PreviewOrderResponse previewOrder(String accountId, TradeOrder tradeOrder) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/trade/order/preview", Versions.V2, HttpMethod.POST);
+		HttpRequest request = new HttpRequest("/trading/orders/preview", Versions.V3, HttpMethod.POST);
 
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
@@ -137,7 +161,7 @@ public class TradeClientV3 implements ITradeV3Client {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 		Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
 		Assert.notEmpty(NEW_ORDERS_ARG, tradeOrder.getNewOrders());
-		HttpRequest request = new HttpRequest("/openapi/trade/order/place", Versions.V2, HttpMethod.POST);
+		HttpRequest request = new HttpRequest("/trading/orders/place", Versions.V3, HttpMethod.POST);
 		addCustomHeadersFromOrder(request, tradeOrder.getNewOrders());
 
 		Map<String, Object> params = new HashMap<>();
@@ -157,7 +181,7 @@ public class TradeClientV3 implements ITradeV3Client {
         Assert.notBlank(ACCOUNT_ID_ARG, accountId);
         Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
         Assert.notEmpty(BATCH_ORDERS_ARG, tradeOrder.getBatchOrders());
-        HttpRequest request = new HttpRequest("/openapi/trade/order/batch-place", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/trading/orders/batch-place", Versions.V3, HttpMethod.POST);
         addCustomHeadersFromOrder(request, tradeOrder.getBatchOrders());
 
         Map<String, Object> params = new HashMap<>();
@@ -174,7 +198,7 @@ public class TradeClientV3 implements ITradeV3Client {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 		Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
 		Assert.notEmpty(MODIFY_ORDERS_ARG, tradeOrder.getModifyOrders());
-		HttpRequest request = new HttpRequest("/openapi/trade/order/replace", Versions.V2, HttpMethod.POST);
+		HttpRequest request = new HttpRequest("/trading/orders/replace", Versions.V3, HttpMethod.POST);
 
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
@@ -193,7 +217,7 @@ public class TradeClientV3 implements ITradeV3Client {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 		Assert.notNull(TRADE_ORDER_ARG, tradeOrder);
 		Assert.notBlank(CLIENT_ORDER_ID_ARG, tradeOrder.getClientOrderId());
-		HttpRequest request = new HttpRequest("/openapi/trade/order/cancel", Versions.V2, HttpMethod.POST);
+		HttpRequest request = new HttpRequest("/trading/orders/cancel", Versions.V3, HttpMethod.POST);
 
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
@@ -208,9 +232,10 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	@Deprecated
 	public List<OrderHistory> listOrders(String accountId, Integer pageSize, String startDate, String endDate, String lastClientOrderId) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/trade/order/history", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/orders/historical-orders/list", Versions.V2, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
@@ -218,10 +243,10 @@ public class TradeClientV3 implements ITradeV3Client {
 			params.put(LAST_CLIENT_ORDER_ID_PARAM, lastClientOrderId);
 		}
 		if (StringUtils.isNotEmpty(startDate)) {
-			params.put(START_TIME_PARAM, startDate);
+			params.put(START_DATE_PARAM, startDate);
 		}
 		if (StringUtils.isNotEmpty(endDate)) {
-			params.put(END_TIME_PARAM, endDate);
+			params.put(END_DATE_PARAM, endDate);
 		}
 		request.setQuery(params);
 		return apiClient.request(request).responseType(new TypeToken<List<OrderHistory>>() {
@@ -229,9 +254,10 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	@Deprecated
 	public List<OrderHistory> openOrders(String accountId, Integer pageSize, String lastClientOrderId) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/trade/order/open", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/orders/open-orders/list", Versions.V2, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
@@ -247,7 +273,7 @@ public class TradeClientV3 implements ITradeV3Client {
 	@Override
 	public OrderHistory getOrderDetails(String accountId, String clientOrderId) {
 		Assert.notBlank(Arrays.asList(ACCOUNT_ID_ARG, CLIENT_ORDER_ID_ARG), accountId, clientOrderId);
-		HttpRequest request = new HttpRequest("/openapi/trade/order/detail", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/orders/get", Versions.V3, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		params.put(CLIENT_ORDER_ID_PARAM, clientOrderId);
@@ -261,10 +287,11 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	@Deprecated
 	public List<Activity> getCashActivities(String accountId, String activityTypes, String startTime, String endTime,
 			String lastActivityId, Integer pageSize) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
-		HttpRequest request = new HttpRequest("/openapi/trade/activities/cash", Versions.V2, HttpMethod.GET);
+		HttpRequest request = new HttpRequest("/trading/activities/cash-activities/list", Versions.V2, HttpMethod.GET);
 		Map<String, Object> params = new HashMap<>();
 		params.put(ACCOUNT_ID_PARAM, accountId);
 		params.put(PAGE_SIZE_PARAM, pageSize == null ? 10 : pageSize);
@@ -286,6 +313,7 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
     @Override
+    @Deprecated
     public List<OrderExecution> getOrderExecutions(String accountId, String clientOrderId, String startDate, String endDate, String lastExecutionId, Integer pageSize) {
         Assert.notBlank(ACCOUNT_ID_ARG, accountId);
 
@@ -294,10 +322,10 @@ public class TradeClientV3 implements ITradeV3Client {
         params.put(ACCOUNT_ID_PARAM, accountId);
         params.put(PAGE_SIZE_PARAM, pageSize == null ? 20 : pageSize);
         if (StringUtils.isNotBlank(startDate)) {
-            params.put(START_TIME_PARAM, startDate);
+            params.put(START_DATE_PARAM, startDate);
         }
         if (StringUtils.isNotBlank(endDate)) {
-            params.put(END_TIME_PARAM, endDate);
+            params.put(END_DATE_PARAM, endDate);
         }
         if (StringUtils.isNotBlank(lastExecutionId)){
             params.put(LAST_EXECUTION_ID_PARAM, lastExecutionId);
@@ -309,6 +337,88 @@ public class TradeClientV3 implements ITradeV3Client {
         return apiClient.request(request).responseType(new TypeToken<List<OrderExecution>>() {
         }.getType()).doAction();
     }
+
+    @Override
+	public PaginatedResult<OrderHistory> listOrders(String accountId, String startTime, String endTime, String paginationKey) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		HttpRequest request = new HttpRequest("/trading/orders/historical-orders/list", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		if (StringUtils.isNotEmpty(startTime)) {
+			params.put(START_TIME_PARAM, startTime);
+		}
+		if (StringUtils.isNotEmpty(endTime)) {
+			params.put(END_TIME_PARAM, endTime);
+		}
+		if (StringUtils.isNotEmpty(paginationKey)) {
+			params.put(PAGINATION_KEY_PARAM, paginationKey);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<OrderHistory>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
+	public PaginatedResult<OrderHistory> openOrders(String accountId, String paginationKey) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		HttpRequest request = new HttpRequest("/trading/orders/open-orders/list", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		if (StringUtils.isNotEmpty(paginationKey)) {
+			params.put(PAGINATION_KEY_PARAM, paginationKey);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<OrderHistory>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
+	public PaginatedResult<Activity> getCashActivities(String accountId, String activityTypes, String startTime,
+			String endTime, String paginationKey) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		HttpRequest request = new HttpRequest("/trading/activities/cash-activities/list", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		if (StringUtils.isNotEmpty(activityTypes)) {
+			params.put(ACTIVITY_TYPES_PARAM, activityTypes);
+		}
+		if (StringUtils.isNotEmpty(startTime)) {
+			params.put(START_TIME_ACTIVITY_PARAM, startTime);
+		}
+		if (StringUtils.isNotEmpty(endTime)) {
+			params.put(END_TIME_ACTIVITY_PARAM, endTime);
+		}
+		if (StringUtils.isNotEmpty(paginationKey)) {
+			params.put(PAGINATION_KEY_PARAM, paginationKey);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<Activity>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
+	public PaginatedResult<OrderExecution> getOrderExecutions(String accountId, String clientOrderId, String startDate,
+			String endDate, String paginationKey) {
+		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
+		HttpRequest request = new HttpRequest("/trading/orders/executions/list", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		if (StringUtils.isNotBlank(startDate)) {
+			params.put(START_DATE_PARAM, startDate);
+		}
+		if (StringUtils.isNotBlank(endDate)) {
+			params.put(END_DATE_PARAM, endDate);
+		}
+		if (StringUtils.isNotBlank(clientOrderId)) {
+			params.put(CLIENT_ORDER_ID_PARAM, clientOrderId);
+		}
+		if (StringUtils.isNotEmpty(paginationKey)) {
+			params.put(PAGINATION_KEY_PARAM, paginationKey);
+		}
+		request.setQuery(params);
+		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<OrderExecution>>() {
+		}.getType()).doAction();
+	}
 
     private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {
 		if (CollectionUtils.isEmpty(orders)

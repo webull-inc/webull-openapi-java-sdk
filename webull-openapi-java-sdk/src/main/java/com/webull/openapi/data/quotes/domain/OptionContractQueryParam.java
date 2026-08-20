@@ -38,6 +38,7 @@ public class OptionContractQueryParam {
     private Boolean showDeliverables;
     private int pageSize = 10;
     private String lastInstrumentId;
+    private String paginationKey;
 
     public String getCategory() {
         return category;
@@ -157,5 +158,13 @@ public class OptionContractQueryParam {
 
     public void setLastInstrumentId(String lastInstrumentId) {
         this.lastInstrumentId = lastInstrumentId;
+    }
+
+    public String getPaginationKey() {
+        return paginationKey;
+    }
+
+    public void setPaginationKey(String paginationKey) {
+        this.paginationKey = paginationKey;
     }
 }

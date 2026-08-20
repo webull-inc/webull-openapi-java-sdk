@@ -10,6 +10,7 @@ public class EventInstrumentParam {
     private String expirationDateAfter;
     private String lastInstrumentId;
     private int pageSize = 500;
+    private String paginationKey;
 
     public String getSeriesSymbol() {
         return seriesSymbol;
@@ -57,5 +58,13 @@ public class EventInstrumentParam {
 
     public void setPageSize(int pageSize) {
         this.pageSize = pageSize;
+    }
+
+    public String getPaginationKey() {
+        return paginationKey;
+    }
+
+    public void setPaginationKey(String paginationKey) {
+        this.paginationKey = paginationKey;
     }
 }

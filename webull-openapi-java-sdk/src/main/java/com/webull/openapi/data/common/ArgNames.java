@@ -54,6 +54,7 @@ public final class ArgNames {
     public static final String LAST_SERIES_ID = "last_series_id";
     public static final String PRODUCT_CLASS_ID = "product_class_id";
     public static final String SUB_CATEGORY = "sub_category";
+    public static final String PAGINATION_KEY = "pagination_key";
 
     // Watchlist related
     public static final String WATCHLIST_ID = "watchlist_id";

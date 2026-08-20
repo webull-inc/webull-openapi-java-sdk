@@ -29,6 +29,7 @@ import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.data.common.ArgNames;
 import com.webull.openapi.data.quotes.api.IDataClient;
 import com.webull.openapi.data.quotes.domain.*;
+import com.webull.openapi.trade.response.PaginatedResult;
 
 import java.util.*;
 
@@ -98,7 +99,7 @@ public class DataClient implements IDataClient {
     @Override
     public List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions, Long startTime, Long endTime) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY, ArgNames.TIMESPAN), symbol, category, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/bars/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -131,7 +132,7 @@ public class DataClient implements IDataClient {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/batch-bars", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/stocks/bars/list", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, symbols);
         params.put(ArgNames.CATEGORY, category);
@@ -159,7 +160,7 @@ public class DataClient implements IDataClient {
     @Override
     public List<EodBars> getEodBars(Set<String> instrumentIds, String date, Integer count){
         Assert.notEmpty(ArgNames.INSTRUMENT_IDS, instrumentIds);
-        HttpRequest request = new HttpRequest("/market-data/eod-bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/eod-bars", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.INSTRUMENT_IDS, String.join(",", instrumentIds));
         if(StringUtils.isNotEmpty(date)){
@@ -172,7 +173,7 @@ public class DataClient implements IDataClient {
 
     @Override
     public List<CorpAction> getCorpAction(CorpActionRequest action){
-        HttpRequest request = new HttpRequest("/instrument/corp-action", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/instrument/corp-action", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         Assert.notEmpty(ArgNames.EVENT_TYPES, action.getEventTypes());
         params.put(ArgNames.EVENT_TYPES, String.join(",", action.getEventTypes()));
@@ -190,7 +191,7 @@ public class DataClient implements IDataClient {
     public Quote getQuote(String symbol, String category, String depth, Boolean overnightRequired) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/quotes", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/depths/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -209,7 +210,7 @@ public class DataClient implements IDataClient {
     public List<Snapshot> getSnapshots(Set<String> symbols, String category, Boolean extendHourRequired, Boolean overnightRequired) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -227,7 +228,7 @@ public class DataClient implements IDataClient {
     @Override
     public Tick getTicks(String symbol, String category, int count, List<String> tradingSessions) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/tick", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/ticks/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -245,7 +246,7 @@ public class DataClient implements IDataClient {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/footprint", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/footprints/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -266,7 +267,7 @@ public class DataClient implements IDataClient {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/futures/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/futures/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -284,7 +285,7 @@ public class DataClient implements IDataClient {
     public DepthOfBook getFuturesDepth(String symbol, String category, String depth) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/futures/depth", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/futures/depths/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -300,7 +301,7 @@ public class DataClient implements IDataClient {
     public List<Snapshot> getFuturesSnapshots(Set<String> symbols, String category) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/futures/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/futures/snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -312,7 +313,7 @@ public class DataClient implements IDataClient {
     @Override
     public Tick getFutureTicks(String symbol, String category, int count) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/futures/tick", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/futures/ticks/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -327,7 +328,7 @@ public class DataClient implements IDataClient {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/option/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/options/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -344,7 +345,7 @@ public class DataClient implements IDataClient {
     @Override
     public OptionTick getOptionTicks(String symbol, String category, int count) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/option/tick", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/options/ticks/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -358,7 +359,7 @@ public class DataClient implements IDataClient {
     public List<OptionSnapshot> getOptionSnapshots(Set<String> symbols, String category) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/option/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/options/snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -371,7 +372,7 @@ public class DataClient implements IDataClient {
     @Deprecated
     public List<FuturesProduct> getFuturesProducts(String category) {
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/products", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/futures/product-codes/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CATEGORY, category);
         request.setQuery(params);
@@ -382,7 +383,7 @@ public class DataClient implements IDataClient {
     @Override
     public List<FuturesProduct> getFuturesProductsV2(String category, String productClassId) {
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/products", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/futures/product-codes/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CATEGORY, category);
         if (StringUtils.isNotEmpty(productClassId)) {
@@ -398,7 +399,7 @@ public class DataClient implements IDataClient {
     public List<FuturesInstrument> getFuturesInstruments(Set<String> symbols, String category) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/list", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/futures/contracts/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -410,7 +411,7 @@ public class DataClient implements IDataClient {
     @Override
     public List<FuturesInstrument> getFuturesInstrumentsV2(String category, Set<String> symbols, String code, String status) {
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/list", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/futures/contracts/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CATEGORY, category);
         if (CollectionUtils.isNotEmpty(symbols)) {
@@ -431,7 +432,7 @@ public class DataClient implements IDataClient {
     @Deprecated
     public List<FuturesInstrument> getFuturesInstrumentsByCode(String code, String category, String contractType) {
         Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.CODE), category, code);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/by-code", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/openapi/instrument/futures/by-code", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CODE, code);
         params.put(ArgNames.CATEGORY, category);
@@ -447,7 +448,7 @@ public class DataClient implements IDataClient {
     @Override
     public List<FuturesProductClass> getFuturesProductClasses(String category) {
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/futures/product-classes", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/futures/product-classes/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.CATEGORY, category);
         request.setQuery(params);
@@ -460,7 +461,7 @@ public class DataClient implements IDataClient {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/futures/footprint", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/futures/footprints/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -480,7 +481,7 @@ public class DataClient implements IDataClient {
     public List<Snapshot> getCryptoSnapshots(Set<String> symbols, String category) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/market-data/crypto/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/crypto/snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -493,7 +494,7 @@ public class DataClient implements IDataClient {
     public List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
         Assert.notEmpty(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.TIMESPAN), category, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/crypto/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/crypto/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.CATEGORY, category);
@@ -508,6 +509,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<StockInstrumentDetail> getInstrumentsV1(InstrumentQueryParam param) {
         Assert.notNull(ArgNames.PARAMETER, param);
         String category = param.getCategory();
@@ -538,6 +540,31 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public PaginatedResult<StockInstrumentDetail> getInstrumentsV2(InstrumentQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        HttpRequest request = new HttpRequest("/trading/instruments/stocks/profiles/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        if (CollectionUtils.isNotEmpty(param.getSymbols())) {
+            params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        }
+        if (StringUtils.isNotEmpty(param.getStatus())) {
+            params.put(ArgNames.STATUS, param.getStatus());
+        }
+        if (StringUtils.isNotEmpty(param.getSubCategory())) {
+            params.put(ArgNames.SUB_CATEGORY, param.getSubCategory());
+        }
+        if (StringUtils.isNotEmpty(param.getPaginationKey())) {
+            params.put(ArgNames.PAGINATION_KEY, param.getPaginationKey());
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<StockInstrumentDetail>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param) {
         Assert.notNull(ArgNames.PARAMETER, param);
         String category = param.getCategory();
@@ -564,12 +591,34 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public PaginatedResult<CryptoInstrumentDetail> getCryptoInstrumentV2(InstrumentQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        HttpRequest request = new HttpRequest("/trading/instruments/crypto/profiles/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        if (CollectionUtils.isNotEmpty(param.getSymbols())) {
+            params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        }
+        if (StringUtils.isNotEmpty(param.getStatus())) {
+            params.put(ArgNames.STATUS, param.getStatus());
+        }
+        if (StringUtils.isNotEmpty(param.getPaginationKey())) {
+            params.put(ArgNames.PAGINATION_KEY, param.getPaginationKey());
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<CryptoInstrumentDetail>>() {}.getType()).doAction();
+    }
+
+    @Override
     public List<EventCategories> getEventCategories() {
-        HttpRequest request = new HttpRequest("/openapi/instrument/event/categories", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/event-contracts/categories/list", Versions.V3, HttpMethod.GET);
         return apiClient.request(request).responseType(new TypeToken<List<EventCategories>>() {}.getType()).doAction();
     }
 
     @Override
+    @Deprecated
     public List<EventSeries> getEventSeriesList(String category, Set<String> symbols, String lastSeriesId, int pageSize) {
         HttpRequest request = new HttpRequest("/openapi/instrument/event/series/list", Versions.V2, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
@@ -590,9 +639,26 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public PaginatedResult<EventSeries> getEventSeriesList(String category, Set<String> symbols, String paginationKey) {
+        HttpRequest request = new HttpRequest("/trading/instruments/event-contracts/series/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if (StringUtils.isNotEmpty(category)) {
+            params.put(ArgNames.CATEGORY, category);
+        }
+        if (CollectionUtils.isNotEmpty(symbols)) {
+            params.put(ArgNames.SYMBOLS, String.join(",", symbols));
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<EventSeries>>() {}.getType()).doAction();
+    }
+
+    @Override
     public List<EventEvents> getEventEvents(String seriesSymbol, Set<String> symbols, String status) {
         Assert.notBlank(ArgNames.SERIES_SYMBOL, seriesSymbol);
-        HttpRequest request = new HttpRequest("/openapi/instrument/event/events", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/trading/instruments/event-contracts/events/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SERIES_SYMBOL, seriesSymbol);
         if (CollectionUtils.isNotEmpty(symbols)) {
@@ -606,6 +672,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<EventMarket> getEventInstrumentsList(EventInstrumentParam param) {
         Assert.notNull(ArgNames.PARAMETER, param);
         Assert.notBlank(ArgNames.SERIES_SYMBOL, param.getSeriesSymbol());
@@ -630,9 +697,32 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public PaginatedResult<EventMarket> getEventInstrumentsListV1(EventInstrumentParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.SERIES_SYMBOL, param.getSeriesSymbol());
+        HttpRequest request = new HttpRequest("/trading/instruments/event-contracts/markets/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SERIES_SYMBOL, param.getSeriesSymbol());
+        if (StringUtils.isNotEmpty(param.getEventSymbol())) {
+            params.put(ArgNames.EVNET_SYMBOL, param.getEventSymbol());
+        }
+        if (CollectionUtils.isNotEmpty(param.getSymbols())) {
+            params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        }
+        if (StringUtils.isNotEmpty(param.getExpirationDateAfter())) {
+            params.put(ArgNames.EXPIRATION_DATE_AFTER, param.getExpirationDateAfter());
+        }
+        if (StringUtils.isNotEmpty(param.getPaginationKey())) {
+            params.put(ArgNames.PAGINATION_KEY, param.getPaginationKey());
+        }
+        request.setQuery(params);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<EventMarket>>() {}.getType()).doAction();
+    }
+
+    @Override
     public List<EventSnapshot> getEventSnapshot(Set<String> symbols, String category) {
         Assert.notNull(ArgNames.SYMBOLS, symbols);
-        HttpRequest request = new HttpRequest("/openapi/market-data/event/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/event-contracts/snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         if(CollectionUtils.isNotEmpty(symbols)){
             params.put(ArgNames.SYMBOLS, String.join(",", symbols));
@@ -647,7 +737,7 @@ public class DataClient implements IDataClient {
     @Override
     public EventDepth getEventDepth(String symbol, String category, String depth) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
-        HttpRequest request = new HttpRequest("/openapi/market-data/event/depth", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/event-contracts/depths/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         if(StringUtils.isNotBlank(category)){
@@ -664,7 +754,7 @@ public class DataClient implements IDataClient {
     public List<EventBars> getEventBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
         Assert.notNull(ArgNames.SYMBOLS, symbols);
         Assert.notBlank(ArgNames.TIMESPAN, timespan);
-        HttpRequest request = new HttpRequest("/openapi/market-data/event/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/event-contracts/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOLS, String.join(",", symbols));
         params.put(ArgNames.TIMESPAN, timespan);
@@ -684,7 +774,7 @@ public class DataClient implements IDataClient {
     @Override
     public EventTick getEventTick(String symbol, String category, int count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
-        HttpRequest request = new HttpRequest("/openapi/market-data/event/tick", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/event-contracts/ticks/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         if (StringUtils.isNotBlank(category)) {
@@ -703,7 +793,7 @@ public class DataClient implements IDataClient {
     public CompanyProfile getCompanyProfile(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/company/profile", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/company-profiles/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -716,7 +806,7 @@ public class DataClient implements IDataClient {
     public AnalystTargetPrice getAnalystTargetPrice(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/analyst/target-price", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/analysis/target-prices/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -729,7 +819,7 @@ public class DataClient implements IDataClient {
     public AnalystRating getAnalystRating(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/instrument/analyst/rating", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/analysis/ratings/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -742,7 +832,7 @@ public class DataClient implements IDataClient {
 
     @Override
     public List<Watchlist> getWatchlists() {
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/list", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/list", Versions.V3, HttpMethod.GET);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<Watchlist>>() {}.getType()).doAction();
     }
@@ -750,7 +840,7 @@ public class DataClient implements IDataClient {
     @Override
     public WatchlistCreateResponse createWatchlist(String name, Integer sort) {
         Assert.notBlank(ArgNames.NAME, name);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/create", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/create", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.NAME, name);
         if (Objects.nonNull(sort)) {
@@ -764,7 +854,7 @@ public class DataClient implements IDataClient {
     @Override
     public void updateWatchlist(String watchlistId, String name, Integer sort) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/update", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/update", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         if (StringUtils.isNotBlank(name)) {
@@ -781,7 +871,7 @@ public class DataClient implements IDataClient {
     @Override
     public void deleteWatchlist(String watchlistId) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/delete", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/delete", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         request.setBody(params);
@@ -792,7 +882,7 @@ public class DataClient implements IDataClient {
     @Override
     public WatchlistInstrumentsResponse getWatchlistInstruments(String watchlistId) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/list", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/instruments/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         request.setQuery(params);
@@ -804,7 +894,7 @@ public class DataClient implements IDataClient {
     public void addWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
         Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/add", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/instruments/add", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         params.put(ArgNames.INSTRUMENTS, instruments);
@@ -817,7 +907,7 @@ public class DataClient implements IDataClient {
     public void removeWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
         Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/remove", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/instruments/remove", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         params.put(ArgNames.INSTRUMENTS, instruments);
@@ -830,7 +920,7 @@ public class DataClient implements IDataClient {
     public void updateWatchlistInstruments(String watchlistId, List<WatchlistInstrumentParam> instruments) {
         Assert.notBlank(ArgNames.WATCHLIST_ID, watchlistId);
         Assert.notEmpty(ArgNames.INSTRUMENTS, instruments);
-        HttpRequest request = new HttpRequest("/openapi/market-data/watchlist/instruments/update", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/market-data/watchlists/instruments/update", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.WATCHLIST_ID, watchlistId);
         params.put(ArgNames.INSTRUMENTS, instruments);
@@ -845,7 +935,7 @@ public class DataClient implements IDataClient {
     public List<CapitalFlow> getCapitalFlow(String symbol, String category, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/capital-flow", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/capital-flows/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -861,7 +951,7 @@ public class DataClient implements IDataClient {
     public IndustryComparison getIndustryComparison(String symbol, String category, String sortBy) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/industry-comparison", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/industry-comparisons/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -877,7 +967,7 @@ public class DataClient implements IDataClient {
     public SecFilings getSecFilings(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/filings", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/filings/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -890,7 +980,7 @@ public class DataClient implements IDataClient {
     public List<EarningsCalendar> getEarningsCalendar(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/earnings-calendar", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/earnings-calendars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -903,7 +993,7 @@ public class DataClient implements IDataClient {
     public List<DividendCalendar> getDividendCalendar(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/dividend-calendar", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/dividend-calendars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -916,7 +1006,7 @@ public class DataClient implements IDataClient {
     public List<ForecastEps> getForecastEps(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/stock/forecast-eps", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/forecast-eps/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -929,7 +1019,7 @@ public class DataClient implements IDataClient {
     public List<FundSplit> getFundSplits(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/splits", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-splits/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -942,7 +1032,7 @@ public class DataClient implements IDataClient {
     public List<FundRating> getFundRating(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/rating", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-ratings/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -955,7 +1045,7 @@ public class DataClient implements IDataClient {
     public FundPerformance getFundPerformance(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/performance", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-performances/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -968,7 +1058,7 @@ public class DataClient implements IDataClient {
     public List<FundNetValue> getFundNetValue(String symbol, String category, String lastDate, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/net-value", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-net-values/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -987,7 +1077,7 @@ public class DataClient implements IDataClient {
     public List<FundHolding> getFundHoldings(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/holdings", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-holdings/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1000,7 +1090,7 @@ public class DataClient implements IDataClient {
     public List<FundFile> getFundFiles(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/files", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-files/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1010,6 +1100,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<FundDividend> getFundDividends(String symbol, String category, Integer pageIndex, Integer pageSize) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -1029,10 +1120,26 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public PaginatedResult<FundDividend> getFundDividends(String symbol, String category, String paginationKey) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-dividends/get", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<FundDividend>>() {}.getType()).doAction();
+    }
+
+    @Override
     public FundBrief getFundBrief(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/brief", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-brief/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1045,7 +1152,7 @@ public class DataClient implements IDataClient {
     public List<FundAllocation> getFundAllocation(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/fund/allocation", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/fund-allocations/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1058,7 +1165,7 @@ public class DataClient implements IDataClient {
     public FinancialIndicators getFinancialsIndicators(String symbol, String category, String type, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/indicators", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/indicators/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1077,7 +1184,7 @@ public class DataClient implements IDataClient {
     public List<FinancialIncome> getFinancialsIncome(String symbol, String category, String type, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/income", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/income-statements/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1096,7 +1203,7 @@ public class DataClient implements IDataClient {
     public List<FinancialCashflow> getFinancialsCashflow(String symbol, String category, String type, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/cash-flow", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/cash-flows/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1115,7 +1222,7 @@ public class DataClient implements IDataClient {
     public List<FinancialBalanceSheet> getFinancialsBalanceSheet(String symbol, String category, String type, Integer count) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/balance-sheet", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/balance-sheets/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1134,7 +1241,7 @@ public class DataClient implements IDataClient {
     public FinancialAlert getFinancialsAlert(String symbol, String category) {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
-        HttpRequest request = new HttpRequest("/openapi/fundamentals/financial/alert", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/financial-alerts/get", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1146,6 +1253,7 @@ public class DataClient implements IDataClient {
     // ==================== Screener APIs ====================
 
     @Override
+    @Deprecated
     public ScreenerResponse getGainersLosers(String rankType, String category, String sortBy,
                                               Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.RANK_TYPE, rankType);
@@ -1171,6 +1279,27 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<ScreenerStock> getGainersLosers(String rankType, String category, String sortBy, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/screeners/gainers-losers/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(rankType)) {
+            params.put(ArgNames.RANK_TYPE, rankType);
+        }
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<ScreenerStock>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public ScreenerResponse getMostActive(String category, String rankType, String sortBy,
                                            Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -1198,6 +1327,27 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<ScreenerStock> getMostActive(String category, String rankType, String sortBy, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/screeners/top-actives/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(rankType)) {
+            params.put(ArgNames.RANK_TYPE, rankType);
+        }
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<ScreenerStock>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public List<MarketSector> getMarketSectors(String category, String aggType, String period,
                                                    Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -1222,6 +1372,30 @@ public class DataClient implements IDataClient {
         request.setQuery(params);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<MarketSector>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PaginatedResult<MarketSector> getMarketSectors(String category, String aggType, String period,
+                                                          String direction, String paginationKey) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/screeners/market-sectors/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(aggType)) {
+            params.put(ArgNames.AGG_TYPE, aggType);
+        }
+        if (StringUtils.isNotBlank(period)) {
+            params.put(ArgNames.PERIOD, period);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<MarketSector>>() {}.getType()).doAction();
     }
 
     @Override
@@ -1254,6 +1428,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public HighDividendResponse getHighDividend(String category, String sortBy,
                                              Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -1278,6 +1453,24 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    public List<HighDividendStock> getHighDividend(String category, String sortBy, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/screeners/high-dividend-ranks/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<HighDividendStock>>() {}.getType()).doAction();
+    }
+
+    @Override
+    @Deprecated
     public FiftyTwoWeekResponse get52Whl(String rankType, String category, String sortBy,
                                       Integer pageIndex, Integer pageSize, String direction) {
         Assert.notBlank(ArgNames.CATEGORY, category);
@@ -1304,6 +1497,26 @@ public class DataClient implements IDataClient {
         return apiClient.request(request).responseType(new TypeToken<FiftyTwoWeekResponse>() {}.getType()).doAction();
     }
 
+    @Override
+    public List<FiftyTwoWeekStock> get52Whl(String rankType, String category, String sortBy, String direction) {
+        Assert.notBlank(ArgNames.CATEGORY, category);
+        HttpRequest request = new HttpRequest("/market-data/screeners/week52-high-low/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if (StringUtils.isNotBlank(rankType)) {
+            params.put(ArgNames.RANK_TYPE, rankType);
+        }
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(sortBy)) {
+            params.put(ArgNames.SORT_BY, sortBy);
+        }
+        if (StringUtils.isNotBlank(direction)) {
+            params.put(ArgNames.DIRECTION, direction);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<FiftyTwoWeekStock>>() {}.getType()).doAction();
+    }
+
     // ==================== NOII APIs ====================
 
     @Override
@@ -1311,7 +1524,7 @@ public class DataClient implements IDataClient {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/noii/bars", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/noii-bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1326,7 +1539,7 @@ public class DataClient implements IDataClient {
         Assert.notBlank(ArgNames.SYMBOL, symbol);
         Assert.notBlank(ArgNames.CATEGORY, category);
         Assert.notBlank(ArgNames.IMBALANCE_ACTION_TYPE, imbalanceActionType);
-        HttpRequest request = new HttpRequest("/openapi/market-data/stock/noii/snapshot", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/market-data/stocks/noii-snapshots/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
         params.put(ArgNames.SYMBOL, symbol);
         params.put(ArgNames.CATEGORY, category);
@@ -1340,6 +1553,7 @@ public class DataClient implements IDataClient {
     // ==================== Option Instrument APIs ====================
 
     @Override
+    @Deprecated
     public List<OptionContract> getOptionContracts(OptionContractQueryParam param) {
         Assert.notNull(ArgNames.PARAMETER, param);
         Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
@@ -1392,4 +1606,56 @@ public class DataClient implements IDataClient {
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<OptionContract>>() {}.getType()).doAction();
     }
+
+    @Override
+    public PaginatedResult<OptionContract> getOptionContractsV2(OptionContractQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        HttpRequest request = new HttpRequest("/trading/instruments/options/contracts/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        if (StringUtils.isNotEmpty(param.getUnderlyingSymbols())) {
+            params.put(ArgNames.UNDERLYING_SYMBOLS, param.getUnderlyingSymbols());
+        }
+        if (StringUtils.isNotEmpty(param.getStatus())) {
+            params.put(ArgNames.STATUS, param.getStatus());
+        }
+        if (StringUtils.isNotEmpty(param.getStartDate())) {
+            params.put(ArgNames.START_DATE, param.getStartDate());
+        }
+        if (StringUtils.isNotEmpty(param.getEndDate())) {
+            params.put(ArgNames.END_DATE, param.getEndDate());
+        }
+        if (StringUtils.isNotEmpty(param.getRootSymbol())) {
+            params.put(ArgNames.ROOT_SYMBOL, param.getRootSymbol());
+        }
+        if (StringUtils.isNotEmpty(param.getOptionSymbol())) {
+            params.put(ArgNames.OPTION_SYMBOL, param.getOptionSymbol());
+        }
+        if (StringUtils.isNotEmpty(param.getOptionType())) {
+            params.put(ArgNames.OPTION_TYPE, param.getOptionType());
+        }
+        if (StringUtils.isNotEmpty(param.getStyle())) {
+            params.put(ArgNames.STYLE, param.getStyle());
+        }
+        if (Objects.nonNull(param.getStrikePriceGte())) {
+            params.put(ArgNames.STRIKE_PRICE_GTE, param.getStrikePriceGte());
+        }
+        if (Objects.nonNull(param.getStrikePriceLte())) {
+            params.put(ArgNames.STRIKE_PRICE_LTE, param.getStrikePriceLte());
+        }
+        if (Objects.nonNull(param.getPpind())) {
+            params.put(ArgNames.PPIND, param.getPpind());
+        }
+        if (Objects.nonNull(param.getShowDeliverables())) {
+            params.put(ArgNames.SHOW_DELIVERABLES, param.getShowDeliverables());
+        }
+        if (StringUtils.isNotEmpty(param.getPaginationKey())) {
+            params.put(ArgNames.PAGINATION_KEY, param.getPaginationKey());
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<OptionContract>>() {}.getType()).doAction();
+    }
+
 }

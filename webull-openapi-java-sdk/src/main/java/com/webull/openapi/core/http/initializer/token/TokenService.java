@@ -55,7 +55,7 @@ public class TokenService {
      */
     public AccessToken createToken(String token) {
 
-        HttpRequest request = new HttpRequest("/openapi/auth/token/create", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/auth/tokens/create", Versions.V3, HttpMethod.POST);
 
         Map<String, Object> params = new HashMap<>();
         if(StringUtils.isNotBlank(token)){
@@ -74,7 +74,7 @@ public class TokenService {
     public AccessToken checkToken(String token) {
 
         Assert.notBlank(TOKEN_ARG, token);
-        HttpRequest request = new HttpRequest("/openapi/auth/token/check", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/auth/tokens/check", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(TOKEN_ARG, token);
         request.setBody(params);
@@ -90,7 +90,7 @@ public class TokenService {
     public AccessToken refreshToken(String token) {
 
         Assert.notBlank(TOKEN_ARG, token);
-        HttpRequest request = new HttpRequest("/openapi/auth/token/refresh", Versions.V2, HttpMethod.POST);
+        HttpRequest request = new HttpRequest("/auth/tokens/refresh", Versions.V3, HttpMethod.POST);
         Map<String, Object> params = new HashMap<>();
         params.put(TOKEN_ARG, token);
         request.setBody(params);
