@@ -19,6 +19,7 @@ public class AccessToken {
 
     private String token;
     private Long expires;
+    private Long expiresAt;
     private String status;
 
     public String getToken() {
@@ -37,6 +38,14 @@ public class AccessToken {
         this.expires = expires;
     }
 
+    public Long getExpiresAt() {
+        return expiresAt;
+    }
+
+    public void setExpiresAt(Long expiresAt) {
+        this.expiresAt = expiresAt;
+    }
+
     public String getStatus() {
         return status;
     }
@@ -48,7 +57,8 @@ public class AccessToken {
     @Override
     public String toString() {
         return "AccessToken{" +
-                "expires='" + expires + '\'' +
+                "expires=" + expires +
+                ", expiresAt=" + expiresAt +
                 ", status='" + status + '\'' +
                 '}';
     }
