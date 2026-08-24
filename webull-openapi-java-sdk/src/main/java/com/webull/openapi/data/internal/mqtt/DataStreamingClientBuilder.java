@@ -39,10 +39,13 @@ import com.webull.openapi.data.quotes.subscribe.lifecycle.AuthProvider;
 import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsHandler;
 import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsInboundHandler;
 import com.webull.openapi.data.quotes.subscribe.message.MarketData;
+import com.webull.openapi.data.quotes.subscribe.message.NoticeData;
 import com.webull.openapi.data.quotes.subscribe.proxy.ProxyConfig;
 import com.webull.openapi.data.quotes.subscribe.retry.QuotesSubsRetryCondition;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
@@ -67,6 +70,7 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
 
     private final LinkedList<QuotesSubsHandler> handlers = new LinkedList<>();
     private final LinkedList<QuotesSubsInboundHandler> onMessages = new LinkedList<>();
+    private final List<Consumer<NoticeData>> onNoticeHandlers = new ArrayList<>();
 
     private Set<String> symbols;
     private String category;
@@ -178,6 +182,13 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
     }
 
     @Override
+    public IDataStreamingClientBuilder onNotice(Consumer<NoticeData> consumer) {
+        Assert.notNull("consumer", consumer);
+        this.onNoticeHandlers.add(consumer);
+        return this;
+    }
+
+    @Override
     public IDataStreamingClientBuilder addSubscription(Set<String> symbols, String category, Set<String> subTypes, String depth, Boolean overnightRequired) {
         this.symbols = symbols;
         this.category = category;
@@ -228,8 +239,8 @@ public final class DataStreamingClientBuilder implements IDataStreamingClientBui
         }
         allHandlers.add(subscriptionManager);
 
-        // add decoder
-        allHandlers.add(new PublishToMarketDataDecoder());
+        // add decoder (with notice handlers for notice topic dispatching)
+        allHandlers.add(new PublishToMarketDataDecoder(this.onNoticeHandlers));
         // add on message handlers
         allHandlers.addAll(this.onMessages);
         // add other handlers

@@ -10,6 +10,7 @@ import com.webull.openapi.core.serialize.JsonSerializer;
 import com.webull.openapi.core.utils.GUID;
 import com.webull.openapi.data.quotes.subscribe.IDataStreamingClient;
 import com.webull.openapi.data.quotes.subscribe.message.MarketData;
+import com.webull.openapi.data.quotes.subscribe.message.NoticeData;
 import com.webull.openapi.samples.config.Env;
 
 import java.util.HashSet;
@@ -42,6 +43,7 @@ public class DataStreamingClient {
                  */
                 //.tokenDir("conf_custom_relative")
                 .onMessage(DataStreamingClient::handleMarketData)
+                .onNotice(DataStreamingClient::handleNotice)
                 .addSubscription(symbols, Category.US_STOCK.name(), subTypes, "1", false)
                 .build()) {
 
@@ -62,6 +64,14 @@ public class DataStreamingClient {
         logger.info("Received market data: {}", JsonSerializer.toJson(marketData));
     }
 
+    private static void handleNotice(NoticeData notice) {
+        if (notice.isPermissionGrabbed()) {
+            logger.warn("Permission grabbed: {}", notice.getContent());
+        } else {
+            logger.info("Notice received: type={}, rtt={}, drop={}, sent={}",
+                    notice.getType(), notice.getRtt(), notice.getDrop(), notice.getSent());
+        }
+    }
 
     private static void subscribeBlocking(IDataStreamingClient client) {
         client.connectBlocking();

@@ -18,6 +18,7 @@ package com.webull.openapi.data.quotes.subscribe;
 import com.webull.openapi.data.quotes.api.subsribe.IMarketStreamingClient;
 import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsHandler;
 import com.webull.openapi.data.quotes.subscribe.message.MarketData;
+import com.webull.openapi.data.quotes.subscribe.message.NoticeData;
 import com.webull.openapi.data.quotes.subscribe.proxy.ProxyConfig;
 import com.webull.openapi.data.quotes.subscribe.retry.QuotesSubsRetryCondition;
 import com.webull.openapi.core.retry.RetryPolicy;
@@ -63,6 +64,8 @@ public interface IDataStreamingClientBuilder {
     IDataStreamingClientBuilder addHandler(QuotesSubsHandler handler);
 
     IDataStreamingClientBuilder onMessage(Consumer<MarketData> consumer);
+
+    IDataStreamingClientBuilder onNotice(Consumer<NoticeData> consumer);
 
     IDataStreamingClientBuilder addSubscription(Set<String> symbols, String category, Set<String> subTypes, String depth, Boolean overnightRequired);
 
