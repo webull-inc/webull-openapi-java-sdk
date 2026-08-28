@@ -18,7 +18,6 @@ package com.webull.openapi.core.auth.signer;
 import com.webull.openapi.core.exception.ClientException;
 import com.webull.openapi.core.exception.ErrorCode;
 
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.KeyFactory;
@@ -28,6 +27,7 @@ import java.security.Signature;
 import java.security.SignatureException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.PKCS8EncodedKeySpec;
+import java.util.Base64;
 
 public class SHA256withRSASigner implements Signer {
 
@@ -39,12 +39,12 @@ public class SHA256withRSASigner implements Signer {
         try {
             Signature rsaSign = Signature.getInstance(SignAlgorithm.SHA256_WITH_RSA.getSignerName());
             KeyFactory kf = KeyFactory.getInstance(ALGORITHM);
-            byte[] keySpec = DatatypeConverter.parseBase64Binary(secret);
+            byte[] keySpec = Base64.getDecoder().decode(secret);
             PrivateKey privateKey = kf.generatePrivate(new PKCS8EncodedKeySpec(keySpec));
             rsaSign.initSign(privateKey);
             rsaSign.update(source.getBytes(StandardCharsets.UTF_8));
             byte[] sign = rsaSign.sign();
-            return DatatypeConverter.printBase64Binary(sign);
+            return Base64.getEncoder().encodeToString(sign);
         } catch (NoSuchAlgorithmException | InvalidKeySpecException | InvalidKeyException | SignatureException e) {
             throw new ClientException(ErrorCode.INVALID_CREDENTIAL, e);
         }
