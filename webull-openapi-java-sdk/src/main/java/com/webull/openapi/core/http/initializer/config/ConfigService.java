@@ -41,7 +41,7 @@ public class ConfigService {
      */
     public ApiConfig getConfig() {
 
-        HttpRequest request = new HttpRequest("/openapi/config", Versions.V2, HttpMethod.GET);
+        HttpRequest request = new HttpRequest("/openapi/config", Versions.V3, HttpMethod.GET);
         return apiClient.request(request).responseType(ApiConfig.class).doAction();
 
     }

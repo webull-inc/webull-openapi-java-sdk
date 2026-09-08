@@ -25,6 +25,7 @@ public class InstrumentQueryParam {
     private String lastInstrumentId;
     private int pageSize = 1000;
     private String subCategory;
+    private String paginationKey;
 
     public String getCategory() {
         return category;
@@ -72,5 +73,13 @@ public class InstrumentQueryParam {
 
     public void setSubCategory(String subCategory) {
         this.subCategory = subCategory;
+    }
+
+    public String getPaginationKey() {
+        return paginationKey;
+    }
+
+    public void setPaginationKey(String paginationKey) {
+        this.paginationKey = paginationKey;
     }
 }

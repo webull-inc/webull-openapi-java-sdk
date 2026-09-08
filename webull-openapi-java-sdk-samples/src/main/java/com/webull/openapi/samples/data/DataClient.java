@@ -1,5 +1,6 @@
 package com.webull.openapi.samples.data;
 
+import com.webull.openapi.core.common.dict.ActiveRankType;
 import com.webull.openapi.core.common.dict.Category;
 import com.webull.openapi.core.common.dict.ContractType;
 import com.webull.openapi.core.common.dict.FiftyTwoWeekRankType;
@@ -8,6 +9,7 @@ import com.webull.openapi.core.common.dict.IndustryComparisonSortBy;
 import com.webull.openapi.core.common.dict.MarketSectorAggType;
 import com.webull.openapi.core.common.dict.MarketSectorPeriod;
 import com.webull.openapi.core.common.dict.ScreenerOrderBy;
+import com.webull.openapi.core.common.dict.ScreenerRankType;
 import com.webull.openapi.core.common.dict.SortDirection;
 import com.webull.openapi.core.common.dict.Timespan;
 import com.webull.openapi.core.http.HttpApiConfig;
@@ -269,6 +271,24 @@ public class DataClient {
         // Get 52-week new high stocks
         FiftyTwoWeekResponse newHighs = dataClient.get52Whl(FiftyTwoWeekRankType.NEW_HIGH.name(), Category.US_STOCK.name(), ScreenerOrderBy.CHANGE_RATIO_52W.name(), 1, 10, SortDirection.DESC.name());
         logger.info("52-Week New Highs: {}", newHighs);
+
+        // ==================== Screener ranking APIs (not paginated, returns top 200) ====================
+
+        // Get top gainers/losers ranking
+        List<ScreenerStock> gainersLosersRank = dataClient.getGainersLosers(ScreenerRankType.DAY_1.name(), Category.US_STOCK.name(), ScreenerOrderBy.CHANGE_RATIO.name(), SortDirection.DESC.name());
+        logger.info("Gainers/Losers ranking (top 200): {}", gainersLosersRank);
+
+        // Get most active stocks ranking
+        List<ScreenerStock> mostActiveRank = dataClient.getMostActive(Category.US_STOCK.name(), ActiveRankType.VOLUME.name(), ScreenerOrderBy.VOLUME.name(), SortDirection.DESC.name());
+        logger.info("Most Active ranking (top 200): {}", mostActiveRank);
+
+        // Get high dividend stocks ranking
+        List<HighDividendStock> highDividendRank = dataClient.getHighDividend(Category.US_STOCK.name(), ScreenerOrderBy.YIELD.name(), SortDirection.DESC.name());
+        logger.info("High Dividend ranking (top 200): {}", highDividendRank);
+
+        // Get 52-week high/low ranking
+        List<FiftyTwoWeekStock> fiftyTwoWeekRank = dataClient.get52Whl(FiftyTwoWeekRankType.NEW_HIGH.name(), Category.US_STOCK.name(), ScreenerOrderBy.CHANGE_RATIO_52W.name(), SortDirection.DESC.name());
+        logger.info("52-Week High/Low ranking (top 200): {}", fiftyTwoWeekRank);
 
         // Get option contracts
         OptionContractQueryParam optionParam = new OptionContractQueryParam();

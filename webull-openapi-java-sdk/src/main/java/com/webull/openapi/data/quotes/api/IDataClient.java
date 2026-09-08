@@ -16,6 +16,7 @@
 package com.webull.openapi.data.quotes.api;
 
 import com.webull.openapi.data.quotes.domain.*;
+import com.webull.openapi.trade.response.PaginatedResult;
 
 import java.util.List;
 import java.util.Set;
@@ -130,17 +131,69 @@ public interface IDataClient {
 
     List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
 
+    /**
+     * @deprecated Use {@link #getInstrumentsV2(InstrumentQueryParam)} instead, which supports paginationKey-based pagination.
+     */
+    @Deprecated
     List<StockInstrumentDetail> getInstrumentsV1(InstrumentQueryParam param);
 
+    /**
+     * PaginationKey-based variant of {@link #getInstrumentsV1(InstrumentQueryParam)}.
+     * Set {@link InstrumentQueryParam#setPaginationKey} to null for the first request;
+     * use the returned paginationKey for subsequent pages. A null paginationKey in the
+     * response indicates there are no more pages.
+     *
+     * @param param query parameters (category required; symbols/status/subCategory/paginationKey optional)
+     * @return paginated result containing stock instrument list and next pagination key
+     */
+    PaginatedResult<StockInstrumentDetail> getInstrumentsV2(InstrumentQueryParam param);
+
+    /**
+     * @deprecated Use {@link #getCryptoInstrumentV2(InstrumentQueryParam)} instead, which supports paginationKey-based pagination.
+     */
+    @Deprecated
     List<CryptoInstrumentDetail> getCryptoInstrument(InstrumentQueryParam param);
+
+    /**
+     * PaginationKey-based variant of {@link #getCryptoInstrument(InstrumentQueryParam)}.
+     *
+     * @param param query parameters (category required; symbols/status/paginationKey optional)
+     * @return paginated result containing crypto instrument list and next pagination key
+     */
+    PaginatedResult<CryptoInstrumentDetail> getCryptoInstrumentV2(InstrumentQueryParam param);
 
     List<EventCategories> getEventCategories();
 
     List<EventSeries> getEventSeriesList(String category, Set<String> symbols, String lastSeriesId, int pageSize);
 
+    /**
+     * Overloaded {@link #getEventSeriesList(String, Set, String, int)} using paginationKey-based pagination.
+     * Pass null for paginationKey on the first request; use the returned paginationKey for subsequent pages.
+     *
+     * @param category      category filter (optional)
+     * @param symbols       symbol filter (optional)
+     * @param paginationKey pagination key from previous response, null for first page
+     * @return paginated result containing event series list and next pagination key
+     */
+    PaginatedResult<EventSeries> getEventSeriesList(String category, Set<String> symbols, String paginationKey);
+
     List<EventEvents> getEventEvents(String seriesSymbol, Set<String> symbols, String status);
 
+    /**
+     * @deprecated Use {@link #getEventInstrumentsListV1(EventInstrumentParam)} instead, which supports paginationKey-based pagination.
+     */
+    @Deprecated
     List<EventMarket> getEventInstrumentsList(EventInstrumentParam eventInstrumentParam);
+
+    /**
+     * PaginationKey-based variant of {@link #getEventInstrumentsList(EventInstrumentParam)}.
+     * Set {@link EventInstrumentParam#setPaginationKey} to null for the first request;
+     * use the returned paginationKey for subsequent pages.
+     *
+     * @param param query parameters (seriesSymbol required; eventSymbol/symbols/expirationDateAfter/paginationKey optional)
+     * @return paginated result containing event market list and next pagination key
+     */
+    PaginatedResult<EventMarket> getEventInstrumentsListV1(EventInstrumentParam param);
 
     List<EventSnapshot> getEventSnapshot(Set<String> symbols, String category);
 
@@ -373,8 +426,21 @@ public interface IDataClient {
      * @param pageIndex Page number (optional, default 1)
      * @param pageSize  Page size (optional, default 10, max 20)
      * @return List of fund dividend entries
+     * @deprecated Use {@link #getFundDividends(String, String, String)} instead, which supports paginationKey-based pagination.
      */
+    @Deprecated
     List<FundDividend> getFundDividends(String symbol, String category, Integer pageIndex, Integer pageSize);
+
+    /**
+     * Overloaded {@link #getFundDividends(String, String, Integer, Integer)} using paginationKey-based pagination.
+     * Pass null for paginationKey on the first request; use the returned paginationKey for subsequent pages.
+     *
+     * @param symbol        fund symbol
+     * @param category      security type
+     * @param paginationKey pagination key from previous response, null for first page
+     * @return paginated result containing fund dividend list and next pagination key
+     */
+    PaginatedResult<FundDividend> getFundDividends(String symbol, String category, String paginationKey);
 
     /**
      * Get fund brief information.
@@ -459,9 +525,23 @@ public interface IDataClient {
      * @param pageSize  Number of records per page (optional)
      * @param direction Sort direction: ASC for losers, DESC for gainers (optional)
      * @return Response containing has_more flag and list of ranked stocks
+     * @deprecated Use {@link #getGainersLosers(String, String, String, String)} instead. The ranking list is no longer paginated and returns the top 200 records.
      */
+    @Deprecated
     ScreenerResponse getGainersLosers(String rankType, String category, String sortBy,
                                        Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get stock top gainers or losers ranking by price change percentage.
+     * The ranking list is not paginated and returns the top 200 records.
+     *
+     * @param rankType  Time period for ranking (optional, default D1)
+     * @param category  Security market category (required, e.g., US_STOCK)
+     * @param sortBy    Sort field (optional, default CHANGE_RATIO)
+     * @param direction Sort direction: ASC for losers, DESC for gainers (optional, default DESC)
+     * @return List of ranked stocks (top 200)
+     */
+    List<ScreenerStock> getGainersLosers(String rankType, String category, String sortBy, String direction);
 
     /**
      * Get most actively traded stocks ranking.
@@ -473,9 +553,23 @@ public interface IDataClient {
      * @param pageSize  Number of records per page (optional)
      * @param direction Sort direction (optional, defaults to DESC)
      * @return Response containing has_more flag and list of ranked stocks
+     * @deprecated Use {@link #getMostActive(String, String, String, String)} instead. The ranking list is no longer paginated and returns the top 200 records.
      */
+    @Deprecated
     ScreenerResponse getMostActive(String category, String rankType, String sortBy,
                                     Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get most actively traded stocks ranking.
+     * The ranking list is not paginated and returns the top 200 records.
+     *
+     * @param category  Security market category (required, e.g., US_STOCK)
+     * @param rankType  Activity metric for ranking (optional, default VOLUME)
+     * @param sortBy    Sort field (optional, default VOLUME)
+     * @param direction Sort direction (optional, default DESC)
+     * @return List of ranked stocks (top 200)
+     */
+    List<ScreenerStock> getMostActive(String category, String rankType, String sortBy, String direction);
 
     /**
      * Get market sectors data.
@@ -487,9 +581,25 @@ public interface IDataClient {
      * @param pageSize  Number of records per page (optional)
      * @param direction Sort direction (optional, enum: ASC/DESC)
      * @return List of market sectors
+     * @deprecated Use {@link #getMarketSectors(String, String, String, String, String)} instead, which supports paginationKey-based pagination.
      */
+    @Deprecated
     List<MarketSector> getMarketSectors(String category, String aggType, String period,
                                             Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Overloaded {@link #getMarketSectors(String, String, String, Integer, Integer, String)} using paginationKey-based pagination.
+     * Pass null for paginationKey on the first request; use the returned paginationKey for subsequent pages.
+     *
+     * @param category      security market category (required)
+     * @param aggType       aggregation type (optional)
+     * @param period        time period (optional)
+     * @param direction     sort direction (optional)
+     * @param paginationKey pagination key from previous response, null for first page
+     * @return paginated result containing market sector list and next pagination key
+     */
+    PaginatedResult<MarketSector> getMarketSectors(String category, String aggType, String period,
+                                                   String direction, String paginationKey);
 
     /**
      * Get market sectors detail data.
@@ -515,9 +625,22 @@ public interface IDataClient {
      * @param pageSize  Number of records per page (optional)
      * @param direction Sort direction (optional, enum: ASC/DESC)
      * @return High dividend response with stock list
+     * @deprecated Use {@link #getHighDividend(String, String, String)} instead. The ranking list is no longer paginated and returns the top 200 records.
      */
+    @Deprecated
     HighDividendResponse getHighDividend(String category, String sortBy,
                                       Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get high dividend stocks.
+     * The ranking list is not paginated and returns the top 200 records.
+     *
+     * @param category  Security market category (required)
+     * @param sortBy    Sort field (optional, default YIELD)
+     * @param direction Sort direction (optional, default DESC)
+     * @return List of high dividend stocks (top 200)
+     */
+    List<HighDividendStock> getHighDividend(String category, String sortBy, String direction);
 
     /**
      * Get 52-week high/low stocks.
@@ -529,9 +652,23 @@ public interface IDataClient {
      * @param pageSize  Number of records per page (optional)
      * @param direction Sort direction (optional, enum: ASC/DESC)
      * @return 52-week high/low response with stock list
+     * @deprecated Use {@link #get52Whl(String, String, String, String)} instead. The ranking list is no longer paginated and returns the top 200 records.
      */
+    @Deprecated
     FiftyTwoWeekResponse get52Whl(String rankType, String category, String sortBy,
                                Integer pageIndex, Integer pageSize, String direction);
+
+    /**
+     * Get 52-week high/low stocks.
+     * The ranking list is not paginated and returns the top 200 records.
+     *
+     * @param rankType  Rank type (optional, enum: NEW_HIGH/NEAR_HIGH/NEW_LOW/NEAR_LOW)
+     * @param category  Security market category (required)
+     * @param sortBy    Sort field (optional, default CHANGE_RATIO_52W)
+     * @param direction Sort direction (optional, enum: ASC/DESC)
+     * @return List of 52-week high/low stocks (top 200)
+     */
+    List<FiftyTwoWeekStock> get52Whl(String rankType, String category, String sortBy, String direction);
 
     // ==================== NOII APIs ====================
 
@@ -570,6 +707,18 @@ public interface IDataClient {
      *              underlying symbols, status, expiration date range, option type, style,
      *              strike price range, pagination, etc.
      * @return List of option contracts matching the query criteria
+     * @deprecated Use {@link #getOptionContractsV2(OptionContractQueryParam)} instead, which supports paginationKey-based pagination.
      */
+    @Deprecated
     List<OptionContract> getOptionContracts(OptionContractQueryParam param);
+
+    /**
+     * PaginationKey-based variant of {@link #getOptionContracts(OptionContractQueryParam)}.
+     * Set {@link OptionContractQueryParam#setPaginationKey} to null for the first request;
+     * use the returned paginationKey for subsequent pages.
+     *
+     * @param param query parameters including category (required) and other filters plus paginationKey
+     * @return paginated result containing option contract list and next pagination key
+     */
+    PaginatedResult<OptionContract> getOptionContractsV2(OptionContractQueryParam param);
 }

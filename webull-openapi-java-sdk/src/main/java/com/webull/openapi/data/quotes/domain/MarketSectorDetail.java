@@ -36,6 +36,8 @@ public class MarketSectorDetail {
     private String flat;
     /** List of stocks in the industry */
     private List<MarketSectorStock> data;
+    /** Pagination key for fetching the next page; null indicates no more pages */
+    private String paginationKey;
 
     public String getId() {
         return id;
@@ -93,6 +95,14 @@ public class MarketSectorDetail {
         this.data = data;
     }
 
+    public String getPaginationKey() {
+        return paginationKey;
+    }
+
+    public void setPaginationKey(String paginationKey) {
+        this.paginationKey = paginationKey;
+    }
+
     @Override
     public String toString() {
         return "MarketSectorDetail{" +
@@ -103,6 +113,7 @@ public class MarketSectorDetail {
                 ", advanced='" + advanced + '\'' +
                 ", flat='" + flat + '\'' +
                 ", data=" + data +
+                ", paginationKey='" + paginationKey + '\'' +
                 '}';
     }
 }
