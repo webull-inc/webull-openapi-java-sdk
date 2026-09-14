@@ -15,6 +15,8 @@
  */
 package com.webull.openapi.trade.response.v3;
 
+import com.webull.openapi.trade.response.EstimatedTransactionFeeDetail;
+
 import java.io.Serializable;
 
 public class PreviewOrderResponse implements Serializable {
@@ -22,6 +24,7 @@ public class PreviewOrderResponse implements Serializable {
     private static final long serialVersionUID = -4507115300178781049L;
     private String estimatedCost;
     private String estimatedTransactionFee;
+    private EstimatedTransactionFeeDetail estimatedTransactionFeeDetail;
     private String currency;
 
     public String getEstimatedCost() {
@@ -40,6 +43,14 @@ public class PreviewOrderResponse implements Serializable {
         this.estimatedTransactionFee = estimatedTransactionFee;
     }
 
+    public EstimatedTransactionFeeDetail getEstimatedTransactionFeeDetail() {
+        return estimatedTransactionFeeDetail;
+    }
+
+    public void setEstimatedTransactionFeeDetail(EstimatedTransactionFeeDetail estimatedTransactionFeeDetail) {
+        this.estimatedTransactionFeeDetail = estimatedTransactionFeeDetail;
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -53,6 +64,8 @@ public class PreviewOrderResponse implements Serializable {
         return "PreviewOrderResponse{" +
                 "estimatedCost='" + estimatedCost + '\'' +
                 ", estimatedTransactionFee='" + estimatedTransactionFee + '\'' +
+                ", estimatedTransactionFeeDetail=" + estimatedTransactionFeeDetail +
+                ", currency='" + currency + '\'' +
                 '}';
     }
 }

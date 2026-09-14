@@ -73,6 +73,11 @@ public enum OrderType {
     AT_AUCTION_LIMIT,
 
     /**
+     * Odd lot limit order (Hong Kong stocks)
+     */
+    ODD_LOT_LIMIT,
+
+    /**
      * Opening market order(U.S. Stock)
      */
     MARKET_ON_OPEN,

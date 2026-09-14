@@ -17,8 +17,11 @@ import com.webull.openapi.core.utils.CollectionUtils;
 import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.trade.http.ITradeV3Client;
 import com.webull.openapi.trade.request.v3.*;
+import com.webull.openapi.trade.request.TransfersActivitiesRequest;
 import com.webull.openapi.trade.response.PaginatedResult;
 import com.webull.openapi.trade.response.TradeCalendar;
+import com.webull.openapi.trade.response.Transfer;
+import com.webull.openapi.trade.response.TransferDetail;
 import com.webull.openapi.trade.response.v3.*;
 
 import java.util.*;
@@ -26,12 +29,14 @@ import java.util.*;
 public class TradeClientV3 implements ITradeV3Client {
 
 	private static final String ACCOUNT_ID_ARG = "accountId";
+	private static final String REQUEST_ARG = "request";
 	private static final String TRADE_ORDER_ARG = "tradeOrder";
 	private static final String NEW_ORDERS_ARG = "newOrders";
     private static final String BATCH_ORDERS_ARG = "batchOrders";
 	private static final String MODIFY_ORDERS_ARG = "modifyOrders";
 	private static final String CLIENT_ORDER_ID_ARG = "clientOrderId";
 	private static final String INSTRUMENT_ID_ARG = "instrumentId";
+	private static final String TRANSFER_ID_ARG = "transferId";
 
 	private static final String PAGE_SIZE_PARAM = "page_size";
 	private static final String START_DATE_PARAM = "start_date";
@@ -57,6 +62,12 @@ public class TradeClientV3 implements ITradeV3Client {
 	private static final String LAST_ACTIVITY_ID_PARAM = "last_activity_id";
 
     private static final String LAST_EXECUTION_ID_PARAM = "last_execution_id";
+
+	private static final String TRANSFER_METHOD_PARAM = "transfer_method";
+	private static final String TRANSFER_ID_PARAM = "transfer_id";
+	private static final String DIRECTION_PARAM = "direction";
+	private static final String STATUS_PARAM = "status";
+	private static final String ACATS_TRANSFER_TYPES_PARAM = "acats_transfer_types";
 
 	private static final String PAGINATION_KEY_PARAM = "pagination_key";
 
@@ -397,6 +408,52 @@ public class TradeClientV3 implements ITradeV3Client {
 	}
 
 	@Override
+	public PaginatedResult<Transfer> listTransfersActivities(TransfersActivitiesRequest request) {
+		assertUsRegion("listTransfersActivities");
+		Assert.notNull(REQUEST_ARG, request);
+		Assert.notBlank(ACCOUNT_ID_ARG, request.getAccountId());
+		HttpRequest httpRequest = new HttpRequest("/trading/activities/transfer-activities/list", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, request.getAccountId());
+		if (StringUtils.isNotEmpty(request.getTransferMethod())) {
+			params.put(TRANSFER_METHOD_PARAM, request.getTransferMethod());
+		}
+		if (StringUtils.isNotEmpty(request.getDirection())) {
+			params.put(DIRECTION_PARAM, request.getDirection());
+		}
+		if (StringUtils.isNotEmpty(request.getStatus())) {
+			params.put(STATUS_PARAM, request.getStatus());
+		}
+		if (StringUtils.isNotEmpty(request.getAcatsTransferTypes())) {
+			params.put(ACATS_TRANSFER_TYPES_PARAM, request.getAcatsTransferTypes());
+		}
+		if (StringUtils.isNotEmpty(request.getStartTime())) {
+			params.put(START_TIME_PARAM, request.getStartTime());
+		}
+		if (StringUtils.isNotEmpty(request.getEndTime())) {
+			params.put(END_TIME_PARAM, request.getEndTime());
+		}
+		if (StringUtils.isNotEmpty(request.getPaginationKey())) {
+			params.put(PAGINATION_KEY_PARAM, request.getPaginationKey());
+		}
+		httpRequest.setQuery(params);
+		return apiClient.request(httpRequest).responseType(new TypeToken<PaginatedResult<Transfer>>() {
+		}.getType()).doAction();
+	}
+
+	@Override
+	public TransferDetail getTransferActivity(String accountId, String transferId) {
+		assertUsRegion("getTransferActivity");
+		Assert.notBlank(Arrays.asList(ACCOUNT_ID_ARG, TRANSFER_ID_ARG), accountId, transferId);
+		HttpRequest request = new HttpRequest("/trading/activities/transfer-activities/get", Versions.V3, HttpMethod.GET);
+		Map<String, Object> params = new HashMap<>();
+		params.put(ACCOUNT_ID_PARAM, accountId);
+		params.put(TRANSFER_ID_PARAM, transferId);
+		request.setQuery(params);
+		return apiClient.request(request).responseType(TransferDetail.class).doAction();
+	}
+
+	@Override
 	public PaginatedResult<OrderExecution> getOrderExecutions(String accountId, String clientOrderId, String startDate,
 			String endDate, String paginationKey) {
 		Assert.notBlank(ACCOUNT_ID_ARG, accountId);
@@ -418,6 +475,14 @@ public class TradeClientV3 implements ITradeV3Client {
 		request.setQuery(params);
 		return apiClient.request(request).responseType(new TypeToken<PaginatedResult<OrderExecution>>() {
 		}.getType()).doAction();
+	}
+
+	private void assertUsRegion(String operation) {
+		if (region != Region.us) {
+			throw new ClientException(ErrorCode.NOT_SUPPORT,
+				operation + " is currently supported only for Webull US region, current region is "
+					+ region.name() + ".");
+		}
 	}
 
     private void addCustomHeadersFromOrder(HttpRequest request, List<TradeOrderItem> orders) {

@@ -1,8 +1,11 @@
 package com.webull.openapi.trade.http;
 
+import com.webull.openapi.trade.request.TransfersActivitiesRequest;
 import com.webull.openapi.trade.request.v3.TradeOrder;
 import com.webull.openapi.trade.response.PaginatedResult;
 import com.webull.openapi.trade.response.TradeCalendar;
+import com.webull.openapi.trade.response.Transfer;
+import com.webull.openapi.trade.response.TransferDetail;
 import com.webull.openapi.trade.response.v3.*;
 
 import java.util.List;
@@ -174,6 +177,38 @@ public interface ITradeV3Client {
 	 */
 	PaginatedResult<Activity> getCashActivities(String accountId, String activityTypes, String startTime,
 			String endTime, String paginationKey);
+
+	/**
+	 * List transfer records with paginationKey-based pagination.
+	 * Routes to ACATS or crypto transfer downstream by account type; results are ordered by create time descending.
+	 * Pass null for paginationKey on the first request; use the returned paginationKey for subsequent pages.
+	 * A null paginationKey in the response indicates there are no more pages.
+	 * This interface is currently supported only for Webull US.
+	 * Support for other regions will be available in future updates.
+	 *
+	 * @param request the request containing accountId (required) and optional filters:
+	 *                transferMethod (comma-separated, e.g. ACATS,CRYPTO_TRANSFER),
+	 *                direction (INCOMING or OUTGOING),
+	 *                status (comma-separated: PENDING, COMPLETED, REJECTED, FAILED, CANCELLED),
+	 *                acatsTransferTypes (comma-separated: FULL, PARTIAL, RESIDUAL, RECLAIM, OTHER),
+	 *                startTime / endTime (ISO8601 UTC transfer create time range),
+	 *                paginationKey (from previous response, null for first page)
+	 * @return paginated result containing transfer list and next pagination key
+	 * @throws com.webull.openapi.core.exception.ClientException if the region is not Webull US
+	 */
+	PaginatedResult<Transfer> listTransfersActivities(TransfersActivitiesRequest request);
+
+	/**
+	 * Get a single transfer record by account ID and transfer ID.
+	 * This interface is currently supported only for Webull US.
+	 * Support for other regions will be available in future updates.
+	 *
+	 * @param accountId the account ID (required)
+	 * @param transferId the transfer record ID (required)
+	 * @return the transfer detail record, including contra broker, cash and position entries
+	 * @throws com.webull.openapi.core.exception.ClientException if the region is not Webull US
+	 */
+	TransferDetail getTransferActivity(String accountId, String transferId);
 
 	/**
 	 * Get order executions with paginationKey-based pagination.

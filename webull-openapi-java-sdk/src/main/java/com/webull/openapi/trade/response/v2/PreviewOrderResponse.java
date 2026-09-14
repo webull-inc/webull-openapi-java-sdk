@@ -15,11 +15,15 @@
  */
 package com.webull.openapi.trade.response.v2;
 
+import com.webull.openapi.trade.response.EstimatedTransactionFeeDetail;
+
 public class PreviewOrderResponse {
 
     private String estimatedCost;
 
     private String estimatedTransactionFee;
+
+    private EstimatedTransactionFeeDetail estimatedTransactionFeeDetail;
 
     private String currency;
 
@@ -39,6 +43,14 @@ public class PreviewOrderResponse {
         this.estimatedTransactionFee = estimatedTransactionFee;
     }
 
+    public EstimatedTransactionFeeDetail getEstimatedTransactionFeeDetail() {
+        return estimatedTransactionFeeDetail;
+    }
+
+    public void setEstimatedTransactionFeeDetail(EstimatedTransactionFeeDetail estimatedTransactionFeeDetail) {
+        this.estimatedTransactionFeeDetail = estimatedTransactionFeeDetail;
+    }
+
     public String getCurrency() {
         return currency;
     }
@@ -53,6 +65,7 @@ public class PreviewOrderResponse {
                 "currency='" + currency + '\'' +
                 ", estimatedCost='" + estimatedCost + '\'' +
                 ", estimatedTransactionFee='" + estimatedTransactionFee + '\'' +
+                ", estimatedTransactionFeeDetail=" + estimatedTransactionFeeDetail +
                 '}';
     }
 }
