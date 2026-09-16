@@ -25,10 +25,20 @@ public interface IDataClient {
 
     List<Instrument> getInstruments(Set<String> symbols, String category);
 
+    /**
+     * @deprecated The endpoint /market-data/stocks/bars/get is no longer available.
+     * Use {@link #getBatchBars(List, String, String, int)} instead.
+     */
+    @Deprecated
     default List<Bar> getBars(String symbol, String category, String timespan) {
         return getBars(symbol, category, timespan, 200);
     }
 
+    /**
+     * @deprecated The endpoint /market-data/stocks/bars/get is no longer available.
+     * Use {@link #getBatchBars(List, String, String, int)} instead.
+     */
+    @Deprecated
     List<Bar> getBars(String symbol, String category, String timespan, int count);
 
     /**
@@ -36,6 +46,11 @@ public interface IDataClient {
      */
     BatchBarResponse getBatchBars(List<String> symbols, String category, String timespan, int count);
 
+    /**
+     * @deprecated The endpoint /market-data/stocks/bars/get is no longer available.
+     * Use {@link #getBatchBars(List, String, String, int, Boolean, List)} instead.
+     */
+    @Deprecated
     List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions);
 
     /**
@@ -50,7 +65,10 @@ public interface IDataClient {
      * @param startTime        Start time in milliseconds timestamp (optional)
      * @param endTime          End time in milliseconds timestamp (optional)
      * @return List of bars
+     * @deprecated The endpoint /market-data/stocks/bars/get is no longer available.
+     * Use {@link #getBatchBars(List, String, String, int, Boolean, List, Long, Long)} instead.
      */
+    @Deprecated
     List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions, Long startTime, Long endTime);
 
     /**

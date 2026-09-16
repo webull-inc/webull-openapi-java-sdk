@@ -96,30 +96,25 @@ public class DataClient implements IDataClient {
         return getBars(symbol, category, timespan, count, realTimeRequired, tradingSessions, null, null);
     }
 
+    /**
+     * @deprecated The endpoint /market-data/stocks/bars/get is no longer available.
+     * This method now delegates to {@link #getBatchBars} which calls the batch
+     * endpoint /market-data/stocks/bars/list. Prefer getBatchBars directly.
+     */
+    @Deprecated
     @Override
     public List<Bar> getBars(String symbol, String category, String timespan, int count, Boolean realTimeRequired, List<String> tradingSessions, Long startTime, Long endTime) {
         Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY, ArgNames.TIMESPAN), symbol, category, timespan);
-        HttpRequest request = new HttpRequest("/market-data/stocks/bars/get", Versions.V3, HttpMethod.GET);
-        Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SYMBOL, symbol);
-        params.put(ArgNames.CATEGORY, category);
-        params.put(ArgNames.TIMESPAN, timespan);
-        params.put(ArgNames.COUNT, count);
-        if(Objects.nonNull(realTimeRequired)){
-            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        BatchBarResponse response = getBatchBars(Collections.singletonList(symbol), category, timespan, count,
+                realTimeRequired, tradingSessions, startTime, endTime);
+        if (Objects.isNull(response) || CollectionUtils.isEmpty(response.getResult())) {
+            return Collections.emptyList();
         }
-        if(CollectionUtils.isNotEmpty(tradingSessions)){
-            params.put(ArgNames.TRADING_SESSIONS, String.join(",", tradingSessions));
-        }
-        if(Objects.nonNull(startTime)){
-            params.put(ArgNames.START_TIME, startTime);
-        }
-        if(Objects.nonNull(endTime)){
-            params.put(ArgNames.END_TIME, endTime);
-        }
-        request.setQuery(params);
-        addCustomHeaders(request);
-        return apiClient.request(request).responseType(new TypeToken<List<Bar>>() {}.getType()).doAction();
+        return response.getResult().stream()
+                .filter(nBar -> symbol.equals(nBar.getSymbol()))
+                .findFirst()
+                .map(NBar::getResult)
+                .orElse(Collections.emptyList());
     }
 
     @Override
