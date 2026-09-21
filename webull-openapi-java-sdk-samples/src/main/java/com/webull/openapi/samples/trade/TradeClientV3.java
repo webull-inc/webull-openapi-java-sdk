@@ -9,9 +9,13 @@ import com.webull.openapi.core.utils.DateUtils;
 import com.webull.openapi.core.utils.GUID;
 import com.webull.openapi.core.utils.StringUtils;
 import com.webull.openapi.samples.config.Env;
+import com.webull.openapi.trade.request.TransfersActivitiesRequest;
 import com.webull.openapi.trade.request.v3.OptionOrderItemLeg;
 import com.webull.openapi.trade.request.v3.TradeOrder;
 import com.webull.openapi.trade.request.v3.TradeOrderItem;
+import com.webull.openapi.trade.response.PaginatedResult;
+import com.webull.openapi.trade.response.Transfer;
+import com.webull.openapi.trade.response.TransferDetail;
 import com.webull.openapi.trade.response.v3.*;
 
 import java.util.ArrayList;
@@ -62,10 +66,13 @@ public class TradeClientV3 {
             runTrailingStopLossComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
 
             runTrailingStopLossLimitComboOrderExample(apiService, accountIds.getSecurityAccountIds().get(0));
+
+            runTransfersActivitiesExample(apiService, accountIds.getSecurityAccountIds().get(0));
         }
 
         if (CollectionUtils.isNotEmpty(accountIds.getCryptoAccountIds())) {
             runCryptoOrderExample(apiService, accountIds.getCryptoAccountIds().get(0));
+            runTransfersActivitiesExample(apiService, accountIds.getCryptoAccountIds().get(0));
         }
 
         if (CollectionUtils.isNotEmpty(accountIds.getFuturesAccountIds())) {
@@ -936,6 +943,45 @@ public class TradeClientV3 {
         OrderHistory masterOrderDetailResponse =
                 apiService.getOrderDetails(accountId, touchLimitOrderItem.getClientOrderId());
         logger.info("masterOrderDetailResponse: {}", masterOrderDetailResponse);
+    }
+
+    private static void runTransfersActivitiesExample(com.webull.openapi.trade.TradeClientV3 apiService, String accountId) {
+        // 1) First page: pass null for paginationKey, no filters.
+        TransfersActivitiesRequest firstPageRequest = new TransfersActivitiesRequest();
+        firstPageRequest.setAccountId(accountId);
+        PaginatedResult<Transfer> firstPage = apiService.listTransfersActivities(firstPageRequest);
+        logger.info("transfersActivitiesFirstPage: {}", firstPage);
+
+        // 2) Iterate all pages using the returned paginationKey until it is null.
+        String paginationKey = firstPage == null ? null : firstPage.getPaginationKey();
+        while (StringUtils.isNotBlank(paginationKey)) {
+            TransfersActivitiesRequest nextPageRequest = new TransfersActivitiesRequest();
+            nextPageRequest.setAccountId(accountId);
+            nextPageRequest.setPaginationKey(paginationKey);
+            PaginatedResult<Transfer> nextPage = apiService.listTransfersActivities(nextPageRequest);
+            logger.info("transfersActivitiesNextPage: {}", nextPage);
+            paginationKey = nextPage == null ? null : nextPage.getPaginationKey();
+        }
+
+        // 3) Filtered query: ACATS incoming transfers, FULL type, within a time range.
+        TransfersActivitiesRequest filteredRequest = new TransfersActivitiesRequest();
+        filteredRequest.setAccountId(accountId);
+        filteredRequest.setTransferMethod("ACATS");
+        filteredRequest.setDirection("INCOMING");
+        filteredRequest.setStatus("PENDING,COMPLETED");
+        filteredRequest.setAcatsTransferTypes("FULL");
+        filteredRequest.setStartTime("2026-08-01T00:00:00Z");
+        filteredRequest.setEndTime("2026-08-31T23:59:59Z");
+        PaginatedResult<Transfer> filtered = apiService.listTransfersActivities(filteredRequest);
+        logger.info("transfersActivitiesFiltered: {}", filtered);
+
+        // 4) Get a single transfer record by transferId (taken from the first page when available).
+        if (firstPage != null && CollectionUtils.isNotEmpty(firstPage.getData())
+                && StringUtils.isNotBlank(firstPage.getData().get(0).getTransferId())) {
+            String transferId = firstPage.getData().get(0).getTransferId();
+            TransferDetail transfer = apiService.getTransferActivity(accountId, transferId);
+            logger.info("transferActivityDetail: {}", transfer);
+        }
     }
 
     private static void doSleep() throws InterruptedException {
