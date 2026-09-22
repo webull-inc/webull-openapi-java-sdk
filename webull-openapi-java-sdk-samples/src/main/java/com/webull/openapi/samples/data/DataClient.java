@@ -18,6 +18,7 @@ import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.data.quotes.api.IDataClient;
 import com.webull.openapi.data.quotes.domain.*;
 import com.webull.openapi.samples.config.Env;
+import com.webull.openapi.trade.response.PaginatedResult;
 
 import java.util.*;
 import java.math.BigDecimal;
@@ -297,6 +298,30 @@ public class DataClient {
         List<OptionContract> optionContracts = dataClient.getOptionContracts(optionParam);
         logger.info("Option Contracts: {}", optionContracts);
 
+        // Community APIs
+        CreatePostResponse post = dataClient.createPost(
+                "Hello, this is a test post from OpenAPI!",
+                "NVDA",
+                Category.US_STOCK.name());
+        logger.info("Created post: {}", post);
+
+        CreateCommentResponse comment = dataClient.createComment(
+                "995005758239301632",
+                "Hello, this is a test comment from OpenAPI!");
+        logger.info("Created comment: {}", comment);
+
+        List<HotStock> hotStocks = dataClient.listHotStocks();
+        logger.info("Hot stocks: {}", hotStocks);
+
+        PaginatedResult<PostSummary> posts = dataClient.listPostsBySymbol(
+                "NVDA", Category.US_STOCK.name(), null, null);
+        logger.info("Posts by symbol: {}", posts);
+
+        PostDetail detail = dataClient.getPost("995005758239301632");
+        logger.info("Post detail: {}", detail);
+
+        PaginatedResult<PostSummary> myPosts = dataClient.listMyPosts(null);
+        logger.info("My posts: {}", myPosts);
 
 //        // get end of day market
 //        List<EodBars> eodBars = IDataClient.getEodBars(instrumentIds, "2023-01-01", 10);
