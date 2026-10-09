@@ -71,6 +71,18 @@ public final class ArgNames {
     // News related
     public static final String CATEGORY_SYMBOLS = "category_symbols";
     public static final String LANG = "lang";
+    public static final String NEWS_ID = "news_id";
+    public static final String SENTIMENT = "sentiment";
+
+    // Community / market insights related ( US only)
+    public static final String ALERT_TYPES = "alert_types";
+    public static final String EXTENDED_HOURS_REQUIRED = "extended_hours_required";
+    public static final String CIK = "cik";
+    public static final String POSITION = "position";
+    public static final String SIDE = "side";
+    public static final String COMPARE_MONTHS = "compare_months";
+    public static final String REGION = "region";
+    public static final String DEFAULT_REGION = "US";
 
     // Time range
     public static final String START_TIME = "start_time";

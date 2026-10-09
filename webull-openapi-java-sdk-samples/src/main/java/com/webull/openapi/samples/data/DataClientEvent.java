@@ -65,7 +65,16 @@ public class DataClientEvent {
         EventDepth eventDepth = dataClient.getEventDepth(symbol, Category.US_EVENT.name(), "10");
         logger.info("Event Depth: {}", eventDepth);
 
-        List<EventBars> eventBars = dataClient.getEventBars(symbols, Category.US_EVENT.name(), Timespan.M1.name(), 200, false);
+        // get event bars (startTime/endTime are optional timestamps in milliseconds; leave them null to omit the time range)
+        BarsQueryParam eventBarsParam = new BarsQueryParam();
+        eventBarsParam.setSymbols(new ArrayList<>(symbols));
+        eventBarsParam.setCategory(Category.US_EVENT.name());
+        eventBarsParam.setTimespan(Timespan.M1.name());
+        eventBarsParam.setCount(200);
+        eventBarsParam.setRealTimeRequired(false);
+        eventBarsParam.setStartTime(1711262998500L);
+        eventBarsParam.setEndTime(1711349398500L);
+        List<EventBars> eventBars = dataClient.getEventBars(eventBarsParam);
         logger.info("Event Bars: {}", eventBars);
 
         EventTick eventTick = dataClient.getEventTick(symbol, Category.US_EVENT.name(), 200);

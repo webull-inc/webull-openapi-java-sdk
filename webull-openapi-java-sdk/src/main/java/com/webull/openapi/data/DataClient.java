@@ -18,6 +18,7 @@ package com.webull.openapi.data;
 import com.google.gson.reflect.TypeToken;
 import com.webull.openapi.core.common.Headers;
 import com.webull.openapi.core.common.Versions;
+import com.webull.openapi.core.common.dict.Category;
 import com.webull.openapi.core.http.HttpApiClient;
 import com.webull.openapi.core.http.HttpApiConfig;
 import com.webull.openapi.core.http.HttpRequest;
@@ -258,18 +259,37 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
-        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
-        Assert.notBlank(ArgNames.CATEGORY, category);
-        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        BarsQueryParam param = new BarsQueryParam();
+        param.setSymbols(symbols);
+        param.setCategory(category);
+        param.setTimespan(timespan);
+        param.setCount(count);
+        param.setRealTimeRequired(realTimeRequired);
+        return getFuturesBars(param);
+    }
+
+    @Override
+    public List<NBar> getFuturesBars(BarsQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notEmpty(ArgNames.SYMBOLS, param.getSymbols());
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        Assert.notBlank(ArgNames.TIMESPAN, param.getTimespan());
         HttpRequest request = new HttpRequest("/market-data/futures/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
-        params.put(ArgNames.CATEGORY, category);
-        params.put(ArgNames.TIMESPAN, timespan);
-        params.put(ArgNames.COUNT, count);
-        if(Objects.nonNull(realTimeRequired)){
-            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        params.put(ArgNames.TIMESPAN, param.getTimespan());
+        params.put(ArgNames.COUNT, param.getCount());
+        if(Objects.nonNull(param.getRealTimeRequired())){
+            params.put(ArgNames.REAL_TIME_REQUIRED, param.getRealTimeRequired());
+        }
+        if(Objects.nonNull(param.getStartTime())){
+            params.put(ArgNames.START_TIME, param.getStartTime());
+        }
+        if(Objects.nonNull(param.getEndTime())){
+            params.put(ArgNames.END_TIME, param.getEndTime());
         }
         request.setQuery(params);
         addCustomHeaders(request);
@@ -319,18 +339,37 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<OptionBars> getOptionBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
-        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
-        Assert.notBlank(ArgNames.CATEGORY, category);
-        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        BarsQueryParam param = new BarsQueryParam();
+        param.setSymbols(symbols);
+        param.setCategory(category);
+        param.setTimespan(timespan);
+        param.setCount(count);
+        param.setRealTimeRequired(realTimeRequired);
+        return getOptionBars(param);
+    }
+
+    @Override
+    public List<OptionBars> getOptionBars(BarsQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notEmpty(ArgNames.SYMBOLS, param.getSymbols());
+        Assert.notBlank(ArgNames.CATEGORY, param.getCategory());
+        Assert.notBlank(ArgNames.TIMESPAN, param.getTimespan());
         HttpRequest request = new HttpRequest("/market-data/options/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
-        params.put(ArgNames.CATEGORY, category);
-        params.put(ArgNames.TIMESPAN, timespan);
-        params.put(ArgNames.COUNT, count);
-        if(Objects.nonNull(realTimeRequired)){
-            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        params.put(ArgNames.TIMESPAN, param.getTimespan());
+        params.put(ArgNames.COUNT, param.getCount());
+        if(Objects.nonNull(param.getRealTimeRequired())){
+            params.put(ArgNames.REAL_TIME_REQUIRED, param.getRealTimeRequired());
+        }
+        if(Objects.nonNull(param.getStartTime())){
+            params.put(ArgNames.START_TIME, param.getStartTime());
+        }
+        if(Objects.nonNull(param.getEndTime())){
+            params.put(ArgNames.END_TIME, param.getEndTime());
         }
         request.setQuery(params);
         addCustomHeaders(request);
@@ -486,17 +525,36 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
-        Assert.notEmpty(ArgNames.SYMBOLS, symbols);
-        Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.TIMESPAN), category, timespan);
+        BarsQueryParam param = new BarsQueryParam();
+        param.setSymbols(Objects.nonNull(symbols) ? new ArrayList<>(symbols) : null);
+        param.setCategory(category);
+        param.setTimespan(timespan);
+        param.setCount(count);
+        param.setRealTimeRequired(realTimeRequired);
+        return getCryptoBars(param);
+    }
+
+    @Override
+    public List<NBar> getCryptoBars(BarsQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notEmpty(ArgNames.SYMBOLS, param.getSymbols());
+        Assert.notBlank(Arrays.asList(ArgNames.CATEGORY, ArgNames.TIMESPAN), param.getCategory(), param.getTimespan());
         HttpRequest request = new HttpRequest("/market-data/crypto/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
-        params.put(ArgNames.CATEGORY, category);
-        params.put(ArgNames.TIMESPAN, timespan);
-        params.put(ArgNames.COUNT, count);
-        if(Objects.nonNull(realTimeRequired)){
-            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        params.put(ArgNames.CATEGORY, param.getCategory());
+        params.put(ArgNames.TIMESPAN, param.getTimespan());
+        params.put(ArgNames.COUNT, param.getCount());
+        if(Objects.nonNull(param.getRealTimeRequired())){
+            params.put(ArgNames.REAL_TIME_REQUIRED, param.getRealTimeRequired());
+        }
+        if(Objects.nonNull(param.getStartTime())){
+            params.put(ArgNames.START_TIME, param.getStartTime());
+        }
+        if(Objects.nonNull(param.getEndTime())){
+            params.put(ArgNames.END_TIME, param.getEndTime());
         }
         request.setQuery(params);
         addCustomHeaders(request);
@@ -746,21 +804,40 @@ public class DataClient implements IDataClient {
     }
 
     @Override
+    @Deprecated
     public List<EventBars> getEventBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired) {
-        Assert.notNull(ArgNames.SYMBOLS, symbols);
-        Assert.notBlank(ArgNames.TIMESPAN, timespan);
+        BarsQueryParam param = new BarsQueryParam();
+        param.setSymbols(Objects.nonNull(symbols) ? new ArrayList<>(symbols) : null);
+        param.setCategory(category);
+        param.setTimespan(timespan);
+        param.setCount(count);
+        param.setRealTimeRequired(realTimeRequired);
+        return getEventBars(param);
+    }
+
+    @Override
+    public List<EventBars> getEventBars(BarsQueryParam param) {
+        Assert.notNull(ArgNames.PARAMETER, param);
+        Assert.notEmpty(ArgNames.SYMBOLS, param.getSymbols());
+        Assert.notBlank(ArgNames.TIMESPAN, param.getTimespan());
         HttpRequest request = new HttpRequest("/market-data/event-contracts/bars/list", Versions.V3, HttpMethod.GET);
         Map<String, Object> params = new HashMap<>();
-        params.put(ArgNames.SYMBOLS, String.join(",", symbols));
-        params.put(ArgNames.TIMESPAN, timespan);
-        if (StringUtils.isNotBlank(category)) {
-            params.put(ArgNames.CATEGORY, category);
+        params.put(ArgNames.SYMBOLS, String.join(",", param.getSymbols()));
+        params.put(ArgNames.TIMESPAN, param.getTimespan());
+        if (StringUtils.isNotBlank(param.getCategory())) {
+            params.put(ArgNames.CATEGORY, param.getCategory());
         }
-        if (count > 0) {
-            params.put(ArgNames.COUNT, count);
+        if (param.getCount() > 0) {
+            params.put(ArgNames.COUNT, param.getCount());
         }
-        if (Objects.nonNull(realTimeRequired)) {
-            params.put(ArgNames.REAL_TIME_REQUIRED, realTimeRequired);
+        if (Objects.nonNull(param.getRealTimeRequired())) {
+            params.put(ArgNames.REAL_TIME_REQUIRED, param.getRealTimeRequired());
+        }
+        if(Objects.nonNull(param.getStartTime())){
+            params.put(ArgNames.START_TIME, param.getStartTime());
+        }
+        if(Objects.nonNull(param.getEndTime())){
+            params.put(ArgNames.END_TIME, param.getEndTime());
         }
         request.setQuery(params);
         return apiClient.request(request).responseType(new TypeToken<List<EventBars>>() {}.getType()).doAction();
@@ -1512,6 +1589,43 @@ public class DataClient implements IDataClient {
         return apiClient.request(request).responseType(new TypeToken<List<FiftyTwoWeekStock>>() {}.getType()).doAction();
     }
 
+    private static String resolveCategory(String category) {
+        return StringUtils.isBlank(category) ? Category.US_STOCK.name() : category;
+    }
+
+    @Override
+    public FearGreedIndex getFearAndGreedIndex(String category) {
+        HttpRequest request = new HttpRequest("/market-data/screeners/fear-greed-indexes/get", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, resolveCategory(category));
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<FearGreedIndex>() {}.getType()).doAction();
+    }
+
+    @Override
+    public List<UnusualActivity> getStockUnusualActivities(String symbol, String category, Integer count,
+                                                           String alertTypes, Boolean extendedHoursRequired) {
+        HttpRequest request = new HttpRequest("/market-data/screeners/unusual-activities/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CATEGORY, resolveCategory(category));
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        if (StringUtils.isNotEmpty(symbol)) {
+            params.put(ArgNames.SYMBOL, symbol);
+        }
+        if (StringUtils.isNotEmpty(alertTypes)) {
+            params.put(ArgNames.ALERT_TYPES, alertTypes);
+        }
+        if (Objects.nonNull(extendedHoursRequired)) {
+            params.put(ArgNames.EXTENDED_HOURS_REQUIRED, extendedHoursRequired);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<UnusualActivity>>() {}.getType()).doAction();
+    }
+
     // ==================== NOII APIs ====================
 
     @Override
@@ -1577,7 +1691,7 @@ public class DataClient implements IDataClient {
     }
 
     @Override
-     public List<HotStock> listHotStocks() {
+    public List<HotStock> listHotStocks() {
         HttpRequest request = new HttpRequest("/market-data/communities/stock-rankings/list", Versions.V3, HttpMethod.GET);
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<List<HotStock>>() {}.getType()).doAction();
@@ -1623,6 +1737,161 @@ public class DataClient implements IDataClient {
         addCustomHeaders(request);
         return apiClient.request(request).responseType(new TypeToken<PaginatedResult<PostSummary>>() {}.getType()).doAction();
     }
+
+    // ==================== Fundamentals APIs ====================
+    @Override
+    public PaginatedResult<Institution> getInstitutionSearch(String keyword, String paginationKey) {
+        Assert.notBlank(ArgNames.KEYWORD, keyword);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/institutions/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.KEYWORD, keyword);
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<Institution>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PaginatedResult<Institution13FHolding> getInstitutionHoldings(String cik, String paginationKey) {
+        Assert.notBlank(ArgNames.CIK, cik);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/institutions/holdings/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CIK, cik);
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<Institution13FHolding>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PaginatedResult<InstitutionHoldingChange> getInstitutionHoldingChanges(String cik, String position,
+                                                                                  Integer count, String paginationKey) {
+        Assert.notBlank(Arrays.asList(ArgNames.CIK, ArgNames.POSITION), cik, position);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/institutions/holding-changes/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.CIK, cik);
+        params.put(ArgNames.POSITION, position);
+        if (Objects.nonNull(count)) {
+            params.put(ArgNames.COUNT, count);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<InstitutionHoldingChange>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public InsiderTransactionResult getInsiderTransactions(String symbol, String category, String side,
+                                                           String paginationKey) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/insider-transactions/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, resolveCategory(category));
+        if (StringUtils.isNotEmpty(side)) {
+            params.put(ArgNames.SIDE, side);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<InsiderTransactionResult>() {}.getType()).doAction();
+    }
+
+    @Override
+    public InsiderHoldings getInsiderHoldings(String symbol, String category, Integer compareMonths) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/insider-holdings/get", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, resolveCategory(category));
+        if (Objects.nonNull(compareMonths)) {
+            params.put(ArgNames.COMPARE_MONTHS, compareMonths);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<InsiderHoldings>() {}.getType()).doAction();
+    }
+
+    @Override
+    public EconomicCalendarResult getEconomicCalendars(String region, String startDate, String endDate,
+                                                       String paginationKey) {
+        HttpRequest request = new HttpRequest("/market-data/fundamentals/economic-calendars/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.REGION, StringUtils.isBlank(region) ? ArgNames.DEFAULT_REGION : region);
+        if (StringUtils.isNotEmpty(startDate)) {
+            params.put(ArgNames.START_DATE, startDate);
+        }
+        if (StringUtils.isNotEmpty(endDate)) {
+            params.put(ArgNames.END_DATE, endDate);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<EconomicCalendarResult>() {}.getType()).doAction();
+    }
+
+
+    // ==================== News APIs (US only) ====================
+
+    @Override
+    public NewsSearchResult getNews(String keyword, String startDate, String endDate, String paginationKey) {
+        Assert.notBlank(ArgNames.KEYWORD, keyword);
+        HttpRequest request = new HttpRequest("/market-data/news/search/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.KEYWORD, keyword);
+        if (StringUtils.isNotEmpty(startDate)) {
+            params.put(ArgNames.START_DATE, startDate);
+        }
+        if (StringUtils.isNotEmpty(endDate)) {
+            params.put(ArgNames.END_DATE, endDate);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<NewsSearchResult>() {}.getType()).doAction();
+    }
+
+    @Override
+    public NewsDetail getNewsDetail(String newsId) {
+        Assert.notBlank(ArgNames.NEWS_ID, newsId);
+        HttpRequest request = new HttpRequest("/market-data/news/detail/get", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.NEWS_ID, newsId);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<NewsDetail>() {}.getType()).doAction();
+    }
+
+    @Override
+    public NewsSearchResult getStockNews(String symbol, String category, String sentiment, String paginationKey) {
+        Assert.notBlank(ArgNames.SYMBOL, symbol);
+        HttpRequest request = new HttpRequest("/market-data/news/stock-news/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, resolveCategory(category));
+        if (StringUtils.isNotEmpty(sentiment)) {
+            params.put(ArgNames.SENTIMENT, sentiment);
+        }
+        if (StringUtils.isNotEmpty(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<NewsSearchResult>() {}.getType()).doAction();
+    }
+
 
     // ==================== Option Instrument APIs ====================
 

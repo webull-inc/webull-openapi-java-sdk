@@ -114,7 +114,19 @@ public interface IDataClient {
 
     List<FootprintResponse> getFootprint(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired, String tradingSessions);
 
+    /**
+     * @deprecated Since 2.0.4. Use {@link #getFuturesBars(BarsQueryParam)} instead, which supports a time range query.
+     */
+    @Deprecated
     List<NBar> getFuturesBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    /**
+     * Query futures bars. Supports an optional time range via {@link BarsQueryParam#getStartTime()} and {@link BarsQueryParam#getEndTime()}.
+     *
+     * @param param query parameters (symbols, category and timespan required; count, realTimeRequired, startTime and endTime optional)
+     * @return the list of futures bars
+     */
+    List<NBar> getFuturesBars(BarsQueryParam param);
 
     DepthOfBook getFuturesDepth(String symbol, String category, String depth);
 
@@ -122,7 +134,19 @@ public interface IDataClient {
 
     Tick getFutureTicks(String symbol, String category, int count);
 
+    /**
+     * @deprecated Since 2.0.4. Use {@link #getOptionBars(BarsQueryParam)} instead, which supports a time range query.
+     */
+    @Deprecated
     List<OptionBars> getOptionBars(List<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    /**
+     * Query option bars. Supports an optional time range via {@link BarsQueryParam#getStartTime()} and {@link BarsQueryParam#getEndTime()}.
+     *
+     * @param param query parameters (symbols, category and timespan required; count, realTimeRequired, startTime and endTime optional)
+     * @return the list of option bars
+     */
+    List<OptionBars> getOptionBars(BarsQueryParam param);
 
     OptionTick getOptionTicks(String symbol, String category, int count);
 
@@ -147,7 +171,19 @@ public interface IDataClient {
 
     List<Snapshot> getCryptoSnapshots(Set<String> symbols, String category);
 
+    /**
+     * @deprecated Since 2.0.4. Use {@link #getCryptoBars(BarsQueryParam)} instead, which supports a time range query.
+     */
+    @Deprecated
     List<NBar> getCryptoBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    /**
+     * Query crypto bars. Supports an optional time range via {@link BarsQueryParam#getStartTime()} and {@link BarsQueryParam#getEndTime()}.
+     *
+     * @param param query parameters (symbols, category and timespan required; count, realTimeRequired, startTime and endTime optional)
+     * @return the list of crypto bars
+     */
+    List<NBar> getCryptoBars(BarsQueryParam param);
 
     /**
      * @deprecated Use {@link #getInstrumentsV2(InstrumentQueryParam)} instead, which supports paginationKey-based pagination.
@@ -217,7 +253,19 @@ public interface IDataClient {
 
     EventDepth getEventDepth(String symbol, String category, String depth);
 
+    /**
+     * @deprecated Since 2.0.4. Use {@link #getEventBars(BarsQueryParam)} instead, which supports a time range query.
+     */
+    @Deprecated
     List<EventBars> getEventBars(Set<String> symbols, String category, String timespan, int count, Boolean realTimeRequired);
+
+    /**
+     * Query event contract bars. Supports an optional time range via {@link BarsQueryParam#getStartTime()} and {@link BarsQueryParam#getEndTime()}.
+     *
+     * @param param query parameters (symbols and timespan required; category, count, realTimeRequired, startTime and endTime optional)
+     * @return the list of event contract bars
+     */
+    List<EventBars> getEventBars(BarsQueryParam param);
 
     EventTick getEventTick(String symbol, String category, int count);
 
@@ -688,6 +736,29 @@ public interface IDataClient {
      */
     List<FiftyTwoWeekStock> get52Whl(String rankType, String category, String sortBy, String direction);
 
+    /**
+     * Get the market fear &amp; greed sentiment index, with current and historical
+     * comparison points (previous day, one week ago, one month ago).
+     *
+     * @param category market category: {@code US_STOCK} (default when blank), {@code HK_STOCK}
+     * @return market sentiment index data
+     */
+    FearGreedIndex getFearAndGreedIndex(String category);
+
+    /**
+     * Get recent unusual activity alerts for a stock (volume surge, price spike, etc.).
+     * Returns up to {@code count} most recent events within the last 90 calendar days.
+     *
+     * @param symbol                stock symbol, e.g. NVDA (optional)
+     * @param category              market category, {@code US_STOCK} (default when blank)
+     * @param count                 number of most recent events, default 10, max 30
+     * @param alertTypes            comma-separated alert type filter, null to return all
+     * @param extendedHoursRequired whether to include pre-market and after-hours alerts
+     * @return list of unusual activity events
+     */
+    List<UnusualActivity> getStockUnusualActivities(String symbol, String category, Integer count,
+                                                    String alertTypes, Boolean extendedHoursRequired);
+
     // ==================== NOII APIs ====================
 
     /**
@@ -714,6 +785,106 @@ public interface IDataClient {
      * @return NOII snapshot data
      */
     NoiiSnapshot getNoiiSnapshot(String symbol, String category, String imbalanceActionType);
+
+
+    // ==================== Fundamentals Extension APIs (Institutions / Insiders / Economic Calendar) ====================
+    /**
+     * Search US institutional investors by name or SEC CIK number.
+     *
+     * @param keyword       search keyword (institution name or CIK), required
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return paginated result containing institution list and next pagination key
+     */
+    PaginatedResult<Institution> getInstitutionSearch(String keyword, String paginationKey);
+
+    /**
+     * Get a US institution's 13F holdings.
+     *
+     * @param cik           institution CIK number, required
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return paginated result containing 13F holdings list and next pagination key
+     */
+    PaginatedResult<Institution13FHolding> getInstitutionHoldings(String cik, String paginationKey);
+
+    /**
+     * Get US institutional holding changes filtered by position type.
+     *
+     * @param cik           fund CIK number, required
+     * @param position      position type: OPEN, CLOSE, or CHANGE, required
+     * @param count         page size, optional, default 10, max 50
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return paginated result containing holding change list and next pagination key
+     */
+    PaginatedResult<InstitutionHoldingChange> getInstitutionHoldingChanges(String cik, String position,
+                                                                           Integer count, String paginationKey);
+
+    /**
+     * Get insider transaction records for a stock.
+     *
+     * @param symbol        stock symbol, e.g. NVDA, required
+     * @param category      market category: {@code US_STOCK} (default when blank), {@code HK_STOCK}
+     * @param side          transaction side filter: BUY or SELL, null to return all
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return insider transaction result
+     */
+    InsiderTransactionResult getInsiderTransactions(String symbol, String category, String side,
+                                                    String paginationKey);
+
+    /**
+     * Get the insider ownership statistics overview for a stock.
+     *
+     * @param symbol        stock symbol, e.g. NVDA, required
+     * @param category      market category: {@code US_STOCK} (default when blank), {@code HK_STOCK}
+     * @param compareMonths comparison period in months: 1 (default) or 3
+     * @return insider holdings overview
+     */
+    InsiderHoldings getInsiderHoldings(String symbol, String category, Integer compareMonths);
+
+    /**
+     * Get the macroeconomic event calendar for an optional region and date range.
+     * Results are cursor-paginated, up to 30 events per page.
+     *
+     * @param region        region code: {@code US} (default), {@code CN}, {@code EU}, {@code JP}, {@code GB}
+     * @param startDate     start date in yyyy-MM-dd format, null defaults to today
+     * @param endDate       end date in yyyy-MM-dd format, null defaults to start date + 7 days
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return economic calendar result
+     */
+    EconomicCalendarResult getEconomicCalendars(String region, String startDate, String endDate,
+                                                String paginationKey);
+
+
+    // ==================== News APIs (US only) ====================
+
+    /**
+     * Search US market news by keyword.
+     *
+     * @param keyword       search keyword, max 100 characters, required
+     * @param startDate     start date in yyyy-MM-dd format, null defaults to 7 days ago
+     * @param endDate       end date in yyyy-MM-dd format, null defaults to today
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return news search result
+     */
+    NewsSearchResult getNews(String keyword, String startDate, String endDate, String paginationKey);
+
+    /**
+     * Get the full content of a US market news article by its ID.
+     *
+     * @param newsId news unique identifier, required
+     * @return full news detail
+     */
+    NewsDetail getNewsDetail(String newsId);
+
+    /**
+     * Get stock-related news list with optional sentiment filter.
+     *
+     * @param symbol        stock symbol, e.g. TSLA, required
+     * @param category      market category: {@code US_STOCK} (default when blank), {@code HK_STOCK}
+     * @param sentiment     sentiment filter: POSITIVE, NEGATIVE or NEUTRAL, null to return all
+     * @param paginationKey pagination cursor from previous response, null for the first request
+     * @return stock news result
+     */
+    NewsSearchResult getStockNews(String symbol, String category, String sentiment, String paginationKey);
 
 
     // ==================== Option Instrument APIs ====================
