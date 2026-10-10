@@ -97,4 +97,9 @@ public final class ArgNames {
     public static final String ROOT_SYMBOL = "root_symbol";
     public static final String PPIND = "ppind";
     public static final String SHOW_DELIVERABLES = "show_deliverables";
+
+    // Community related
+    public static final String TEXT = "text";
+    public static final String POST_ID = "post_id";
+    public static final String KEYWORD = "keyword";
 }

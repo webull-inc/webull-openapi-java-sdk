@@ -739,4 +739,59 @@ public interface IDataClient {
      * @return paginated result containing option contract list and next pagination key
      */
     PaginatedResult<OptionContract> getOptionContractsV2(OptionContractQueryParam param);
+
+    // ==================== Community APIs ====================
+
+    /**
+     * Create a plain-text community post.
+     *
+     * @param text     post content
+     * @param symbol   optional ticker symbol
+     * @param category optional ticker category; provide it together with symbol
+     * @return created post identifier
+     */
+    CreatePostResponse createPost(String text, String symbol, String category);
+
+    /**
+     * Create a plain-text comment on an existing community post.
+     *
+     * @param postId post identifier
+     * @param text   comment content
+     * @return created comment identifier
+     */
+    CreateCommentResponse createComment(String postId, String text);
+
+    /**
+     * List hot stocks ranked by community activity.
+     *
+     * @return hot stock ranking entries
+     */
+    List<HotStock> listHotStocks();
+
+    /**
+     * List community posts associated with a symbol.
+     *
+     * @param symbol        stock symbol
+     * @param category      market category
+     * @param keyword       optional search keyword
+     * @param paginationKey pagination key from the previous response
+     * @return paginated post summaries
+     */
+    PaginatedResult<PostSummary> listPostsBySymbol(String symbol, String category, String keyword, String paginationKey);
+
+    /**
+     * Get a community post by identifier.
+     *
+     * @param postId post identifier
+     * @return post details
+     */
+    PostDetail getPost(String postId);
+
+    /**
+     * List posts created by the current user.
+     *
+     * @param paginationKey pagination key from the previous response
+     * @return paginated post summaries
+     */
+    PaginatedResult<PostSummary> listMyPosts(String paginationKey);
 }

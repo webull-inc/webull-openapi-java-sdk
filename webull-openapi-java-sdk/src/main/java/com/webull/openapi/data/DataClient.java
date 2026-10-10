@@ -1545,6 +1545,85 @@ public class DataClient implements IDataClient {
     }
 
 
+    // ==================== Community APIs ====================
+
+    @Override
+    public CreatePostResponse createPost(String text, String symbol, String category) {
+        Assert.notBlank(ArgNames.TEXT, text);
+        HttpRequest request = new HttpRequest("/market-data/communities/posts/create", Versions.V3, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.TEXT, text);
+        if (StringUtils.isNotBlank(symbol)) {
+            params.put(ArgNames.SYMBOL, symbol);
+        }
+        if (StringUtils.isNotBlank(category)) {
+            params.put(ArgNames.CATEGORY, category);
+        }
+        request.setBody(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<CreatePostResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+    public CreateCommentResponse createComment(String postId, String text) {
+        Assert.notBlank(Arrays.asList(ArgNames.POST_ID, ArgNames.TEXT), postId, text);
+        HttpRequest request = new HttpRequest("/market-data/communities/comments/create", Versions.V3, HttpMethod.POST);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.POST_ID, postId);
+        params.put(ArgNames.TEXT, text);
+        request.setBody(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<CreateCommentResponse>() {}.getType()).doAction();
+    }
+
+    @Override
+     public List<HotStock> listHotStocks() {
+        HttpRequest request = new HttpRequest("/market-data/communities/stock-rankings/list", Versions.V3, HttpMethod.GET);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<List<HotStock>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PaginatedResult<PostSummary> listPostsBySymbol(String symbol, String category, String keyword, String paginationKey) {
+        Assert.notBlank(Arrays.asList(ArgNames.SYMBOL, ArgNames.CATEGORY), symbol, category);
+        HttpRequest request = new HttpRequest("/market-data/communities/posts/symbols/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.SYMBOL, symbol);
+        params.put(ArgNames.CATEGORY, category);
+        if (StringUtils.isNotBlank(keyword)) {
+            params.put(ArgNames.KEYWORD, keyword);
+        }
+        if (StringUtils.isNotBlank(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<PostSummary>>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PostDetail getPost(String postId) {
+        Assert.notBlank(ArgNames.POST_ID, postId);
+        HttpRequest request = new HttpRequest("/market-data/communities/posts/get", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        params.put(ArgNames.POST_ID, postId);
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PostDetail>() {}.getType()).doAction();
+    }
+
+    @Override
+    public PaginatedResult<PostSummary> listMyPosts(String paginationKey) {
+        HttpRequest request = new HttpRequest("/market-data/communities/my-posts/list", Versions.V3, HttpMethod.GET);
+        Map<String, Object> params = new HashMap<>();
+        if (StringUtils.isNotBlank(paginationKey)) {
+            params.put(ArgNames.PAGINATION_KEY, paginationKey);
+        }
+        request.setQuery(params);
+        addCustomHeaders(request);
+        return apiClient.request(request).responseType(new TypeToken<PaginatedResult<PostSummary>>() {}.getType()).doAction();
+    }
+
     // ==================== Option Instrument APIs ====================
 
     @Override
