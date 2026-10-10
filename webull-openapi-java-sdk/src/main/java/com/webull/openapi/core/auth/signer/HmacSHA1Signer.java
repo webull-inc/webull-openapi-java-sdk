@@ -20,10 +20,10 @@ import com.webull.openapi.core.exception.ErrorCode;
 
 import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
-import javax.xml.bind.DatatypeConverter;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 public class HmacSHA1Signer implements Signer {
 
@@ -36,7 +36,7 @@ public class HmacSHA1Signer implements Signer {
             Mac mac = Mac.getInstance(ALGORITHM);
             mac.init(new SecretKeySpec(secret.getBytes(StandardCharsets.UTF_8), ALGORITHM));
             byte[] signData = mac.doFinal(source.getBytes(StandardCharsets.UTF_8));
-            return DatatypeConverter.printBase64Binary(signData);
+            return Base64.getEncoder().encodeToString(signData);
         } catch (NoSuchAlgorithmException | InvalidKeyException e) {
             throw new ClientException(ErrorCode.INVALID_CREDENTIAL, e);
         }
