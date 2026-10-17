@@ -72,8 +72,16 @@ public class DataClient {
         cryptoInstruments = dataClient.getCryptoInstrument(instrumentQueryParam);
         logger.info("Crypto instruments: {}", cryptoInstruments);
 
-        // get crypto bars
-        List<NBar> cryptoBars = dataClient.getCryptoBars(cryptoSymbols,Category.US_CRYPTO.name(), Timespan.M1.name(), 100, true);
+        // get crypto bars (startTime/endTime are optional timestamps in milliseconds; leave them null to omit the time range)
+        BarsQueryParam cryptoBarsParam = new BarsQueryParam();
+        cryptoBarsParam.setSymbols(new ArrayList<>(cryptoSymbols));
+        cryptoBarsParam.setCategory(Category.US_CRYPTO.name());
+        cryptoBarsParam.setTimespan(Timespan.M1.name());
+        cryptoBarsParam.setCount(100);
+        cryptoBarsParam.setRealTimeRequired(true);
+        cryptoBarsParam.setStartTime(1711262998500L);
+        cryptoBarsParam.setEndTime(1711349398500L);
+        List<NBar> cryptoBars = dataClient.getCryptoBars(cryptoBarsParam);
         logger.info("Crypto bars: {}", cryptoBars);
 
         //get crypto snapshot
@@ -115,7 +123,16 @@ public class DataClient {
         List<Snapshot> futureSnapshots = dataClient.getFuturesSnapshots(futuresSymbols, Category.US_FUTURES.name());
         logger.info("Futures Snapshots: {}", futureSnapshots);
 
-        List<NBar> futureBars = dataClient.getFuturesBars(new ArrayList<>(futuresSymbols), Category.US_FUTURES.name(), Timespan.M1.name(), 10, false);
+        // get futures bars (startTime/endTime are optional timestamps in milliseconds; leave them null to omit the time range)
+        BarsQueryParam futuresBarsParam = new BarsQueryParam();
+        futuresBarsParam.setSymbols(new ArrayList<>(futuresSymbols));
+        futuresBarsParam.setCategory(Category.US_FUTURES.name());
+        futuresBarsParam.setTimespan(Timespan.M1.name());
+        futuresBarsParam.setCount(10);
+        futuresBarsParam.setRealTimeRequired(false);
+        futuresBarsParam.setStartTime(1711262998500L);
+        futuresBarsParam.setEndTime(1711349398500L);
+        List<NBar> futureBars = dataClient.getFuturesBars(futuresBarsParam);
         logger.info("Futures Bars: {}", futureBars);
 
         List<FuturesProduct> futuresProducts = dataClient.getFuturesProducts(Category.US_FUTURES.name());
@@ -163,7 +180,16 @@ public class DataClient {
         List<OptionSnapshot> optionSnapshots = dataClient.getOptionSnapshots(optionSymbols, Category.US_OPTION.name());
         logger.info("Option Snapshots: {}", optionSnapshots);
 
-        List<OptionBars> optionBars = dataClient.getOptionBars(new ArrayList<>(optionSymbols), Category.US_OPTION.name(), Timespan.M1.name(), 10, false);
+        // get option bars (startTime/endTime are optional timestamps in milliseconds; leave them null to omit the time range)
+        BarsQueryParam optionBarsParam = new BarsQueryParam();
+        optionBarsParam.setSymbols(new ArrayList<>(optionSymbols));
+        optionBarsParam.setCategory(Category.US_OPTION.name());
+        optionBarsParam.setTimespan(Timespan.M1.name());
+        optionBarsParam.setCount(10);
+        optionBarsParam.setRealTimeRequired(false);
+        optionBarsParam.setStartTime(1711262998500L);
+        optionBarsParam.setEndTime(1711349398500L);
+        List<OptionBars> optionBars = dataClient.getOptionBars(optionBarsParam);
         logger.info("Option Bars: {}", optionBars);
 
         OptionTick OptionTicks = dataClient.getOptionTicks("AAPL260522C00300000", Category.US_OPTION.name(), 30);
