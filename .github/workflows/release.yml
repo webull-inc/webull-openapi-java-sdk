@@ -3,11 +3,11 @@ on:
   workflow_dispatch:
     inputs:
       tag:
-        description: "Release tag (e.g. v2.0.3)"
+        description: "Release tag (e.g. v2.0.6)"
         required: true
   push:
-    tags:
-      - "v*"
+    branches:
+      - main
 permissions:
   contents: write
 concurrency:
@@ -19,44 +19,89 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v4
+        with:
+          # need previous commit to diff the pom version on push events
+          fetch-depth: 2
       - name: setup java/maven
         uses: actions/setup-java@v4
         with:
           java-version: '8'
           distribution: 'temurin'
           cache: maven
-      - name: resolve tag
-        id: tag
+      - name: resolve version and decide release
+        id: decide
+        env:
+          INPUT_TAG: ${{ github.event.inputs.tag }}
+          EVENT_NAME: ${{ github.event_name }}
         run: |
           set -euo pipefail
-          if [ -n "${{ github.event.inputs.tag }}" ]; then
-            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          CURRENT_VERSION=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout -pl webull-openapi-java-sdk)
+
+          if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
+            # manual trigger: use the provided tag, always release
+            TAG_VERSION="${INPUT_TAG#v}"
+            if [ "$TAG_VERSION" != "$CURRENT_VERSION" ]; then
+              echo "::error::Input tag ($TAG_VERSION) does not match pom.xml version ($CURRENT_VERSION)"
+              exit 1
+            fi
+            echo "tag=v${CURRENT_VERSION}" >> "$GITHUB_OUTPUT"
+            echo "should_release=true" >> "$GITHUB_OUTPUT"
+            echo "Manual release requested for v${CURRENT_VERSION}"
           else
-            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+            # push to main: only release when the pom version changed vs the previous commit
+            PREV_VERSION=$(git show HEAD~1:webull-openapi-java-sdk/pom.xml 2>/dev/null \
+              | grep -oE '<version>[^<]+</version>' | head -1 \
+              | sed -E 's/<\/?version>//g' || echo "")
+            echo "current=${CURRENT_VERSION} previous=${PREV_VERSION}"
+            if [ "$CURRENT_VERSION" != "$PREV_VERSION" ]; then
+              echo "tag=v${CURRENT_VERSION}" >> "$GITHUB_OUTPUT"
+              echo "should_release=true" >> "$GITHUB_OUTPUT"
+              echo "Version changed ($PREV_VERSION -> $CURRENT_VERSION), will release"
+            else
+              echo "should_release=false" >> "$GITHUB_OUTPUT"
+              echo "Version unchanged ($CURRENT_VERSION), skipping release"
+            fi
           fi
-      - name: verify version consistency
+      - name: create and push tag
+        if: steps.decide.outputs.should_release == 'true'
         env:
-          VERSION: ${{ steps.tag.outputs.tag }}
+          TAG: ${{ steps.decide.outputs.tag }}
         run: |
           set -euo pipefail
-          POM_VERSION=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout -pl webull-openapi-java-sdk)
-          TAG_VERSION="${VERSION#v}"  # strip leading 'v'
-          if [ "$POM_VERSION" != "$TAG_VERSION" ]; then
-            echo "::error::Tag version ($TAG_VERSION) does not match pom.xml version ($POM_VERSION)"
-            exit 1
+          if git rev-parse "$TAG" >/dev/null 2>&1 || git ls-remote --tags origin "$TAG" | grep -q "$TAG"; then
+            echo "Tag $TAG already exists, skip creating"
+          else
+            git config user.name "github-actions[bot]"
+            git config user.email "github-actions[bot]@users.noreply.github.com"
+            git tag -a "$TAG" -m "Release $TAG"
+            git push origin "$TAG"
+            echo "Created and pushed tag $TAG"
           fi
-          echo "Version verified: $POM_VERSION"
       - name: package with sources and javadoc
-        run: mvn --batch-mode -pl webull-openapi-java-sdk -am package source:jar javadoc:jar -DskipTests -Dmaven.javadoc.failOnError=false
+        if: steps.decide.outputs.should_release == 'true'
+        run: mvn --batch-mode clean -pl webull-openapi-java-sdk -am package source:jar javadoc:jar -DskipTests -Dmaven.javadoc.failOnError=false
       - name: assemble dist
+        if: steps.decide.outputs.should_release == 'true'
         env:
-          VERSION: ${{ steps.tag.outputs.tag }}
+          VERSION: ${{ steps.decide.outputs.tag }}
         run: |
           set -euo pipefail
+          POM_VERSION="${VERSION#v}"  # jar file names use the bare version, tag has a 'v' prefix
+          TARGET="webull-openapi-java-sdk/target"
           mkdir -p dist
           STAGE="dist/webull-openapi-java-sdk-${VERSION}"
           mkdir -p "${STAGE}"
-          cp webull-openapi-java-sdk/target/webull-openapi-java-sdk-*.jar "${STAGE}/"
+
+          # copy only the three jars for this exact version; fail fast if any is missing
+          for suffix in "" "-sources" "-javadoc"; do
+            JAR="${TARGET}/webull-openapi-java-sdk-${POM_VERSION}${suffix}.jar"
+            if [ ! -f "${JAR}" ]; then
+              echo "::error::Expected artifact not found: ${JAR}"
+              exit 1
+            fi
+            cp "${JAR}" "${STAGE}/"
+          done
+
           cp README.md LICENSE.txt NOTICE.txt "${STAGE}/" 2>/dev/null || true
           cp -r licenses "${STAGE}/licenses"
 
@@ -68,15 +113,17 @@ jobs:
           # checksums are computed over the archive files themselves
           ( cd dist && shasum -a 256 *.zip *.tar.gz > SHA256SUMS )
       - name: list artifacts
+        if: steps.decide.outputs.should_release == 'true'
         run: |
           echo "=== Artifacts to be released ==="
           ls -lh dist/
           echo "=== Contents of archive ==="
           unzip -l dist/webull-openapi-java-sdk-*.zip | head -30
       - name: publish release
+        if: steps.decide.outputs.should_release == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
-          VERSION: ${{ steps.tag.outputs.tag }}
+          VERSION: ${{ steps.decide.outputs.tag }}
         run: |
           set -euo pipefail
           if gh release view "${VERSION}" --repo "${GITHUB_REPOSITORY}" > /dev/null 2>&1; then
