@@ -1,0 +1,97 @@
+name: Release package to GitHub Releases
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Release tag (e.g. v2.0.3)"
+        required: true
+  push:
+    tags:
+      - "v*"
+permissions:
+  contents: write
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+      - name: setup java/maven
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          cache: maven
+      - name: resolve tag
+        id: tag
+        run: |
+          set -euo pipefail
+          if [ -n "${{ github.event.inputs.tag }}" ]; then
+            echo "tag=${{ github.event.inputs.tag }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "tag=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
+          fi
+      - name: verify version consistency
+        env:
+          VERSION: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          POM_VERSION=$(mvn -q help:evaluate -Dexpression=project.version -DforceStdout -pl webull-openapi-java-sdk)
+          TAG_VERSION="${VERSION#v}"  # strip leading 'v'
+          if [ "$POM_VERSION" != "$TAG_VERSION" ]; then
+            echo "::error::Tag version ($TAG_VERSION) does not match pom.xml version ($POM_VERSION)"
+            exit 1
+          fi
+          echo "Version verified: $POM_VERSION"
+      - name: package with sources and javadoc
+        run: mvn --batch-mode -pl webull-openapi-java-sdk -am package source:jar javadoc:jar -DskipTests -Dmaven.javadoc.failOnError=false
+      - name: assemble dist
+        env:
+          VERSION: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          STAGE="dist/webull-openapi-java-sdk-${VERSION}"
+          mkdir -p "${STAGE}"
+          cp webull-openapi-java-sdk/target/webull-openapi-java-sdk-*.jar "${STAGE}/"
+          cp README.md LICENSE.txt NOTICE.txt "${STAGE}/" 2>/dev/null || true
+          cp -r licenses "${STAGE}/licenses"
+
+          pushd "${STAGE}" > /dev/null
+            zip -r "../webull-openapi-java-sdk-${VERSION}.zip" .
+            tar cfz "../webull-openapi-java-sdk-${VERSION}.tar.gz" .
+          popd > /dev/null
+
+          # checksums are computed over the archive files themselves
+          ( cd dist && shasum -a 256 *.zip *.tar.gz > SHA256SUMS )
+      - name: list artifacts
+        run: |
+          echo "=== Artifacts to be released ==="
+          ls -lh dist/
+          echo "=== Contents of archive ==="
+          unzip -l dist/webull-openapi-java-sdk-*.zip | head -30
+      - name: publish release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          VERSION: ${{ steps.tag.outputs.tag }}
+        run: |
+          set -euo pipefail
+          if gh release view "${VERSION}" --repo "${GITHUB_REPOSITORY}" > /dev/null 2>&1; then
+            gh release upload "${VERSION}" \
+              dist/webull-openapi-java-sdk-*.zip \
+              dist/webull-openapi-java-sdk-*.tar.gz \
+              dist/SHA256SUMS \
+              --repo "${GITHUB_REPOSITORY}" \
+              --clobber
+          else
+            gh release create "${VERSION}" \
+              dist/webull-openapi-java-sdk-*.zip \
+              dist/webull-openapi-java-sdk-*.tar.gz \
+              dist/SHA256SUMS \
+              --repo "${GITHUB_REPOSITORY}" \
+              --title "${VERSION}" \
+              --generate-notes
+          fi
