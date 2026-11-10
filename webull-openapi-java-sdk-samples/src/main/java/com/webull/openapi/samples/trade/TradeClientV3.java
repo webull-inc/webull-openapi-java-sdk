@@ -163,7 +163,7 @@ public class TradeClientV3 {
         normalEquityOrder.setExpireDate("2026-03-12");
         normalEquityOrder.setEntrustType(EntrustType.QTY.name());
         // Currently, only Webull JP is supported.
-//        normalEquityOrder.setAccountTaxType(AccountTaxType.GENERAL.name());
+        // normalEquityOrder.setAccountTaxType(AccountTaxType.GENERAL.name());
         newNormalEquityOrder.setNewOrders(newNormalEquityOrders);
 
         PreviewOrderResponse previewNormalEquityResponse =
