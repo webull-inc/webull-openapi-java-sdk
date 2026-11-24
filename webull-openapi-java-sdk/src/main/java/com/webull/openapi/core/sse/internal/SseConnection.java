@@ -32,6 +32,7 @@ import com.webull.openapi.core.sse.internal.retry.SseRetryContext;
 import com.webull.openapi.core.sse.internal.retry.SynchronousSseRetryable;
 import com.webull.openapi.core.sse.message.SseEventType;
 import com.webull.openapi.core.sse.message.SseSubscribeResponse;
+import com.webull.openapi.core.utils.DesensitizeUtils;
 import com.webull.openapi.core.utils.ExceptionUtils;
 import com.webull.openapi.core.utils.StringUtils;
 import okhttp3.Call;
@@ -328,7 +329,7 @@ public class SseConnection {
                 return error.get(ERROR_BODY_FIELD);
             }
         } catch (Exception ex) {
-            logger.debug("Sse error body is not json, body={}.", body);
+            logger.debug("Sse error body is not json, body={}.", DesensitizeUtils.maskSensitiveJsonValues(body));
         }
         return body;
     }

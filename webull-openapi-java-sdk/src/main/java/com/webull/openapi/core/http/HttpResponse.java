@@ -24,6 +24,7 @@ import com.webull.openapi.core.http.exception.HttpServerException;
 import com.webull.openapi.core.logger.Logger;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.core.serialize.JsonSerializer;
+import com.webull.openapi.core.utils.DesensitizeUtils;
 import okhttp3.Response;
 
 import java.io.ByteArrayOutputStream;
@@ -61,7 +62,7 @@ public class HttpResponse implements Closeable {
             try {
                 responseMap = JsonSerializer.fromJson(responseBody, new TypeToken<Map<String, String>>(){}.getType());
             } catch (Exception e) {
-                logger.warn("Failed to parse response as json format, response:{}, requestId:{}", responseBody, this.requestId);
+                logger.warn("Failed to parse response as json format, response:{}, requestId:{}", DesensitizeUtils.maskSensitiveJsonValues(responseBody), this.requestId);
             }
             String errorCode = responseMap.getOrDefault("error_code", ErrorCode.UNKNOWN_SERVER_ERROR);
             String message = responseMap.getOrDefault("message", "");

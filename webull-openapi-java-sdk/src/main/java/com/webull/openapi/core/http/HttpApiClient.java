@@ -36,6 +36,7 @@ import com.webull.openapi.core.retry.backoff.DefaultMixedBackoffStrategy;
 import com.webull.openapi.core.serialize.JsonSerializer;
 import com.webull.openapi.core.serialize.SerializeConfig;
 import com.webull.openapi.core.utils.Assert;
+import com.webull.openapi.core.utils.DesensitizeUtils;
 import com.webull.openapi.core.utils.StringUtils;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -109,7 +110,7 @@ public class HttpApiClient {
                 } else {
                     String responseStr = response.getResponseBody();
                     if (logger.isTraceEnabled()) {
-                        logger.trace("HTTP request uri={}, response body={}", this.request.getUri(), responseStr);
+                        logger.trace("HTTP request uri={}, response body={}", this.request.getUri(), DesensitizeUtils.maskSensitiveJsonValues(responseStr));
                     }
                     return JsonSerializer.fromJson(responseStr, this.responseType, this.serializeConfig);
                 }
@@ -146,7 +147,7 @@ public class HttpApiClient {
                 return retryable.retry(retryContext);
             } catch (RetriedFailedException ex) {
                 logger.error("Http request error, Host:{}, SDK version:{}, Request:{}",
-                        request.getEndpoint(), ProjectReaderHelper.getClientSDKInfo(), JsonSerializer.toJson(request), ex);
+                        request.getEndpoint(), ProjectReaderHelper.getClientSDKInfo(), toSanitizedRequestJson(request), ex);
                 if (ex.getCause() instanceof ClientException) {
                     throw (ClientException) ex.getCause();
                 } else if (ex.getCause() instanceof ServerException) {
@@ -175,9 +176,30 @@ public class HttpApiClient {
             } catch (Exception e) {
                 // 异常情况用error，输出所有信息，反馈问题时提供所有信息
                 logger.error("Http request error, Host:{}, SDK version:{}, Request:{}",
-                        request.getEndpoint(), ProjectReaderHelper.getClientSDKInfo(), JsonSerializer.toJson(request), e);
+                        request.getEndpoint(), ProjectReaderHelper.getClientSDKInfo(), toSanitizedRequestJson(request), e);
                 throw new ClientException(ErrorCode.INVALID_REQUEST, e);
             }
+        }
+    }
+
+    /**
+     * Serialize the request for logging with sensitive headers and body fields masked.
+     */
+    private static String toSanitizedRequestJson(HttpRequest request) {
+        try {
+            HttpRequest sanitized = new HttpRequest(request.getEndpoint(), request.getPort(), request.getUri(),
+                    request.getVersion(), request.getMethod(),
+                    request.getProtocol(), request.getSignAlgorithm());
+            sanitized.setHeaders(DesensitizeUtils.maskHeaders(request.getHeaders()));
+            sanitized.setQuery(request.getQuery());
+            sanitized.setRuntimeOptions(request.getRuntimeOptions());
+            if (request.getBodyString() != null) {
+                sanitized.setBody(DesensitizeUtils.maskSensitiveJsonValues(request.getBodyString()));
+            }
+            return JsonSerializer.toJson(sanitized);
+        } catch (Exception e) {
+            // never leak the raw request when sanitizing itself fails
+            return HttpRequest.class.getSimpleName();
         }
     }
 }
