@@ -125,7 +125,10 @@ public class TokenManager {
     private AccessToken createToken(TokenService tokenService, String localToken){
         AccessToken createAccessToken = tokenService.createToken(localToken);
 
-        logger.info("fetchTokenFromServer createToken result is [{}]", createAccessToken);
+        if (Objects.nonNull(createAccessToken)) {
+            logger.info("fetchTokenFromServer createToken result. token:{} expires:{} status:{}",
+                    DesensitizeUtils.desensitizeToken(createAccessToken.getToken()), createAccessToken.getExpires(), createAccessToken.getStatus());
+        }
 
         if(Objects.isNull(createAccessToken)){
             logger.error("fetchTokenFromServer error createToken result is null");

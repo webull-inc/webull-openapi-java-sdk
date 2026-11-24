@@ -16,6 +16,7 @@
 package com.webull.openapi.data.internal.mqtt.lifecycle;
 
 import com.webull.openapi.core.logger.Logger;
+import com.webull.openapi.core.utils.DesensitizeUtils;
 import com.webull.openapi.core.logger.LoggerFactory;
 import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsConnectedContext;
 import com.webull.openapi.data.quotes.subscribe.lifecycle.QuotesSubsFailedContext;
@@ -28,7 +29,7 @@ public final class QuotesSubsLoggingHandler implements QuotesSubsSessionHandler,
 
     @Override
     public void onConnected(QuotesSubsConnectedContext context) {
-        logger.debug("Quotes subscribe client connected, app key={}.", context.getAuthProvider().getAppKey());
+        logger.debug("Quotes subscribe client connected, app key={}.", DesensitizeUtils.desensitizeSecret(context.getAuthProvider().getAppKey()));
     }
 
     @Override
