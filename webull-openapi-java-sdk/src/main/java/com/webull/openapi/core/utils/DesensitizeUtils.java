@@ -30,10 +30,8 @@ public class DesensitizeUtils {
 
     private static final String MASK = "******";
 
-    private static final Set<String> TOKEN_KEYS = new HashSet<>(Arrays.asList(
-            "token", "access_token", "accesstoken", "x-access-token", "refresh_token", "refreshtoken"));
-
-    private static final Set<String> SECRET_KEYS = new HashSet<>(Arrays.asList(
+    private static final Set<String> SENSITIVE_KEYS = new HashSet<>(Arrays.asList(
+            "token", "access_token", "accesstoken", "x-access-token", "refresh_token", "refreshtoken",
             "app_key", "appkey", "x-app-key", "app_secret", "appsecret", "secret_key", "secretkey",
             "secret", "signature", "x-signature", "authorization"));
 
@@ -45,8 +43,7 @@ public class DesensitizeUtils {
     private static final Pattern SENSITIVE_PLAIN_PATTERN = buildPlainPattern();
 
     private static Pattern buildPlainPattern() {
-        List<String> keys = new ArrayList<>(TOKEN_KEYS);
-        keys.addAll(SECRET_KEYS);
+        List<String> keys = new ArrayList<>(SENSITIVE_KEYS);
         keys.sort((x, y) -> y.length() - x.length());
         StringBuilder sb = new StringBuilder("(?i)(?<![\\w-])((?:");
         for (int i = 0; i < keys.size(); i++) {
@@ -86,20 +83,8 @@ public class DesensitizeUtils {
     }
 
     /**
-     * Keep only the first 6 characters of a token, e.g. {@code 28b9f3******}.
-     */
-    public static String desensitizeToken(String token) {
-        if (token == null || token.isEmpty()) {
-            return token;
-        }
-        if (token.length() <= 6) {
-            return MASK;
-        }
-        return token.substring(0, 6) + MASK;
-    }
-
-    /**
-     * Mask an app key, app secret or signature: first 4 + *** + last 4.
+     * Mask a credential: first 2 + ****** + last 2, e.g. {@code 28******80}.
+     * Applies to tokens, app keys, app secrets and signatures.
      * Values shorter than 12 characters are fully masked.
      */
     public static String desensitizeSecret(String value) {
@@ -108,21 +93,21 @@ public class DesensitizeUtils {
         }
         int length = value.length();
         if (length < 12) {
-            StringBuilder sb = new StringBuilder(length);
-            for (int i = 0; i < length; i++) {
-                sb.append('*');
-            }
-            return sb.toString();
+            return MASK;
         }
-        return value.substring(0, 4) + "***" + value.substring(length - 4);
+        return value.substring(0, 2) + MASK + value.substring(length - 2);
+    }
+
+    /**
+     * Mask a token. Same rule as {@link #desensitizeSecret(String)}.
+     */
+    public static String desensitizeToken(String token) {
+        return desensitizeSecret(token);
     }
 
     private static String maskByKey(String key, String value) {
         String lowerKey = key.toLowerCase(Locale.ROOT);
-        if (TOKEN_KEYS.contains(lowerKey)) {
-            return desensitizeToken(value);
-        }
-        if (SECRET_KEYS.contains(lowerKey)) {
+        if (SENSITIVE_KEYS.contains(lowerKey)) {
             return desensitizeSecret(value);
         }
         return value;
